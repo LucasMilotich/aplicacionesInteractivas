@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'aapinteractivas'
+group 'uade.API'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
