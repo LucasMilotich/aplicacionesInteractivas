@@ -4,6 +4,7 @@ public class Sala {
 
 private String nombre;
 private int  capacidad;
+private Cine cine;
 
     public String getNombre() {
         return nombre;
