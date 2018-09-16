@@ -20,7 +20,7 @@ public class JFormularioAltaUsuario extends JFrame{
 		this.setSize(320, 360);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setTitle("Alta Usuario");
+		this.setTitle("Crear Usuario");
 		
 		JLabel lblNombreUser = new JLabel();
 		lblNombreUser.setText("Nombre Usuario");
@@ -38,13 +38,13 @@ public class JFormularioAltaUsuario extends JFrame{
 		txtEmail.setColumns(12);
 		this.add(txtEmail);
 		
-		JLabel lblContrase�a = new JLabel();
-		lblContrase�a.setText("Contrase�a Usuario");
-		this.add(lblContrase�a);
+		JLabel lblContrasena = new JLabel();
+		lblContrasena.setText("Contrasena Usuario");
+		this.add(lblContrasena);
 		
-		JPasswordField txtContrase�a = new JPasswordField();
-		txtContrase�a.setColumns(12);
-		this.add(txtContrase�a);
+		JPasswordField txtContrasena = new JPasswordField();
+		txtContrasena.setColumns(12);
+		this.add(txtContrasena);
 		
 		JLabel lblNombre = new JLabel();
 		lblNombre.setText("Nombre Completo");
@@ -90,8 +90,8 @@ public class JFormularioAltaUsuario extends JFrame{
 		panel2.add(txtEmail);
 		
 		JPanel panel3 = new JPanel();
-		panel3.add(lblContrase�a);
-		panel3.add(txtContrase�a);
+		panel3.add(lblContrasena);
+		panel3.add(txtContrasena);
 		
 		JPanel panel4 = new JPanel();
 		panel4.add(lblNombre);

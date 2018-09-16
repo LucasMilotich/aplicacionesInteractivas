@@ -15,7 +15,7 @@ public class JFormularioAdminRoles extends JFrame{
 		this.setSize(320, 240);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setTitle("Administraci�n Roles");
+		this.setTitle("Administracion Roles");
 		
 		JButton btnAddRol = new JButton("Dar de alta Rol");
 		this.add(btnAddRol);
