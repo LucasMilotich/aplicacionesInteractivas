@@ -1,4 +1,4 @@
-package java.uade.api.modelo;
+package uade.api.modelo;
 
 public class Funcion {
 }

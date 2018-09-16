@@ -1,4 +1,4 @@
-package java.uade.api.controllers;
+package uade.api.controllers;
 
 public class BoleteriaController {
 }

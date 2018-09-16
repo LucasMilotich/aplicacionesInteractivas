@@ -29,3 +29,5 @@ gradle-wrapper.properties
 .idea
 *.bat
 gradlew
+/.gradle/
+/bin/
