@@ -1,11 +1,17 @@
 package uade.api.bd;
 
-public interface ICRUD {
+import java.util.List;
 
-    <T> boolean save (T t);
-    <T> boolean delete (T t);
-    <T> boolean update (T t);
-    <T> T get (T t);
-    <T> T findBy (int id);
+public interface ICRUD<T> {
+
+
+    boolean save (T t);
+     boolean delete (T t);
+     boolean update (T t);
+     T get (T t);
+     T findBy (int id);
+
+    List<T> findAll();
+
 
 }
