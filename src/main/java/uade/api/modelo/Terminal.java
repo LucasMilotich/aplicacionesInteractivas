@@ -1,4 +1,4 @@
 package uade.api.modelo;
 
-public class Descuento {
+public class Terminal {
 }
