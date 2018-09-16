@@ -12,6 +12,19 @@ public class Pelicula {
     private int calificacion;
     private String observacion;
 
+    public Pelicula() {
+    }
+
+    public Pelicula(String nombre, String director, String duracion, String idioma, List<String> subtitulos, int calificacion, String observacion) {
+        this.nombre = nombre;
+        this.director = director;
+        this.duracion = duracion;
+        this.idioma = idioma;
+        this.subtitulos = subtitulos;
+        this.calificacion = calificacion;
+        this.observacion = observacion;
+    }
+
     public String getNombre() {
         return nombre;
     }

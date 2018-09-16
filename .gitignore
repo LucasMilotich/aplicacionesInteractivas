@@ -31,3 +31,7 @@ gradle-wrapper.properties
 gradlew
 /.gradle/
 /bin/
+
+#eclipse
+.classpath
+.project
