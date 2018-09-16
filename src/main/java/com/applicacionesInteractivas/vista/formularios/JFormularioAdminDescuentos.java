@@ -15,7 +15,7 @@ public class JFormularioAdminDescuentos extends JFrame{
 		this.setSize(320, 240);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setTitle("Administraci�n Descuentos");
+		this.setTitle("Administracion Descuentos");
 		
 		JButton btnAddDescuento = new JButton("Dar de alta Descuento");
 		this.add(btnAddDescuento);

@@ -15,9 +15,9 @@ public class JFormularioAdminFunciones extends JFrame{
 		this.setSize(320, 240);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
-		this.setTitle("Administraci�n Funciones");
+		this.setTitle("Administracion Funciones");
 		
-		JButton btnAddFuncion = new JButton("Dar de alta Funcion");
+		JButton btnAddFuncion = new JButton("Crear Funcion");
 		this.add(btnAddFuncion);
 		
 		JButton btnUpdFuncion = new JButton("Modificar Funcion");

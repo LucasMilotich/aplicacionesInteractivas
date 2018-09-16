@@ -20,9 +20,9 @@ public class JFormularioAdminUsuarios extends JFrame{
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(new FlowLayout());
-		this.setTitle("Administraci�n Usuarios");
+		this.setTitle("Administracion Usuarios");
 		
-		JButton btnAddUser = new JButton("Dar de alta Usuario");
+		JButton btnAddUser = new JButton("Crear Usuario");
 		btnAddUser.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
