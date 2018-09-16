@@ -1,4 +1,4 @@
-package java.modelo;
+package modelo;
 
 public class CineTest {
 }
