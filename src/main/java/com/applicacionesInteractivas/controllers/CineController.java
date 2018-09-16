@@ -4,7 +4,6 @@ import com.applicacionesInteractivas.bd.CineDAO;
 import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.PeliculaDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
-import com.applicacionesInteractivas.api.modelo.*;
 import com.applicacionesInteractivas.modelo.*;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 import com.applicacionesInteractivas.vista.formularios.JFormularioAdminCines;
