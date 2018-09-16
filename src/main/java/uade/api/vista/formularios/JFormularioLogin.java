@@ -34,13 +34,13 @@ public class JFormularioLogin extends JFrame {
 		txtUsuario.setColumns(12);
 		this.add(txtUsuario);
 		
-		JLabel lblContraseña = new JLabel();
-		lblContraseña.setText("Contraseña");
-		this.add(lblContraseña);
+		JLabel lblContrasena = new JLabel();
+		lblContrasena.setText("Contrasena");
+		this.add(lblContrasena);
 		
-		JPasswordField txtContraseña = new JPasswordField();
-		txtContraseña.setColumns(12);
-		this.add(txtContraseña);
+		JPasswordField txtContrasena = new JPasswordField();
+		txtContrasena.setColumns(12);
+		this.add(txtContrasena);
 		
 		JButton btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
@@ -59,15 +59,15 @@ public class JFormularioLogin extends JFrame {
 		usuarioContainer.add(lblUsuario);
 		usuarioContainer.add(txtUsuario);
 		
-		JPanel contraseñaContainer = new JPanel();
-		contraseñaContainer.add(lblContraseña);
-		contraseñaContainer.add(txtContraseña);
+		JPanel ContrasenaContainer = new JPanel();
+		ContrasenaContainer.add(lblContrasena);
+		ContrasenaContainer.add(txtContrasena);
 		
 		JPanel botonContainer = new JPanel();
 		botonContainer.add(btnConfirmar);
 		
 		this.mainPanel.add(usuarioContainer);		
-		this.mainPanel.add(contraseñaContainer);
+		this.mainPanel.add(ContrasenaContainer);
 		this.mainPanel.add(botonContainer);
 		
 		getContentPane().add(mainPanel);
