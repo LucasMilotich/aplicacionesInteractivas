@@ -1,20 +1,23 @@
 package com.applicacionesInteractivas.controllers;
 
-import com.applicacionesInteractivas.bd.CineDAO;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.PeliculaDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
-import com.applicacionesInteractivas.modelo.*;
+import com.applicacionesInteractivas.modelo.AsientoFuncion;
+import com.applicacionesInteractivas.modelo.Cine;
+import com.applicacionesInteractivas.modelo.Funcion;
+import com.applicacionesInteractivas.modelo.Pelicula;
+import com.applicacionesInteractivas.modelo.Sala;
+import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
-import com.applicacionesInteractivas.vista.formularios.JFormularioAdminCines;
-import com.applicacionesInteractivas.vista.formularios.JFormularioAdminPeliculas;
-import com.applicacionesInteractivas.vista.formularios.JFormularioAdminSalas;
-import com.applicacionesInteractivas.vista.formularios.JFormularioAltaCine;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.applicacionesInteractivas.vista.formularios.cines.*;
+import com.applicacionesInteractivas.vista.formularios.funciones.*;
+import com.applicacionesInteractivas.vista.formularios.peliculas.*;
+import com.applicacionesInteractivas.vista.formularios.salas.*;
 
 public class CineController {
 
@@ -26,20 +29,38 @@ public class CineController {
         return instance;
     }
 
-
-
     //    Modelo
-    private Set<Cine> cines = new HashSet<Cine>();
+    private List<Cine> cines = new ArrayList<Cine>();
     private List<Pelicula> peliculas;
     private List<Sala> salas;
     private List<Funcion> funciones;
+    
+    //    Vista
+    // Cine
+    private FormAltaCine formularioAltaCine;
+    private FormModifCine formularioModifCine;
+    private FormElimCine formularioElimCine;
 
-
-    public Set<Cine> getCines() {
+    // Sala
+    private FormAltaSala formularioAltaSala;
+    private FormModifSala formularioModifSala;
+    private FormElimSala formularioElimSala;
+    
+    // Pelicula
+    private FormAltaPelicula formularioAltaPelicula;
+    private FormModifPelicula formularioModifPelicula;
+    private FormElimPelicula formularioElimPelicula;
+    
+    // Funciones
+    private FormAltaFuncion formularioAltaFuncion;
+    private FormModifFuncion formularioModifFuncion;
+    private FormElimFuncion formularioElimFuncion;
+    
+    public List<Cine> getCines() {
         return cines;
     }
 
-    public void setCines(Set<Cine> cines) {
+    public void setCines(List<Cine> cines) {
         this.cines = cines;
     }
 
@@ -67,19 +88,100 @@ public class CineController {
         this.funciones = funciones;
     }
 
-    public JFormularioAltaCine getFormularioAltaCine() {
+    public FormAltaCine getFormularioAltaCine() {
         return formularioAltaCine;
     }
 
-    public void setFormularioAltaCine(JFormularioAltaCine formularioAltaCine) {
+    public void setFormularioAltaCine(FormAltaCine formularioAltaCine) {
         this.formularioAltaCine = formularioAltaCine;
     }
 
-    //    Vista
-    private JFormularioAltaCine formularioAltaCine;
+	public FormModifCine getFormularioModifCine() {
+		return formularioModifCine;
+	}
 
+	public void setFormularioModifCine(FormModifCine formularioModifCine) {
+		this.formularioModifCine = formularioModifCine;
+	}
 
+	public FormElimCine getFormularioElimCine() {
+		return formularioElimCine;
+	}
 
+	public void setFormularioElimCine(FormElimCine formularioElimCine) {
+		this.formularioElimCine = formularioElimCine;
+	}
+	public FormAltaSala getFormularioAltaSala() {
+		return formularioAltaSala;
+	}
+
+	public void setFormularioAltaSala(FormAltaSala formularioAltaSala) {
+		this.formularioAltaSala = formularioAltaSala;
+	}
+
+	public FormModifSala getFormularioModifSala() {
+		return formularioModifSala;
+	}
+
+	public void setFormularioModifSala(FormModifSala formularioModifSala) {
+		this.formularioModifSala = formularioModifSala;
+	}
+
+	public FormElimSala getFormularioElimSala() {
+		return formularioElimSala;
+	}
+
+	public void setFormularioElimSala(FormElimSala formularioElimSala) {
+		this.formularioElimSala = formularioElimSala;
+	}
+
+	public FormAltaPelicula getFormularioAltaPelicula() {
+		return formularioAltaPelicula;
+	}
+
+	public void setFormularioAltaPelicula(FormAltaPelicula formularioAltaPelicula) {
+		this.formularioAltaPelicula = formularioAltaPelicula;
+	}
+
+	public FormModifPelicula getFormularioModifPelicula() {
+		return formularioModifPelicula;
+	}
+
+	public void setFormularioModifPelicula(FormModifPelicula formularioModifPelicula) {
+		this.formularioModifPelicula = formularioModifPelicula;
+	}
+
+	public FormElimPelicula getFormularioElimPelicula() {
+		return formularioElimPelicula;
+	}
+
+	public void setFormularioElimPelicula(FormElimPelicula formularioElimPelicula) {
+		this.formularioElimPelicula = formularioElimPelicula;
+	}
+
+	public FormAltaFuncion getFormularioAltaFuncion() {
+		return formularioAltaFuncion;
+	}
+
+	public void setFormularioAltaFuncion(FormAltaFuncion formularioAltaFuncion) {
+		this.formularioAltaFuncion = formularioAltaFuncion;
+	}
+
+	public FormModifFuncion getFormularioModifFuncion() {
+		return formularioModifFuncion;
+	}
+
+	public void setFormularioModifFuncion(FormModifFuncion formularioModifFuncion) {
+		this.formularioModifFuncion = formularioModifFuncion;
+	}
+
+	public FormElimFuncion getFormularioElimFuncion() {
+		return formularioElimFuncion;
+	}
+
+	public void setFormularioElimFuncion(FormElimFuncion formularioElimFuncion) {
+		this.formularioElimFuncion = formularioElimFuncion;
+	}
 
     private void buildModel(){
 
@@ -94,11 +196,34 @@ public class CineController {
         Cine cine = new Cine(cuit,nombre,domicilio,cantidadSalas,capacidadTotal);
         this.cines.add(cine);
     }
-    public void crearCine(Cine cine){
-
-        this.cines.add(cine);
+    
+    public void modificarCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
+    	Cine c = this.getCine(cuit);
+    	if(c != null) {
+    		c.setNombre(nombre);
+    		c.setDomicilio(domicilio);
+    		c.setCantidadSalas(cantidadSalas);
+    		c.setCapacidadTotal(capacidadTotal);
+    	}
     }
 
+	public void eliminarCine(String cuit) {
+		
+		Cine c = this.getCine(cuit);
+		if(c != null)
+			cines.remove(c);
+	}
+	
+	public Cine getCine(String cuit) {
+
+		for(Cine c : cines) {
+			if(c.esCine(cuit))
+				return c;
+		}
+		
+		return null;
+	}
+	
     private Venta venderEntrada(Funcion funcion, Collection<AsientoFuncion> asientos, MedioDePago medioDePago){
 
         Venta venta;
@@ -111,4 +236,6 @@ public class CineController {
 
         return null;
     }
+
+
 }
