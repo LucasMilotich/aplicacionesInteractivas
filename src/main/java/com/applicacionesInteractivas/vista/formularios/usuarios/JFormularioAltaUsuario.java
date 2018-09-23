@@ -1,4 +1,6 @@
-package com.applicacionesInteractivas.vista.formularios;
+package com.applicacionesInteractivas.vista.formularios.usuarios;
+
+import com.applicacionesInteractivas.controllers.UsuarioController;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -6,6 +8,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Date;
 
 public class JFormularioAltaUsuario extends JFrame{
 
@@ -111,7 +116,13 @@ public class JFormularioAltaUsuario extends JFrame{
 		
 		JPanel panel8 = new JPanel();
 		panel8.add(btnConfirm);
-		
+
+		btnConfirm.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				UsuarioController.getInstance().crearUsuario("asd","asd","asd","asd","asd","asd",new Date());
+			}
+		});
 		mainPanel = new JPanel();
 		
 		mainPanel.add(panel1);

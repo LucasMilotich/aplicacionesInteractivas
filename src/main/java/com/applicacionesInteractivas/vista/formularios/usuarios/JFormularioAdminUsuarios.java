@@ -1,4 +1,4 @@
-package com.applicacionesInteractivas.vista.formularios;
+package com.applicacionesInteractivas.vista.formularios.usuarios;
 
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;

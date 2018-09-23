@@ -9,7 +9,15 @@ public class Usuario {
 
     private List<IRol> roles;
 
-
+    public Usuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, Date fechaNacimiento) {
+        this.nombreUsuario = nombreUsuario;
+        this.email = email;
+        this.password = password;
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.dni = dni;
+        this.fechaNacimiento = fechaNacimiento;
+    }
 
     private String nombreUsuario;
     private String email;
@@ -17,7 +25,7 @@ public class Usuario {
     private String nombre;
     private String domicilio;
     private String dni;
-    private Date fechaNacimiento;
+        private Date fechaNacimiento;
 
     public String getNombreUsuario() {
         return nombreUsuario;
