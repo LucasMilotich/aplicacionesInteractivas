@@ -1,5 +1,8 @@
 package com.applicacionesInteractivas.vista.formularios;
 
+import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.modelo.Cine;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -13,8 +16,11 @@ public class JFormularioAdminCines extends JFrame{
 	 */
 	private static final long serialVersionUID = 4859825063578897901L;
 
+
+
 	public JFormularioAdminCines() {
-		
+
+
 		this.setSize(320, 240);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);

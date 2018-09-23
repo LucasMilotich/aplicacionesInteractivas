@@ -1,10 +1,11 @@
 package com.applicacionesInteractivas.vista.formularios;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.modelo.Cine;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class JFormularioAltaCine extends JFrame{
 	
@@ -13,7 +14,7 @@ public class JFormularioAltaCine extends JFrame{
 	 */
 	private JPanel mainPanel;
 	private static final long serialVersionUID = -7869162737881219117L;
-
+	private Cine model = new Cine();
 	public JFormularioAltaCine() {
 		
 		this.setSize(320, 360);
@@ -36,7 +37,7 @@ public class JFormularioAltaCine extends JFrame{
 		JTextField txtNombre = new JTextField();
 		txtNombre.setColumns(12);
 		this.add(txtNombre);
-		
+
 		JLabel lblDomicilio = new JLabel();
 		lblDomicilio.setText("Domicilio");
 		this.add(lblDomicilio);
@@ -86,7 +87,22 @@ public class JFormularioAltaCine extends JFrame{
 		
 		JPanel panel6 = new JPanel();
 		panel6.add(btnConfirm);
-		
+
+		btnConfirm.addActionListener(e -> {
+			CineController cine = CineController.getInstance();
+			cine.crearCine(txtCuit.getText(),
+					txtNombre.getText(),
+					txtDomicilio.getText(),
+					Integer.parseInt(txtCantSalas.getText()),
+					Integer.parseInt(txtCapTotal.getText()));
+			JOptionPane.showMessageDialog(null,"Cine creado!");
+			for (Cine c : cine.getCines()){
+				model = c;
+				JOptionPane.showMessageDialog(null,model.getNombre());
+				model.setCuit("999999999999");
+			}
+
+		});
 		mainPanel = new JPanel();
 		
 		mainPanel.add(panel1);

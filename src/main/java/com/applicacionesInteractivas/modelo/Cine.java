@@ -32,6 +32,9 @@ public class Cine {
     private List<Funcion> funciones;
     private List<Sala> salas;
 
+    public Cine() {
+
+    }
 
 
     public  Entrada  retirarEntrada(String codAutenticacion) {
