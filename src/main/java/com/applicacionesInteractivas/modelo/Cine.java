@@ -1,27 +1,9 @@
 package com.applicacionesInteractivas.modelo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Cine {
-
-    public Cine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal, List<Pelicula> peliculas, List<Funcion> funciones, List<Sala> salas) {
-        this.cuit = cuit;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.cantidadSalas = cantidadSalas;
-        this.capacidadTotal = capacidadTotal;
-        this.peliculas = peliculas;
-        this.funciones = funciones;
-        this.salas = salas;
-    }
-
-    public Cine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
-        this.cuit = cuit;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.cantidadSalas = cantidadSalas;
-        this.capacidadTotal = capacidadTotal;
-    }
 
     private String cuit;
     private String nombre;
@@ -32,10 +14,16 @@ public class Cine {
     private List<Funcion> funciones;
     private List<Sala> salas;
 
-    public Cine() {
-
+    public Cine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
+        this.cuit = cuit;
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.cantidadSalas = cantidadSalas;
+        this.capacidadTotal = capacidadTotal;
+        this.peliculas = new ArrayList<Pelicula>();
+        this.funciones = new ArrayList<Funcion>();
+        this.salas = new ArrayList<Sala>();
     }
-
 
     public  Entrada  retirarEntrada(String codAutenticacion) {
         return null;
@@ -43,7 +31,7 @@ public class Cine {
     public List<Funcion> consultarFunciones(Pelicula pelicula, String hora) {
         return null;
     }
-    public  Pelicula  altaPelicula(String nombre, String director, int duracion, String idioma, String[] subtitulos, int calificacion, String obs) {
+    public  Pelicula altaPelicula(String nombre, String director, int duracion, String idioma, String[] subtitulos, int calificacion, String obs) {
         return null;
     }
     public  Pelicula  modificarPelicula(String nombre, String director, int duracion, String idioma, String[] subtitulos, int calificacion, String obs) {
@@ -64,7 +52,6 @@ public class Cine {
     public  Venta  consultarVenta(String id) {
         return null;
     }
-
 
 
     public String getCuit() {
@@ -106,4 +93,8 @@ public class Cine {
     public void setCapacidadTotal(int capacidadTotal) {
         this.capacidadTotal = capacidadTotal;
     }
+
+	public boolean esCine(String cuit) {
+		return this.getCuit().equals(cuit);
+	}
 }

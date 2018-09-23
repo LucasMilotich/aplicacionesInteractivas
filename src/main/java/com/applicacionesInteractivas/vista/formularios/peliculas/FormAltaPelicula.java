@@ -1,4 +1,4 @@
-package com.applicacionesInteractivas.vista.formularios;
+package com.applicacionesInteractivas.vista.formularios.peliculas;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -7,7 +7,7 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
-public class JFormularioAltaPelicula extends JFrame{
+public class FormAltaPelicula extends JFrame{
 
 	/**
 	 * 
@@ -15,7 +15,7 @@ public class JFormularioAltaPelicula extends JFrame{
 	private JPanel mainPanel;
 	private static final long serialVersionUID = -1575972637826323094L;
 
-	public JFormularioAltaPelicula() {
+	public FormAltaPelicula() {
 		
 		this.setSize(320, 360);
 		this.setResizable(false);
