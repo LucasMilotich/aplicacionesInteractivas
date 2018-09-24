@@ -1,11 +1,13 @@
 package com.applicacionesInteractivas.vista.formularios.cines;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.modelo.Cine;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import com.applicacionesInteractivas.controllers.CineController;
 
 public class FormAltaCine extends JFrame{
 	

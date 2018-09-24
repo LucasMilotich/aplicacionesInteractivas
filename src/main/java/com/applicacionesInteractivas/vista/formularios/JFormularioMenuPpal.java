@@ -70,7 +70,7 @@ public class JFormularioMenuPpal extends JFrame{
 
     public JFormularioMenuPpal() {
 		
-		this.setSize(800, 800);
+		this.setSize(600, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");
@@ -195,6 +195,7 @@ public class JFormularioMenuPpal extends JFrame{
 			elimFuncionForm.setVisible(true);
 		});
 	}
+	
     private void usuarioInit(){
         UsuarioController usuarioController = UsuarioController.getInstance();
 

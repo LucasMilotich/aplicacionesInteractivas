@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.applicacionesInteractivas.bd.CineDAO;
 import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.PeliculaDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
@@ -14,10 +15,18 @@ import com.applicacionesInteractivas.modelo.Pelicula;
 import com.applicacionesInteractivas.modelo.Sala;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
-import com.applicacionesInteractivas.vista.formularios.cines.*;
-import com.applicacionesInteractivas.vista.formularios.funciones.*;
-import com.applicacionesInteractivas.vista.formularios.peliculas.*;
-import com.applicacionesInteractivas.vista.formularios.salas.*;
+import com.applicacionesInteractivas.vista.formularios.cines.FormAltaCine;
+import com.applicacionesInteractivas.vista.formularios.cines.FormElimCine;
+import com.applicacionesInteractivas.vista.formularios.cines.FormModifCine;
+import com.applicacionesInteractivas.vista.formularios.funciones.FormAltaFuncion;
+import com.applicacionesInteractivas.vista.formularios.funciones.FormElimFuncion;
+import com.applicacionesInteractivas.vista.formularios.funciones.FormModifFuncion;
+import com.applicacionesInteractivas.vista.formularios.peliculas.FormAltaPelicula;
+import com.applicacionesInteractivas.vista.formularios.peliculas.FormElimPelicula;
+import com.applicacionesInteractivas.vista.formularios.peliculas.FormModifPelicula;
+import com.applicacionesInteractivas.vista.formularios.salas.FormAltaSala;
+import com.applicacionesInteractivas.vista.formularios.salas.FormElimSala;
+import com.applicacionesInteractivas.vista.formularios.salas.FormModifSala;
 
 public class CineController {
 
@@ -31,9 +40,9 @@ public class CineController {
 
     //    Modelo
     private List<Cine> cines = new ArrayList<Cine>();
-    private List<Pelicula> peliculas;
-    private List<Sala> salas;
-    private List<Funcion> funciones;
+    private List<Pelicula> peliculas = new ArrayList<Pelicula>();
+    private List<Sala> salas = new ArrayList<Sala>();
+    private List<Funcion> funciones = new ArrayList<Funcion>();
     
     //    Vista
     // Cine
@@ -185,7 +194,7 @@ public class CineController {
 
     private void buildModel(){
 
-//        this.cines = CineDAO.getInstance().findAll();
+        this.cines = CineDAO.getInstance().findAll();
         this.salas = SalaDAO.getInstance().findAll();
         this.peliculas = PeliculaDAO.getInstance().findAll();
         this.funciones = FuncionDAO.getInstance().findAll();
@@ -237,5 +246,30 @@ public class CineController {
         return null;
     }
 
+	public void crearSala(String nombre, int capacidad) {
+		Sala sala = new Sala(nombre, capacidad);
+		this.salas.add(sala);
+	}
+
+	public void modificarSala(String nombre, int capacidad) {
+		Sala s = this.getSala(nombre);
+    	if(s != null) {
+    		s.setCapacidad(capacidad);
+    	}
+	}
+	
+	public void eliminarSala(String nombre) {
+		Sala s = this.getSala(nombre);
+		if(s != null)
+			salas.remove(s);
+	}
+
+	private Sala getSala(String nombre) {
+		for(Sala s : salas) {
+			if(s.esSala(nombre))
+				return s;
+		}
+		return null;
+	}
 
 }
