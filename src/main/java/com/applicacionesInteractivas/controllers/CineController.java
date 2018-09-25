@@ -253,9 +253,9 @@ public class CineController {
 
 	public void modificarSala(String nombre, int capacidad) {
 		Sala s = this.getSala(nombre);
-    	if(s != null) {
+    	if(s != null)
     		s.setCapacidad(capacidad);
-    	}
+    	
 	}
 	
 	public void eliminarSala(String nombre) {
@@ -268,6 +268,65 @@ public class CineController {
 		for(Sala s : salas) {
 			if(s.esSala(nombre))
 				return s;
+		}
+		return null;
+	}
+	
+	public void crearPelicula(String nombre, String director, 
+			String duracion, String idioma, int calificacion, String observacion) {
+		
+		//Corregir el parametro de lista de subtitulos
+		Pelicula p = new Pelicula(nombre, director, duracion, idioma, null, calificacion, observacion);
+		this.peliculas.add(p);
+	}
+	
+	public void modificarPelicula(String nombre, String director, 
+			String duracion, String idioma, int calificacion, String observacion) {
+		Pelicula p = this.getPelicula(nombre);
+		if(p != null) {
+			p.setDirector(director);
+			p.setDuracion(duracion);
+			p.setIdioma(idioma);
+			p.setCalificacion(calificacion);
+			p.setObservacion(observacion);
+		}
+	}
+	
+	public void eliminarPelicula(String nombre) {
+		Pelicula p = this.getPelicula(nombre);
+		if(p != null)
+			peliculas.remove(p);
+	}
+	
+	private Pelicula getPelicula(String nombre) {
+		for(Pelicula p : peliculas) {
+			if(p.esPelicula(nombre))
+				return p;
+		}
+		return null;
+	}
+
+	public void crearFuncion(String horario, String asientos) {
+		Funcion f = new Funcion(horario, Integer.parseInt(asientos));
+		this.funciones.add(f);
+	}
+	
+	public void modificarFuncion(String horario, String asientos) {
+		Funcion f = this.getFuncion(horario);
+		if(f != null)
+			f.setAsientos(Integer.parseInt(asientos));
+	}
+	
+	public void eliminarFuncion(String horario) {
+		Funcion f = this.getFuncion(horario);
+		if(f != null)
+			funciones.remove(f);
+	}
+
+	private Funcion getFuncion(String horario) {
+		for(Funcion f : funciones) {
+			if(f.esFuncion(horario))
+				return f;
 		}
 		return null;
 	}

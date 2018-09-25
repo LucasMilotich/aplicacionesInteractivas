@@ -80,4 +80,8 @@ public class Pelicula {
     public void setObservacion(String observacion) {
         this.observacion = observacion;
     }
+    
+    public boolean esPelicula(String nombre) {
+    	return this.getNombre().equals(nombre);
+    }
 }

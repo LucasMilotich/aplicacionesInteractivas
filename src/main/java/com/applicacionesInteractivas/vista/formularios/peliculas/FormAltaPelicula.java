@@ -3,9 +3,11 @@ package com.applicacionesInteractivas.vista.formularios.peliculas;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import com.applicacionesInteractivas.controllers.CineController;
 
 public class FormAltaPelicula extends JFrame{
 
@@ -14,6 +16,21 @@ public class FormAltaPelicula extends JFrame{
 	 */
 	private JPanel mainPanel;
 	private static final long serialVersionUID = -1575972637826323094L;
+	private JLabel lblNombrePelicula;
+	private JTextField txtNombrePelicula;
+	private JLabel lblDirector;
+	private JTextField txtDirector;
+	private JLabel lblDuracion;
+	private JTextField txtDuracion;
+	private JLabel lblIdioma;
+	private JTextField txtIdioma;
+	private JLabel lblSubtitulos;
+	private JTextField txtSubtitulos;
+	private JLabel lblCalificacion;
+	private JTextField txtCalificacion;
+	private JLabel lblObservacion;
+	private JTextField txtObservacion;
+	private JButton btnConfirm;
 
 	public FormAltaPelicula() {
 		
@@ -22,106 +39,117 @@ public class FormAltaPelicula extends JFrame{
 		this.setLocationRelativeTo(null);
 		this.setTitle("Crear Pelicula");
 		
-		JLabel lblNombrePelicula = new JLabel();
+		lblNombrePelicula = new JLabel();
 		lblNombrePelicula.setText("Nombre");
 		this.add(lblNombrePelicula);
 		
-		JTextField txtNombrePelicula = new JTextField();
+		txtNombrePelicula = new JTextField();
 		txtNombrePelicula.setColumns(12);
 		this.add(txtNombrePelicula);
 		
-		JLabel lblDirector = new JLabel();
+		lblDirector = new JLabel();
 		lblDirector.setText("Director");
 		this.add(lblDirector);
 		
-		JTextField txtDirector = new JTextField();
+		txtDirector = new JTextField();
 		txtDirector.setColumns(12);
 		this.add(txtDirector);
 		
-		JLabel lblDuracion = new JLabel();
+		lblDuracion = new JLabel();
 		lblDuracion.setText("Duracion");
 		this.add(lblDuracion);
 		
-		JPasswordField txtDuracion = new JPasswordField();
+		txtDuracion = new JTextField();
 		txtDuracion.setColumns(12);
 		this.add(txtDuracion);
 		
-		JLabel lblIdioma = new JLabel();
+		lblIdioma = new JLabel();
 		lblIdioma.setText("Idioma");
 		this.add(lblIdioma);
 		
-		JTextField txtIdioma = new JTextField();
+		txtIdioma = new JTextField();
 		txtIdioma.setColumns(12);
 		this.add(txtIdioma);
 
-		JLabel lblSubtitulos = new JLabel();
+		lblSubtitulos = new JLabel();
 		lblSubtitulos.setText("Subtitulos");
 		this.add(lblSubtitulos);
 		
-		JTextField txtSubtitulos = new JTextField();
+		txtSubtitulos = new JTextField();
 		txtSubtitulos.setColumns(12);
 		this.add(txtSubtitulos);
 		
-		JLabel lblCalificacion = new JLabel();
+		lblCalificacion = new JLabel();
 		lblCalificacion.setText("Calificacion");
 		this.add(lblCalificacion);
 		
-		JTextField txtCalificacion = new JTextField();
+		txtCalificacion = new JTextField();
 		txtCalificacion.setColumns(12);
 		this.add(txtCalificacion);
 		
-		JLabel lblObservacion = new JLabel();
+		lblObservacion = new JLabel();
 		lblObservacion.setText("Observacion");
 		this.add(lblObservacion);
 		
-		JTextField txtObservacion = new JTextField();
+		txtObservacion = new JTextField();
 		txtObservacion.setColumns(12);
 		this.add(txtObservacion);
 		
-		JButton btnConfirm = new JButton("Confirmar");
+		btnConfirm = new JButton("Confirmar");
+		btnConfirm.addActionListener(e -> {
+			CineController cine = CineController.getInstance();
+			cine.crearPelicula(txtNombrePelicula.getText(),
+							   txtDirector.getText(),
+							   txtDuracion.getText(), 
+							   txtIdioma.getText(), 
+							   Integer.parseInt(txtDuracion.getText()),
+							   txtObservacion.getText());
+			JOptionPane.showMessageDialog(null,"Pelicula creada!");
+			this.setVisible(false);
+		});
 		this.add(btnConfirm);
 		
-		JPanel panel1 = new JPanel();
-		panel1.add(lblNombrePelicula);
-		panel1.add(txtNombrePelicula);
+		JPanel nombreContainer = new JPanel();
+		nombreContainer.add(lblNombrePelicula);
+		nombreContainer.add(txtNombrePelicula);
 		
-		JPanel panel2 = new JPanel();
-		panel2.add(lblDirector);
-		panel2.add(txtDirector);
+		JPanel directorContainer = new JPanel();
+		directorContainer.add(lblDirector);
+		directorContainer.add(txtDirector);
 		
-		JPanel panel3 = new JPanel();
-		panel3.add(lblDuracion);
-		panel3.add(txtDuracion);
+		JPanel duracionContainer = new JPanel();
+		duracionContainer.add(lblDuracion);
+		duracionContainer.add(txtDuracion);
 		
-		JPanel panel4 = new JPanel();
-		panel4.add(lblIdioma);
-		panel4.add(txtIdioma);
+		JPanel idiomaContainer = new JPanel();
+		idiomaContainer.add(lblIdioma);
+		idiomaContainer.add(txtIdioma);
 		
-		JPanel panel5 = new JPanel();
-		panel5.add(lblSubtitulos);
-		panel5.add(txtSubtitulos);
+		JPanel subtitulosContainer = new JPanel();
+		subtitulosContainer.add(lblSubtitulos);
+		subtitulosContainer.add(txtSubtitulos);
 		
-		JPanel panel6 = new JPanel();
-		panel6.add(lblCalificacion);
-		panel6.add(txtCalificacion);
+		JPanel calificacionContainer = new JPanel();
+		calificacionContainer.add(lblCalificacion);
+		calificacionContainer.add(txtCalificacion);
 		
-		JPanel panel7 = new JPanel();
-		panel7.add(lblObservacion);
-		panel7.add(txtObservacion);
+		JPanel observacionContainer = new JPanel();
+		observacionContainer.add(lblObservacion);
+		observacionContainer.add(txtObservacion);
 		
-		JPanel panel8 = new JPanel();
-		panel8.add(btnConfirm);
+		JPanel btnContainer = new JPanel();
+		btnContainer.add(btnConfirm);
 		
 		mainPanel = new JPanel();
 		
-		mainPanel.add(panel1);
-		mainPanel.add(panel2);
-		mainPanel.add(panel3);
-		mainPanel.add(panel4);
-		mainPanel.add(panel5);
-		mainPanel.add(panel6);
-		mainPanel.add(panel7);
-		mainPanel.add(panel8);
+		mainPanel.add(nombreContainer);
+		mainPanel.add(directorContainer);
+		mainPanel.add(duracionContainer);
+		mainPanel.add(idiomaContainer);
+		mainPanel.add(subtitulosContainer);
+		mainPanel.add(calificacionContainer);
+		mainPanel.add(observacionContainer);
+		mainPanel.add(btnContainer);
 		
 		getContentPane().add(mainPanel);
 	}
