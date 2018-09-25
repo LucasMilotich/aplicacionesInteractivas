@@ -6,7 +6,13 @@ private String nombre;
 private int  capacidad;
 private Cine cine;
 
-    public String getNombre() {
+    public Sala(String nombre, int capacidad) {
+		super();
+		this.nombre = nombre;
+		this.capacidad = capacidad;
+	}
+
+	public String getNombre() {
         return nombre;
     }
 
@@ -20,5 +26,9 @@ private Cine cine;
 
     public void setCapacidad(int capacidad) {
         this.capacidad = capacidad;
+    }
+    
+    public boolean esSala(String nombre) {
+    	return this.getNombre().equals(nombre);
     }
 }
