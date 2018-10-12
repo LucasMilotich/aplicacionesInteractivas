@@ -7,60 +7,66 @@ import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ABMTableModel extends AbstractTableModel
-    {
-        /**
-         *
-         */
-        private static final long serialVersionUID = -8751294376447351895L;
-        private List<Usuario> usuarios;
-        private String[] columnNames = {"DNI",
-                "Nombre",
-                "Domicilio",
-                "Nombre usuario",
-                "Email",
-                "Fecha de nacimiento"};
+public class ABMTableModel extends AbstractTableModel {
+    /**
+     *
+     */
+    private static final long serialVersionUID = -8751294376447351895L;
+    private List<Usuario> usuarios;
+    private String[] columnNames = {"DNI",
+        "Nombre",
+        "Domicilio",
+        "Nombre usuario",
+        "Email",
+        "Fecha de nacimiento"};
 
-        public ABMTableModel() {
-            usuarios = new ArrayList<Usuario>();
+    public ABMTableModel() {
+        usuarios = new ArrayList<Usuario>();
+    }
+
+    @Override
+    public int getColumnCount() {
+        return 6;
+    }
+
+    @Override
+    public int getRowCount() {
+        return usuarios.size();
+    }
+
+    @Override
+    public Object getValueAt(int row, int col) {
+        Usuario usuario = usuarios.get(row);
+        switch (col) {
+            case Columns.DNI:
+                return usuario.getDni();
+            case Columns.NOMBRE:
+                return usuario.getNombre();
+            case Columns.DOMICILIO:
+                return usuario.getDomicilio();
+            case Columns.NOMBREUSUARIO:
+                return usuario.getNombreUsuario();
+            case Columns.EMAIL:
+                return usuario.getEmail();
+            case Columns.FECHANACIMIENTO:
+                return usuario.getFechaNacimiento();
+            default:
+                return "";
         }
+    }
 
-        @Override
-        public int getColumnCount() {
-            return 6;
-        }
+    @Override
+    public String getColumnName(int column) {
 
-        @Override
-        public int getRowCount() {
-            return usuarios.size();
-        }
+        return columnNames[column];
+    }
 
-        @Override
-        public Object getValueAt(int row, int col) {
-            Usuario usuario = usuarios.get(row);
-            switch(col) {
-                case 0: return usuario.getDni();
-                case 1: return usuario.getNombre();
-                case 2: return usuario.getDomicilio();
-                case 3: return usuario.getNombreUsuario();
-                case 4: return usuario.getEmail();
-                case 5: return usuario.getFechaNacimiento();
-                default: return "";
-            }
-        }
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
 
-        @Override
-        public String getColumnName(int column) {
-
-            return columnNames[column];
-        }
-
-        public void setUsuarios(List<Usuario> usuarios) {
-            this.usuarios = usuarios;
-        }
-
-        public List<Usuario> getUsuarios() {
-            return usuarios;
-        }
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
 
 }
