@@ -5,4 +5,9 @@ public class Operador implements IRol {
     public boolean puedeOperar(String accion) {
         return false;
     }
+
+    @Override
+    public String nombre() {
+        return "OPERADOR";
+    }
 }

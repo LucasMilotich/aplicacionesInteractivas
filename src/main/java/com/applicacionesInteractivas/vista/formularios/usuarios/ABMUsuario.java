@@ -8,8 +8,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Date;
 
-public class JFormABMUsuario extends JFrame {
+public class ABMUsuario extends JFrame {
     private JTable table1;
 
     private JPanel mainPanel;
@@ -34,7 +35,7 @@ public class JFormABMUsuario extends JFrame {
 
     private JScrollPane mibarra;
 
-    public JFormABMUsuario() throws HeadlessException {
+    public ABMUsuario() throws HeadlessException {
         this.setSize(600, 600);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -42,8 +43,18 @@ public class JFormABMUsuario extends JFrame {
 
         btnModificar = new JButton("Modificar Usuario");
         btnModificar.addActionListener(e -> {
+            UsuarioController usuarioController = UsuarioController.getInstance();
+            usuarioController.modificarUsuario(
+                    nombreUsuarioTxtField.getText(),
+                    emailTxtField.getText(),
+                    passwordTxtField.getText(),
+                    nombreTxtField.getText(),
+                    domicilioTxtField.getText(),
+                    dniTxtField.getText(),
+                    Date.valueOf(fechaNacimientoTxtField.getText())
+            );
 
-            JOptionPane.showMessageDialog(null,"Cine modificado!");
+            JOptionPane.showMessageDialog(null, "Usuario modificado!");
             this.setVisible(false);
         });
 
@@ -51,18 +62,18 @@ public class JFormABMUsuario extends JFrame {
         JPanel btnContainer = new JPanel();
         btnContainer.add(btnModificar);
 
-         JTable usuarios = new JTable();
-         ABMTableModel abmTableModel = new ABMTableModel();
-         abmTableModel.setUsuarios(UsuarioController.getInstance().getUsuarios());
-         usuarios.setModel(abmTableModel);
+        JTable usuarios = new JTable();
+        ABMTableModel abmTableModel = new ABMTableModel();
+        abmTableModel.setUsuarios(UsuarioController.getInstance().getUsuarios());
+        usuarios.setModel(abmTableModel);
 
-            usuarios.addMouseListener(new MouseAdapter() {
+        usuarios.addMouseListener(new MouseAdapter() {
             public void mousePressed(MouseEvent mouseEvent) {
-                JTable table =(JTable) mouseEvent.getSource();
+                JTable table = (JTable) mouseEvent.getSource();
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-                    try{
+                    try {
                         dniTxtField.setText((String) table.getValueAt(row, Columns.DNI));
 
                         nombreTxtField.setText((String) table.getValueAt(row, Columns.NOMBRE));
@@ -81,8 +92,7 @@ public class JFormABMUsuario extends JFrame {
                         fechaNacimientoTxtField.setEnabled(true);
 
                         btnModificar.setEnabled(true);
-                    }
-                    catch(Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -98,14 +108,13 @@ public class JFormABMUsuario extends JFrame {
         dniTxtField = new JTextField();
         fechaNacimientoTxtField = new JTextField();
 
-        nombreUsuarioLabel = new JLabel("Nombre usuario") ;
-        emailLabel = new JLabel("Email") ;
-        passwordLabel = new JLabel("Password") ;
-        nombreLabel = new JLabel("Nombre y apellido") ;
-        domicilioLabel = new JLabel("Domicilio ") ;
-        dniLabel = new JLabel("DNI") ;
-        fechaNacimientoLabel = new JLabel("Fec. nacimiento ") ;
-
+        nombreUsuarioLabel = new JLabel("Nombre usuario");
+        emailLabel = new JLabel("Email");
+        passwordLabel = new JLabel("Password");
+        nombreLabel = new JLabel("Nombre y apellido");
+        domicilioLabel = new JLabel("Domicilio ");
+        dniLabel = new JLabel("DNI");
+        fechaNacimientoLabel = new JLabel("Fec. nacimiento ");
 
 
         nombreUsuarioTxtField.setColumns(12);
