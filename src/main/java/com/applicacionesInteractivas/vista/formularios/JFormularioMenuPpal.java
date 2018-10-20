@@ -28,12 +28,10 @@ import com.applicacionesInteractivas.vista.formularios.salas.FormElimSala;
 import com.applicacionesInteractivas.vista.formularios.salas.FormModifSala;
 import com.applicacionesInteractivas.vista.formularios.usuarios.EliminarUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.roles.ABMRoles;
+import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
 
 public class JFormularioMenuPpal extends JFrame {
 
-    /**
-     *
-     */
     private JPanel mainPanel = new JPanel();
     private static final long serialVersionUID = -704300453015702288L;
     private JMenuBar menuBar = new JMenuBar();
@@ -43,7 +41,6 @@ public class JFormularioMenuPpal extends JFrame {
     private JMenuItem altaCineMenuItem = new JMenuItem("Alta Cine");
     private JMenuItem modifCineMenuItem = new JMenuItem("Modificar Cine");
     private JMenuItem elimCineMenuItem = new JMenuItem("Eliminar Cine");
-
 
     // Salas
     private JMenu menuSalas = new JMenu("Salas");
@@ -64,13 +61,11 @@ public class JFormularioMenuPpal extends JFrame {
     private JMenuItem abmRoles = new JMenuItem("ABM Roles");
     private JMenuItem eliminarUsuario = new JMenuItem("Eliminar Usuario");
 
-
     // Funciones
     private JMenu menuFunciones = new JMenu("Funciones");
     private JMenuItem altaFuncionMenuItem = new JMenuItem("Alta Funcion");
     private JMenuItem modifFuncionMenuItem = new JMenuItem("Modificar Funcion");
     private JMenuItem elimFuncionMenuItem = new JMenuItem("Eliminar Funcion");
-
 
     //Ventas
     private JMenu menuVentas = new JMenu("Ventas");
@@ -244,6 +239,12 @@ public class JFormularioMenuPpal extends JFrame {
         mainPanel.add(menuVentas);
         menuBar.add(menuVentas);
         menuVentas.add(ventaBoleteriaMenuItem);
+        
+        ventaBoleteriaMenuItem.addActionListener(e -> {
+        	VentaBoleteria ventaBoleteria = new VentaBoleteria();
+        	ventaController.setVentaBoleteria(ventaBoleteria);
+        	ventaBoleteria.setVisible(true);
+        });
 
     }
 

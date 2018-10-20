@@ -5,13 +5,13 @@ import java.util.List;
 public interface ICRUD<T> {
 
 
-    boolean save (T t);
-     boolean delete (T t);
-     boolean update (T t);
+     void insert(T t);
+     void delete(T t);
+     void update(T t);
      T get (T t);
      T findBy (int id);
 
-    List<T> findAll();
+     List<T> findAll();
 
 
 }

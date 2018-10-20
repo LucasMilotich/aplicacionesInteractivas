@@ -16,18 +16,18 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
     }
 
     @Override
-    public boolean save(Pelicula pelicula) {
-        return false;
+    public void insert(Pelicula pelicula) {
+        
     }
 
     @Override
-    public boolean delete(Pelicula pelicula) {
-        return false;
+    public void delete(Pelicula pelicula) {
+        
     }
 
     @Override
-    public boolean update(Pelicula pelicula) {
-        return false;
+    public void update(Pelicula pelicula) {
+        
     }
 
     @Override

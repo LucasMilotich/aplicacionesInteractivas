@@ -16,18 +16,18 @@ public class SalaDAO implements ICRUD<Sala> {
     }
 
     @Override
-    public boolean save(Sala funcion) {
-        return false;
+    public void insert(Sala funcion) {
+        
     }
 
     @Override
-    public boolean delete(Sala funcion) {
-        return false;
+    public void delete(Sala funcion) {
+        
     }
 
     @Override
-    public boolean update(Sala funcion) {
-        return false;
+    public void update(Sala funcion) {
+        
     }
 
     @Override

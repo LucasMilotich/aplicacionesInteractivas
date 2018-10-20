@@ -16,18 +16,18 @@ public class FuncionDAO implements ICRUD<Funcion> {
     }
 
     @Override
-    public boolean save(Funcion funcion) {
-        return false;
+    public void insert(Funcion funcion) {
+        
     }
 
     @Override
-    public boolean delete(Funcion funcion) {
-        return false;
+    public void delete(Funcion funcion) {
+    	
     }
 
     @Override
-    public boolean update(Funcion funcion) {
-        return false;
+    public void update(Funcion funcion) {
+        
     }
 
     @Override
