@@ -9,7 +9,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class JFormularioAltaUsuario extends JFrame {
+public class AltaUsuario extends JFrame {
 
     /**
      *
@@ -17,7 +17,7 @@ public class JFormularioAltaUsuario extends JFrame {
     private JPanel mainPanel;
     private static final long serialVersionUID = -4928365317491320581L;
 
-    public JFormularioAltaUsuario() {
+    public AltaUsuario() {
 
         this.setSize(320, 360);
         this.setResizable(false);

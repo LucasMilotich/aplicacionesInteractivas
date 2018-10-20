@@ -25,7 +25,17 @@ public class Usuario {
     private String nombre;
     private String domicilio;
     private String dni;
-        private Date fechaNacimiento;
+    private Date fechaNacimiento;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    private boolean deleted = false;
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -82,6 +92,7 @@ public class Usuario {
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
+
     public List<IRol> getRoles() {
         return roles;
     }
