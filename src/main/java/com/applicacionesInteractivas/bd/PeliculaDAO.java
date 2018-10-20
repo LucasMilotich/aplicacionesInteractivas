@@ -2,6 +2,7 @@ package com.applicacionesInteractivas.bd;
 
 import com.applicacionesInteractivas.modelo.Pelicula;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public class PeliculaDAO implements ICRUD<Pelicula> {
@@ -42,6 +43,11 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
 
     @Override
     public List<Pelicula> findAll() {
+        return null;
+    }
+
+    @Override
+    public Pelicula mapToEntity(ResultSet rs) {
         return null;
     }
 }

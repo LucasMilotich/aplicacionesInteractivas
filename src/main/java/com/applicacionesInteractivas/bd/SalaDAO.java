@@ -2,6 +2,7 @@ package com.applicacionesInteractivas.bd;
 
 import com.applicacionesInteractivas.modelo.Sala;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public class SalaDAO implements ICRUD<Sala> {
@@ -42,6 +43,11 @@ public class SalaDAO implements ICRUD<Sala> {
 
     @Override
     public List<Sala> findAll() {
+        return null;
+    }
+
+    @Override
+    public Sala mapToEntity(ResultSet rs) {
         return null;
     }
 

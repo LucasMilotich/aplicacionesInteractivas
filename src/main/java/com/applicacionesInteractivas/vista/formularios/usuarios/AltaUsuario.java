@@ -126,7 +126,8 @@ public class AltaUsuario extends JFrame {
                         txtNombre.getText(),
                         txtDomicilio.getText(),
                         txtDni.getText(),
-                        new Date());
+                        LocalDate.now(),
+                            false);
 
                 JOptionPane.showMessageDialog(null, "Usuario creado!");
             } catch (Exception exception) {

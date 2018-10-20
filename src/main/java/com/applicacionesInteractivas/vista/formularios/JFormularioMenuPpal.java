@@ -242,7 +242,7 @@ public class JFormularioMenuPpal extends JFrame {
         
         ventaBoleteriaMenuItem.addActionListener(e -> {
         	VentaBoleteria ventaBoleteria = new VentaBoleteria();
-        	ventaController.setVentaBoleteria(ventaBoleteria);
+//        	ventaController.setVentaBoleteria(ventaBoleteria);
         	ventaBoleteria.setVisible(true);
         });
 

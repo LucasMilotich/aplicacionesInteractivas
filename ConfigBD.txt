@@ -1,5 +1,5 @@
-jdbc=jdbc:sqlserver://
-servidor=localhost:33060
-usuario=A_Interactivas_01
-password=A_Interactivas_01
+jdbc=jdbc:mysql://
+servidor=localhost:32771/api
+usuario=root
+password=api
 conexiones=3

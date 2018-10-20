@@ -7,5 +7,7 @@ public class Columns {
     public static final int NOMBREUSUARIO = 3;
     public static final int EMAIL = 4;
     public static final int FECHANACIMIENTO = 5;
+    public static final int PASSWORD = 6;
+    public static final int DELETED = 7;
 
 }
