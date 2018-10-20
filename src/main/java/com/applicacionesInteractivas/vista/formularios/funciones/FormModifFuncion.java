@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -22,19 +24,23 @@ public class FormModifFuncion extends JFrame{
 
 	private static final long serialVersionUID = 1785958213568294559L;
 	private JLabel lblHorario;
-	private JLabel lblAsientos;
+	private JLabel lblSala;
+	private JLabel lblCine;
+	private JLabel lblPelicula;
 	private JTextField txtHorario;
-	private JTextField txtAsientos;
+	private JTextField txtSala;
+	private JTextField txtCine;
+	private JTextField txtPelicula;
 	private JButton btnModificar;
 	private JTable tablaFunciones;
 	private TablaFunciones tablaFuncionesModel;
 	private JScrollPane miBarra;
-	private JPanel horarioContainer, asientoContainer, btnContainer, tableContainer;
+	private JPanel horarioContainer, cineContainer,peliculaContainer,salaContainer, btnContainer, tableContainer;
 	private JPanel mainPanel;
 	
 	public FormModifFuncion() {
 		
-		this.setSize(320, 360);
+		this.setSize(600, 360);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Modificar Funcion");
@@ -48,18 +54,31 @@ public class FormModifFuncion extends JFrame{
 		txtHorario.setEditable(false);
 		this.add(txtHorario);
 		
-		lblAsientos = new JLabel("Asientos");
-		this.add(lblAsientos);
+		lblCine = new JLabel("Cine");
+		this.add(lblCine);
 		
-		txtAsientos = new JTextField();
-		txtAsientos.setColumns(12);
-		this.add(txtAsientos);
+		txtCine = new JTextField();
+		txtCine.setColumns(12);
+		this.add(txtCine);
+
+		lblSala= new JLabel("Sala");
+		this.add(lblSala);
+
+		txtSala = new JTextField();
+		txtSala.setColumns(12);
+		this.add(txtSala);
+
+		lblPelicula = new JLabel("Pelicula");
+		this.add(lblPelicula);
+
+		txtPelicula = new JTextField();
+		txtPelicula.setColumns(12);
+		this.add(txtPelicula);
 		
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.modificarFuncion(txtHorario.getText(),
-							  txtAsientos.getText());
+//			cine.modificarFuncion(LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
 			JOptionPane.showMessageDialog(null,"Funcion modificada!");
 			this.setVisible(false);
 		});
@@ -76,9 +95,13 @@ public class FormModifFuncion extends JFrame{
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            try{
 		            	txtHorario.setText((String) table.getValueAt(row, 0));
-		            	txtAsientos.setText(Integer.toString((int)table.getValueAt(row, 1)));
-		            	txtAsientos.setEditable(true);
-		            	
+		            	txtCine.setText((String) table.getValueAt(row, 1));
+						txtSala.setText((String) table.getValueAt(row, 2));
+
+						txtPelicula.setText((String) table.getValueAt(row, 2));
+						txtSala.setEditable(true);
+						txtCine.setEditable(true);
+						txtPelicula.setEditable(true);
 			            btnModificar.setEnabled(true);
 		            }
 		            catch(Exception e){
@@ -101,9 +124,17 @@ public class FormModifFuncion extends JFrame{
 		horarioContainer.add(lblHorario);
 		horarioContainer.add(txtHorario);
 		
-		asientoContainer = new JPanel();
-		asientoContainer.add(lblAsientos);
-		asientoContainer.add(txtAsientos);
+		cineContainer = new JPanel();
+		cineContainer.add(lblCine);
+		cineContainer.add(txtCine);
+
+		peliculaContainer = new JPanel();
+		peliculaContainer.add(lblPelicula);
+		peliculaContainer.add(txtPelicula);
+
+		salaContainer = new JPanel();
+		salaContainer.add(lblSala);
+		salaContainer.add(txtSala);
 		
 		btnContainer = new JPanel();
 		btnContainer.add(btnModificar);
@@ -112,7 +143,9 @@ public class FormModifFuncion extends JFrame{
 		tableContainer.add(miBarra);
 		
 		mainPanel.add(horarioContainer);
-		mainPanel.add(asientoContainer);
+		mainPanel.add(cineContainer);
+		mainPanel.add(peliculaContainer);
+		mainPanel.add(salaContainer);
 		mainPanel.add(btnContainer);
 		mainPanel.add(tableContainer);
 		

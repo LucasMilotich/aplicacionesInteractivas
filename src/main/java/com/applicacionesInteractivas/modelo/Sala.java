@@ -8,6 +8,16 @@ public class Sala {
     private int filas;
     private int columnas;
 
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
+    }
+
+    private boolean deleted;
+
     public Cine getCine() {
         return cine;
     }
@@ -32,11 +42,12 @@ public class Sala {
         return sala;
     }
 
-    public static Sala modificarSala(Sala s, String nombre, int filas, int columnas) {
+    public static Sala modificarSala(Sala s, String nombre, int filas, int columnas, Boolean deleted) {
 
         if (s != null) {
             s.setFilas(filas);
             s.setColumnas(columnas);
+            s.setDeleted(deleted);
         }
 
         SalaDAO.getInstance().update(s);

@@ -2,7 +2,11 @@ package com.applicacionesInteractivas.bd;
 
 import com.applicacionesInteractivas.modelo.Funcion;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FuncionDAO implements ICRUD<Funcion> {
@@ -18,7 +22,21 @@ public class FuncionDAO implements ICRUD<Funcion> {
 
     @Override
     public void insert(Funcion funcion) {
-        
+        try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".funcion values (?,?,?,?)");
+            s.setString(1, funcion.getSala().getCine().getCuit());
+
+            s.setDate(2, Date.valueOf(funcion.getHorario().toLocalDate()));
+            s.setString(3, funcion.getSala().getNombre());
+            s.setString(4, funcion.getPelicula().getNombre());
+
+
+            s.execute();
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -43,7 +61,7 @@ public class FuncionDAO implements ICRUD<Funcion> {
 
     @Override
     public List<Funcion> findAll() {
-        return null;
+        return new ArrayList<Funcion>();
     }
 
     @Override
