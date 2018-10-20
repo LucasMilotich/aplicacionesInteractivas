@@ -1,13 +1,15 @@
 package com.applicacionesInteractivas.controllers;
 
-import com.applicacionesInteractivas.modelo.Venta;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.applicacionesInteractivas.modelo.Venta;
+import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
 
 public class VentaController {
 
     private static VentaController instance;
+    private VentaBoleteria ventaBoleteria;
 
     public static VentaController getInstance() {
         if (instance == null) {
@@ -18,7 +20,12 @@ public class VentaController {
 
     private List<Venta> ventas = new ArrayList<>();
 
+	public void setVentaBoleteria(VentaBoleteria ventaBoleteria) {
+		this.ventaBoleteria = ventaBoleteria;
+	}
+	
     public void venderBoleteria(){
 
     }
+
 }

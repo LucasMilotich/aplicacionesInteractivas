@@ -4,16 +4,14 @@ import java.util.List;
 
 public class Funcion {
     private String horario;
-    private int asientos;
     private Pelicula pelicula;
     private Sala sala;
     private List<AsientoFuncion> asientoFunciones;
 
-    public Funcion(String horario, int asientos) {
+    public Funcion(Pelicula pelicula, Sala sala, String horario) {
     	this.horario = horario;
-    	this.asientos = asientos;
-    	this.pelicula = null;
-    	this.sala = null;
+    	this.pelicula = pelicula;
+    	this.sala = sala;
     	this.asientoFunciones = null;
     }
 
@@ -23,14 +21,6 @@ public class Funcion {
 
     public void setHorario(String horario) {
         this.horario = horario;
-    }
-
-    public int getAsientos() {
-        return asientos;
-    }
-
-    public void setAsientos(int asientos) {
-        this.asientos = asientos;
     }
     
     public boolean esFuncion(String horario) {

@@ -3,6 +3,7 @@ package com.applicacionesInteractivas.controllers;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Vector;
 
 import com.applicacionesInteractivas.bd.CineDAO;
 import com.applicacionesInteractivas.bd.FuncionDAO;
@@ -69,6 +70,15 @@ public class CineController {
     public List<Cine> getCines() {
         return cines;
     }
+    
+    public Vector<String> getListadoCines(){
+    	Vector<String> listado = new Vector<String>();
+    	for(Cine c : cines) {
+    		listado.add(c.getCuit() + " - " + c.getNombre());
+    	}
+    	
+    	return listado;
+    }
 
     public void setCines(List<Cine> cines) {
         this.cines = cines;
@@ -76,6 +86,15 @@ public class CineController {
 
     public List<Pelicula> getPeliculas() {
         return peliculas;
+    }
+    
+    public Vector<String> getListadoPeliculas() {
+    	Vector<String> listado = new Vector<String>();
+    	for(Pelicula p : peliculas) {
+    		listado.add(p.getNombre());
+    	}
+    	
+    	return listado;
     }
 
     public void setPeliculas(List<Pelicula> peliculas) {
@@ -85,6 +104,14 @@ public class CineController {
     public List<Sala> getSalas() {
         return salas;
     }
+    
+    public Vector<String> getListadoSalas() {
+		Vector<String> listado = new Vector<String>();
+    	for(Sala s : salas) {
+    		listado.add(s.getNombre());
+    	}
+    	return listado;
+	}
 
     public void setSalas(List<Sala> salas) {
         this.salas = salas;
@@ -92,6 +119,14 @@ public class CineController {
 
     public List<Funcion> getFunciones() {
         return funciones;
+    }
+    
+    public Vector<String> getListadoFunciones(){
+    	Vector<String> listado = new Vector<String>();
+    	for(Funcion f : funciones) {
+    		listado.add(f.getHorario());
+    	}
+    	return listado;
     }
 
     public void setFunciones(List<Funcion> funciones) {
@@ -235,19 +270,6 @@ public class CineController {
         return null;
     }
 
-    private Venta venderEntrada(Funcion funcion, Collection<AsientoFuncion> asientos, MedioDePago medioDePago) {
-
-        Venta venta;
-
-        try {
-            venta = new Venta().venderEntrada(funcion, asientos, medioDePago);
-        } catch (Exception e) {
-
-        }
-
-        return null;
-    }
-
     public void crearSala(String nombre, int capacidad) {
         Sala sala = new Sala(nombre, capacidad);
         this.salas.add(sala);
@@ -300,7 +322,7 @@ public class CineController {
             peliculas.remove(p);
     }
 
-    private Pelicula getPelicula(String nombre) {
+    public Pelicula getPelicula(String nombre) {
         for (Pelicula p : peliculas) {
             if (p.esPelicula(nombre))
                 return p;
@@ -308,15 +330,13 @@ public class CineController {
         return null;
     }
 
-    public void crearFuncion(String horario, String asientos) {
-        Funcion f = new Funcion(horario, Integer.parseInt(asientos));
+    public void crearFuncion(Pelicula pelicula, Sala sala, String horario) {
+        Funcion f = new Funcion(pelicula, sala, horario);
         this.funciones.add(f);
     }
 
     public void modificarFuncion(String horario, String asientos) {
-        Funcion f = this.getFuncion(horario);
-        if (f != null)
-            f.setAsientos(Integer.parseInt(asientos));
+        
     }
 
     public void eliminarFuncion(String horario) {
@@ -332,5 +352,13 @@ public class CineController {
         }
         return null;
     }
+
+	public Sala getSala(String cuit, String nombreSala) {
+		for(Sala s : salas) {
+			if(s.esSala(nombreSala))
+				return s;
+		}
+		return null;
+	}
 
 }
