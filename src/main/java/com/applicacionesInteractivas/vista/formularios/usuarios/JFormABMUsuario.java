@@ -46,7 +46,7 @@ public class JFormABMUsuario extends JFrame {
             JOptionPane.showMessageDialog(null,"Cine modificado!");
             this.setVisible(false);
         });
-        
+
 
         JPanel btnContainer = new JPanel();
         btnContainer.add(btnModificar);
