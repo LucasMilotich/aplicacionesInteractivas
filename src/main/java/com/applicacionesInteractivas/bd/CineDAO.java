@@ -82,6 +82,27 @@ public class CineDAO implements ICRUD<Cine> {
         return null;
     }
 
+
+    public Cine findByCuit(String cuit) {
+        Connection con = null;
+        ArrayList<Cine> result = new ArrayList<>();
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".cine where cuit =?");
+            s.setString(1, cuit);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result.add(mapToEntity(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result.get(0);
+    }
+
     @Override
     public List<Cine> findAll() {
         Connection con = null;
@@ -108,6 +129,6 @@ public class CineDAO implements ICRUD<Cine> {
                 rs.getString(1),
                 rs.getString(2),
                 rs.getString(3)
-                );
+        );
     }
 }

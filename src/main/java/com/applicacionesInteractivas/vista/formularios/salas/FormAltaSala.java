@@ -69,7 +69,7 @@ public class FormAltaSala extends JFrame{
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			Cine c = cineController.getCine(String.valueOf(comboCine.getSelectedItem()));
+			Cine c = cineController.getCine(String.valueOf(comboCine.getSelectedItem()).split(" - ")[0]);
 			cineController.crearSala(txtNombre.getText(),
 						   Integer.parseInt(txtFilas.getText()),
 						   Integer.parseInt(txtColumnas.getText()),
@@ -98,7 +98,8 @@ public class FormAltaSala extends JFrame{
 		
 		panel4 = new JPanel();
 		panel4.add(btnConfirmar);
-		
+
+		mainPanel.add(panel0);
 		mainPanel.add(panel1);
 		mainPanel.add(panel2);
 		mainPanel.add(panel3);

@@ -17,99 +17,130 @@ import javax.swing.JTextField;
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaSalas;
 
-public class FormModifSala extends JFrame{
+public class FormModifSala extends JFrame {
 
-	private static final long serialVersionUID = -8185511184999906353L;
-	private JLabel lblNombre;
-	private JLabel lblCapacidad;
-	private JTextField txtNombre;
-	private JTextField txtCapacidad;
-	private JButton btnModificar;
-	private JTable tablaSalas;
-	private TablaSalas tablaSalasModel;
-	private JScrollPane mibarra;
-	private JPanel mainPanel;
-	private JPanel nombreContainer, capaContainer, btnContainer, tableContainer;
-	
+    private static final long serialVersionUID = -8185511184999906353L;
+    private JLabel lblNombre;
+    private JLabel lblColumnas;
+    private JLabel lblFilas;
+    private JLabel lblCine;
+    private JTextField txtNombre;
+    private JTextField txtFilas;
+    private JTextField txtColumnas;
+    private JTextField txtCine;
+    private JButton btnModificar;
+    private JTable tablaSalas;
+    private TablaSalas tablaSalasModel;
+    private JScrollPane mibarra;
+    private JPanel mainPanel;
+    private JPanel nombreContainer, columContainer,cineContainer, filaContainer, btnContainer, tableContainer;
 
-	public FormModifSala() {
-		
-		this.setSize(500, 500);
-		this.setResizable(false);
-		this.setLocationRelativeTo(null);
-		this.setTitle("Modificar Sala");
-		mainPanel = new JPanel();
-		
-		lblNombre = new JLabel("Nombre");
-		lblCapacidad = new JLabel("Capacidad");
-		
-		txtNombre = new JTextField();
-		txtNombre.setColumns(12);
-		txtNombre.setEditable(false);
-		txtCapacidad = new JTextField();
-		txtCapacidad.setColumns(12);
-		txtCapacidad.setEditable(false);
-		
-		btnModificar = new JButton("Modificar");
-		btnModificar.setEnabled(false);
-		btnModificar.addActionListener(e -> {
-			CineController cine = CineController.getInstance();
-			cine.modificarSala(txtNombre.getText(),
-						   Integer.parseInt(txtCapacidad.getText()));
-			JOptionPane.showMessageDialog(null,"Sala modificada!");
-			this.setVisible(false);
-		});
-		
-		tablaSalas = new JTable();
-		tablaSalas.setPreferredScrollableViewportSize(new Dimension(500, 70));
-		tablaSalas.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
-		        JTable table =(JTable) mouseEvent.getSource();
-		        Point point = mouseEvent.getPoint();
-		        int row = table.rowAtPoint(point);
-		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
-		            try{
-		            	txtNombre.setText((String) table.getValueAt(row, 0));
-			            txtCapacidad.setText(Integer.toString((int) table.getValueAt(row, 1)));
-			            txtCapacidad.setEditable(true);
-			            
-			            btnModificar.setEnabled(true);
-		            }
-		            catch(Exception e){
-		            	e.printStackTrace();
-		            }
-		        }
-		    }
-		});
-		
-		mibarra = new JScrollPane();
-		mibarra.setBounds(40, 300, 400, 130);
-		
-		tablaSalasModel = new TablaSalas();
-		tablaSalasModel.setSalas(CineController.getInstance().getSalas());
-		
-		tablaSalas.setModel(tablaSalasModel);
-		mibarra.setViewportView(tablaSalas);
-		
-		nombreContainer = new JPanel();
-		nombreContainer.add(lblNombre);
-		nombreContainer.add(txtNombre);
-		
-		capaContainer = new JPanel();
-		capaContainer.add(lblCapacidad);
-		capaContainer.add(txtCapacidad);
-		
-		btnContainer = new JPanel();
-		btnContainer.add(btnModificar);
-		
-		tableContainer = new JPanel();
-		tableContainer.add(mibarra);
-		
-		mainPanel.add(nombreContainer);
-		mainPanel.add(capaContainer);
-		mainPanel.add(btnContainer);
-		mainPanel.add(tableContainer);
-		
-		getContentPane().add(mainPanel);
-	}
+
+    public FormModifSala() {
+
+        this.setSize(500, 500);
+        this.setResizable(false);
+        this.setLocationRelativeTo(null);
+        this.setTitle("Modificar Sala");
+        mainPanel = new JPanel();
+
+        lblNombre = new JLabel("Nombre");
+
+
+        txtNombre = new JTextField();
+        txtNombre.setColumns(12);
+        txtNombre.setEditable(false);
+
+        lblFilas = new JLabel("Filas");
+        txtFilas = new JTextField();
+        txtFilas.setColumns(12);
+        txtFilas.setEditable(false);
+
+        lblColumnas = new JLabel("Columnas");
+        txtColumnas = new JTextField();
+        txtColumnas.setColumns(12);
+        txtColumnas.setEditable(false);
+
+        lblCine = new JLabel("Cine cuit");
+        txtCine = new JTextField();
+        txtCine.setColumns(12);
+        txtCine.setEditable(false);
+
+        btnModificar = new JButton("Modificar");
+        btnModificar.setEnabled(false);
+        btnModificar.addActionListener(e -> {
+            CineController cine = CineController.getInstance();
+            cine.modificarSala( txtCine.getText(),
+                    txtNombre.getText(),
+                    Integer.parseInt(txtFilas.getText()),
+                    Integer.parseInt(txtColumnas.getText()));
+            JOptionPane.showMessageDialog(null, "Sala modificada!");
+            this.setVisible(false);
+        });
+
+        tablaSalas = new JTable();
+        tablaSalas.setPreferredScrollableViewportSize(new Dimension(500, 70));
+        tablaSalas.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent mouseEvent) {
+                JTable table = (JTable) mouseEvent.getSource();
+                Point point = mouseEvent.getPoint();
+                int row = table.rowAtPoint(point);
+                if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
+                    try {
+                        txtCine.setText((String) table.getValueAt(row, 3));
+                        txtNombre.setText((String) table.getValueAt(row, 0));
+                        txtFilas.setText(Integer.toString((int) table.getValueAt(row, 1)));
+                        txtFilas.setEditable(true);
+
+                        txtColumnas.setText(Integer.toString((int) table.getValueAt(row, 2)));
+                        txtColumnas.setEditable(true);
+
+                        btnModificar.setEnabled(true);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+
+        mibarra = new JScrollPane();
+        mibarra.setBounds(40, 300, 400, 130);
+
+        tablaSalasModel = new TablaSalas();
+        tablaSalasModel.setSalas(CineController.getInstance().getSalas());
+
+        tablaSalas.setModel(tablaSalasModel);
+        mibarra.setViewportView(tablaSalas);
+
+        nombreContainer = new JPanel();
+        nombreContainer.add(lblNombre);
+        nombreContainer.add(txtNombre);
+
+        cineContainer = new JPanel();
+        cineContainer.add(lblCine);
+        cineContainer.add(txtCine);
+
+        filaContainer = new JPanel();
+        filaContainer.add(lblFilas);
+        filaContainer.add(txtFilas);
+
+        columContainer = new JPanel();
+        columContainer.add(lblColumnas);
+        columContainer.add(txtColumnas);
+
+        btnContainer = new JPanel();
+        btnContainer.add(btnModificar);
+
+        tableContainer = new JPanel();
+        tableContainer.add(mibarra);
+
+        mainPanel.add(cineContainer);
+        mainPanel.add(filaContainer);
+        mainPanel.add(columContainer);
+        mainPanel.add(nombreContainer);
+        mainPanel.add(btnContainer);
+        mainPanel.add(tableContainer);
+
+        getContentPane().add(mainPanel);
+    }
 }

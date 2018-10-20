@@ -29,7 +29,7 @@ public class Cine {
         return salas.size();
     }
     public int getCapacidadTotal(){
-        return salas.stream().mapToInt(i -> i.getCapacidad()).sum();
+        return salas.stream().mapToInt(i -> i.getFilas() * i.getColumnas()).sum();
     }
 
     public static Cine crearCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {

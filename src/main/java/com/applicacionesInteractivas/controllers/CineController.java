@@ -68,9 +68,9 @@ public class CineController {
     private FormElimFuncion formularioElimFuncion;
 
     public List<Cine> getCines() {
-        if (cines.size() == 0){
+        if (cines.size() == 0) {
             return cines = CineDAO.getInstance().findAll();
-        }else {
+        } else {
             return cines;
         }
 
@@ -78,7 +78,7 @@ public class CineController {
 
     public Vector<String> getListadoCines() {
         Vector<String> listado = new Vector<String>();
-        for (Cine c : cines) {
+        for (Cine c : getCines()) {
             listado.add(c.getCuit() + " - " + c.getNombre());
         }
 
@@ -107,7 +107,11 @@ public class CineController {
     }
 
     public List<Sala> getSalas() {
-        return salas;
+        if (salas.size() == 0) {
+            return salas = SalaDAO.getInstance().findAll();
+        } else {
+            return salas;
+        }
     }
 
     public Vector<String> getListadoSalas() {
@@ -256,9 +260,9 @@ public class CineController {
     public void eliminarCine(String cuit) {
 
         Cine c = this.getCine(cuit);
-        if (c != null){
+        if (c != null) {
             cines.remove(c);
-            Cine.modificarCine(c,c.getCuit(), c.getNombre(),c.getDomicilio(),true);
+            Cine.modificarCine(c, c.getCuit(), c.getNombre(), c.getDomicilio(), true);
         }
 
 
@@ -274,32 +278,22 @@ public class CineController {
         return null;
     }
 
-    public void crearSala(String nombre, int filas, int columnas, Cine cine){
-        Sala sala = new Sala(nombre, filas, columnas, cine);
-        this.salas.add(sala);
+    public void crearSala(String nombre, int filas, int columnas, Cine cine) {
+        this.salas.add(Sala.crearSala(nombre, filas, columnas, cine));
     }
 
-    public void modificarSala(String nombre, int filas, int columnas) {
-        Sala s = this.getSala(nombre);
-        if (s != null) {
-            s.setFilas(filas);
-            s.setColumnas(columnas);
-        }
+    public void modificarSala(String cuit, String nombre, int filas, int columnas) {
+
+
+        Sala s = this.getSala(cuit, nombre);
+
+        Sala.modificarSala(s, nombre, filas, columnas);
+
     }
 
-    public void eliminarSala(String nombre) {
-        Sala s = this.getSala(nombre);
-        if (s != null)
-            salas.remove(s);
-    }
 
-    private Sala getSala(String nombre) {
-        for (Sala s : salas) {
-            if (s.esSala(nombre))
-                return s;
-        }
-        return null;
-    }
+
+
 
     public void crearPelicula(String nombre, String director,
                               String duracion, String idioma, int calificacion, String observacion) {
@@ -361,6 +355,14 @@ public class CineController {
     public Sala getSala(String cuit, String nombreSala) {
         for (Sala s : salas) {
             if (s.esSala(nombreSala))
+                return s;
+        }
+        return null;
+    }
+
+    private Sala getSala(String nombre, Cine cine) {
+        for (Sala s : salas) {
+            if (s.esSala(nombre) && s.getCine().getCuit().equals(cine.getCuit()))
                 return s;
         }
         return null;

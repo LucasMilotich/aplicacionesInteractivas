@@ -8,48 +8,54 @@ import javax.swing.table.AbstractTableModel;
 import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Sala;
 
-public class TablaSalas extends AbstractTableModel{
+public class TablaSalas extends AbstractTableModel {
 
-	private static final long serialVersionUID = -1960243629148803488L;
-	private List<Sala> salas;
-	private String[] columnNames = {"Nombre", "Filas", "Columnas"};
-	
-	public TablaSalas() {
-		super();
-		salas = new ArrayList<Sala>();
-	}
+    private static final long serialVersionUID = -1960243629148803488L;
+    private List<Sala> salas;
+    private String[] columnNames = {"Nombre", "Filas", "Columnas", "Cine cuit"};
 
-	@Override
-	public int getColumnCount() {
-		return 2;
-	}
+    public TablaSalas() {
+        super();
+        salas = new ArrayList<Sala>();
+    }
 
-	@Override
-	public int getRowCount() {
-		return this.salas.size();
-	}
+    @Override
+    public int getColumnCount() {
+        return 4;
+    }
 
-	@Override
-	public Object getValueAt(int row, int col) {
-		Sala sala = salas.get(row);
-	    switch(col) {
-	      case 0: return sala.getNombre();
-	      case 1: return sala.getFilas();
-	      case 2: return sala.getColumnas();
-	      default: return "";
-	    }
-	}
-	
-	@Override
-	public String getColumnName(int column) {
-		return columnNames[column];
-	}
+    @Override
+    public int getRowCount() {
+        return this.salas.size();
+    }
 
-	public void setSalas(List<Sala> salas) {
-		this.salas = salas;
-	}
+    @Override
+    public Object getValueAt(int row, int col) {
+        Sala sala = salas.get(row);
+        switch (col) {
+            case 0:
+                return sala.getNombre();
+            case 1:
+                return sala.getFilas();
+            case 2:
+                return sala.getColumnas();
+            case 3:
+                return sala.getCine().getCuit();
+            default:
+                return "";
+        }
+    }
 
-	public List<Sala> getSalas() {
-		return salas;
-	}
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    public void setSalas(List<Sala> salas) {
+        this.salas = salas;
+    }
+
+    public List<Sala> getSalas() {
+        return salas;
+    }
 }

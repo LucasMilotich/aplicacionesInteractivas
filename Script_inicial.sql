@@ -24,18 +24,17 @@ domicilio	VARCHAR(50),
 deleted          tinyint(1) default '0' null
 );
 
-CREATE TABLE sala(
-id_sala		INTEGER(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-nombre		VARCHAR(50),
-filas		INTEGER(2),
-columnas	INTEGER(2)
+create table sala
+(
+  nombre   varchar(50) null,
+  filas    int(2)      null,
+  columnas int(2)      null,
+  cuit     varchar(12) not null,
+  deleted tinyint(1) default '0' null
+  constraint sala_pk
+  unique (nombre, cuit)
 );
 
-CREATE TABLE sala_cine(
-cuit		VARCHAR(12) NOT NULL,
-id_sala		INTEGER(10) NOT NULL,
-CONSTRAINT pk_sala_x_cine PRIMARY KEY(cuit,id_sala)
-);
 
 CREATE TABLE pelicula(
 id_pelicula		INTEGER(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
