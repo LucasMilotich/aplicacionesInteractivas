@@ -69,10 +69,6 @@ public class VentaBoleteria extends JFrame {
 		    {
 		        //String selectedItem = (String) comboCine.getSelectedItem();
 		        
-		        listadoPeliculas = CineController.getInstance().getListadoPeliculas();
-				ComboBoxModel<String> peliculaModel = new DefaultComboBoxModel<String>(listadoPeliculas);
-				comboPelicula.setModel(peliculaModel);
-				
 				listadoFunciones = CineController.getInstance().getListadoFunciones();
 				ComboBoxModel<String> funcionModel = new DefaultComboBoxModel<String>(listadoFunciones);
 				comboFuncion.setModel(funcionModel);
@@ -83,7 +79,10 @@ public class VentaBoleteria extends JFrame {
 		lblPelicula = new JLabel("Pelicula");
 		this.add(lblPelicula);
 		
+		listadoPeliculas = CineController.getInstance().getListadoPeliculas();
+		ComboBoxModel<String> peliculaModel = new DefaultComboBoxModel<String>(listadoPeliculas);
 		comboPelicula = new JComboBox<String>();
+		comboPelicula.setModel(peliculaModel);
 		this.add(comboPelicula);
 		
 		lblDia = new JLabel("Dia");

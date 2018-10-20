@@ -12,10 +12,8 @@ public class TablaSalas extends AbstractTableModel{
 
 	private static final long serialVersionUID = -1960243629148803488L;
 	private List<Sala> salas;
-	private String[] columnNames = {"Nombre", "Capacidad"};
+	private String[] columnNames = {"Nombre", "Filas", "Columnas"};
 	
-	
-
 	public TablaSalas() {
 		super();
 		salas = new ArrayList<Sala>();
@@ -36,7 +34,8 @@ public class TablaSalas extends AbstractTableModel{
 		Sala sala = salas.get(row);
 	    switch(col) {
 	      case 0: return sala.getNombre();
-	      case 1: return sala.getCapacidad();
+	      case 1: return sala.getFilas();
+	      case 2: return sala.getColumnas();
 	      default: return "";
 	    }
 	}

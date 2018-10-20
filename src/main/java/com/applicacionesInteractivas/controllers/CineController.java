@@ -270,16 +270,17 @@ public class CineController {
         return null;
     }
 
-    public void crearSala(String nombre, int capacidad) {
-        Sala sala = new Sala(nombre, capacidad);
+    public void crearSala(String nombre, int filas, int columnas, Cine cine){
+        Sala sala = new Sala(nombre, filas, columnas, cine);
         this.salas.add(sala);
     }
 
-    public void modificarSala(String nombre, int capacidad) {
+    public void modificarSala(String nombre, int filas, int columnas) {
         Sala s = this.getSala(nombre);
-        if (s != null)
-            s.setCapacidad(capacidad);
-
+        if (s != null) {
+            s.setFilas(filas);
+            s.setColumnas(columnas);
+        }
     }
 
     public void eliminarSala(String nombre) {
