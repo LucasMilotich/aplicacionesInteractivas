@@ -1,5 +1,7 @@
 package com.applicacionesInteractivas.bd;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 public interface ICRUD<T> {
@@ -12,6 +14,8 @@ public interface ICRUD<T> {
      T findBy (int id);
 
      List<T> findAll();
+
+     T mapToEntity(ResultSet rs) throws SQLException;
 
 
 }

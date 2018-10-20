@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import com.applicacionesInteractivas.bd.UsuarioDAO;
 import com.applicacionesInteractivas.modelo.Usuario;
 import com.applicacionesInteractivas.modelo.rol.*;
 import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
@@ -7,6 +8,7 @@ import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.EliminarUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.roles.ABMRoles;
 
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -49,7 +51,12 @@ public class UsuarioController {
     }
 
     public List<Usuario> getUsuarios() {
-        return usuarios.stream().filter(it -> !it.isDeleted()).collect(Collectors.toList());
+        if (usuarios.size() == 0) {
+            return usuarios = UsuarioDAO.getInstance().findAll();
+        } else {
+            return usuarios.stream().filter(it -> !it.isDeleted()).collect(Collectors.toList());
+        }
+
     }
 
     public List<IRol> getRoles() {
@@ -83,23 +90,15 @@ public class UsuarioController {
     }
 
 
-    public void modificarUsuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, Date fechaNacimiento) {
+    public void modificarUsuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, LocalDate fechaNacimiento, boolean deleted) {
         Usuario usuario = this.getUsuario(nombreUsuario);
 
-        usuario.setDni(dni);
-        usuario.setDomicilio(domicilio);
-        usuario.setEmail(email);
-        usuario.setFechaNacimiento(fechaNacimiento);
-        usuario.setNombre(nombre);
-        usuario.setPassword(password);
-
+        Usuario.modificarUsuario(usuario, nombreUsuario, email, password, nombre, domicilio, dni, fechaNacimiento,deleted);
 
     }
 
-    public void crearUsuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, Date fechaNacimiento) {
-        Usuario usuario = new Usuario(nombreUsuario, email, password, nombre, domicilio, dni, fechaNacimiento);
-        this.usuarios.add(usuario);
-
+    public void crearUsuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, LocalDate fechaNacimiento, boolean deleted) {
+        this.usuarios.add(Usuario.crearUsuario(nombreUsuario, email, password, nombre, domicilio, dni, fechaNacimiento,deleted));
     }
 
     public Usuario getUsuario(String nombreUsuario) {
@@ -113,6 +112,7 @@ public class UsuarioController {
     }
 
     public void modificarRoles(List<String> rolesToUpdate, String username) {
+
         Usuario usuario = getUsuario(username);
         List<IRol> nuevosRoles =
                 rolesToUpdate.stream().map(nombreRol -> {
@@ -122,11 +122,15 @@ public class UsuarioController {
                             return rol;
                         }
                 ).collect(Collectors.toList());
-        usuario.setRoles(nuevosRoles);
+
+        Usuario.modificarRoles(usuario,nuevosRoles);
+
 
     }
 
-    public void eliminarUsuario(String username){
-        getUsuario(username).setDeleted(true);
+    public void eliminarUsuario(String username) {
+        Usuario usuario = getUsuario(username);
+        usuario.setDeleted(true);
+        Usuario.modificarUsuario(usuario,usuario.getNombreUsuario(),usuario.getEmail(),usuario.getPassword(),usuario.getNombre(),usuario.getDomicilio(),usuario.getDni(),usuario.getFechaNacimiento(),usuario.isDeleted());
     }
 }

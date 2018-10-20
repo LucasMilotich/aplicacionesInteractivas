@@ -2,6 +2,7 @@ package com.applicacionesInteractivas.bd;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.List;
 
 import com.applicacionesInteractivas.modelo.Cine;
@@ -65,6 +66,11 @@ public class CineDAO implements ICRUD<Cine> {
 
     @Override
     public List<Cine> findAll() {
+        return null;
+    }
+
+    @Override
+    public Cine mapToEntity(ResultSet rs) {
         return null;
     }
 }

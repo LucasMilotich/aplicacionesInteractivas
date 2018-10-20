@@ -9,6 +9,8 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class ABMUsuario extends JFrame {
     private JTable table1;
@@ -51,7 +53,8 @@ public class ABMUsuario extends JFrame {
                     nombreTxtField.getText(),
                     domicilioTxtField.getText(),
                     dniTxtField.getText(),
-                    Date.valueOf(fechaNacimientoTxtField.getText())
+                    LocalDate.parse(fechaNacimientoTxtField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
+                    false
             );
 
             JOptionPane.showMessageDialog(null, "Usuario modificado!");
@@ -88,7 +91,7 @@ public class ABMUsuario extends JFrame {
                         domicilioTxtField.setText((String) table.getValueAt(row, Columns.DOMICILIO));
                         domicilioTxtField.setEnabled(true);
 
-                        fechaNacimientoTxtField.setText((String) table.getValueAt(row, Columns.FECHANACIMIENTO));
+                        fechaNacimientoTxtField.setText(((LocalDate) table.getValueAt(row, Columns.FECHANACIMIENTO)).toString());
                         fechaNacimientoTxtField.setEnabled(true);
 
                         btnModificar.setEnabled(true);
@@ -176,6 +179,10 @@ public class ABMUsuario extends JFrame {
         panel8.add(domicilioLabel);
         panel8.add(domicilioTxtField);
 
+        JPanel panel9 = new JPanel();
+        panel8.add(fechaNacimientoLabel);
+        panel8.add(fechaNacimientoTxtField);
+
 
         mibarra = new JScrollPane();
         mibarra.setBounds(40, 300, 400, 130);
@@ -192,6 +199,7 @@ public class ABMUsuario extends JFrame {
         mainPanel.add(panel6);
         mainPanel.add(panel7);
         mainPanel.add(panel8);
+        mainPanel.add(panel9);
         mainPanel.add(btnContainer);
         mainPanel.add(mibarra);
 

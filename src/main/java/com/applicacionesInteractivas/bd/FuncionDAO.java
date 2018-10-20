@@ -2,6 +2,7 @@ package com.applicacionesInteractivas.bd;
 
 import com.applicacionesInteractivas.modelo.Funcion;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public class FuncionDAO implements ICRUD<Funcion> {
@@ -42,6 +43,11 @@ public class FuncionDAO implements ICRUD<Funcion> {
 
     @Override
     public List<Funcion> findAll() {
+        return null;
+    }
+
+    @Override
+    public Funcion mapToEntity(ResultSet rs) {
         return null;
     }
 }
