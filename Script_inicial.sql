@@ -20,7 +20,8 @@ CONSTRAINT pk_rol_x_user PRIMARY KEY(nombre_usuario, rol)
 CREATE TABLE cine(
 cuit		VARCHAR(12),
 nombre		VARCHAR(50),
-domicilio	VARCHAR(50)
+domicilio	VARCHAR(50),
+deleted          tinyint(1) default '0' null
 );
 
 CREATE TABLE sala(
