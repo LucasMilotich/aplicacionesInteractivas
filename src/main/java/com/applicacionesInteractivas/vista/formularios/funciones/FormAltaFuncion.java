@@ -58,15 +58,18 @@ public class FormAltaFuncion extends JFrame{
 		comboCine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 		    {
-		        //String selectedItem = (String) comboCine.getSelectedItem();
+		        String selectedItem = (String) comboCine.getSelectedItem();
+		        String[] cine = selectedItem.split(" - ");
 		        
 		        listadoPeliculas = CineController.getInstance().getListadoPeliculas();
 				ComboBoxModel<String> peliculaModel = new DefaultComboBoxModel<String>(listadoPeliculas);
 				comboPelicula.setModel(peliculaModel);
+				comboPelicula.setSelectedItem(null);
 				
-				listadoSalas = CineController.getInstance().getListadoSalas();
+				listadoSalas = CineController.getInstance().getListadoSalas(cine[0]);
 				ComboBoxModel<String> salaModel = new DefaultComboBoxModel<String>(listadoSalas);
 				comboSala.setModel(salaModel);
+				comboSala.setSelectedItem(null);
 		    }
 		});
 		this.add(comboCine);

@@ -39,7 +39,7 @@ create table sala
 CREATE TABLE pelicula(
 nombre			VARCHAR(50) NOT NULL PRIMARY KEY,
 director		VARCHAR(50),
-genero			VARCHAR(10),
+genero			VARCHAR(30),
 duracion		SMALLINT(3),
 idioma			VARCHAR(30),
 subtitulos		VARCHAR(30),
@@ -48,10 +48,12 @@ observaciones	VARCHAR(100),
 deleted			TINYINT(1) DEFAULT '0' NULL
 );
 
-CREATE TABLE funcione(
-id_funcion		INTEGER(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-cuit			VARCHAR(12),
-horario			VARCHAR(4)
+CREATE TABLE funcion(
+cuit			VARCHAR(12) NOT NULL,
+pelicula		VARCHAR(50) NOT NULL,
+sala			VARCHAR(50) NOT NULL,
+horario			DATE NOT NULL,
+deleted 		TINYINT(1) DEFAULT '0' NULL
 );
 
 CREATE TABLE descuento(

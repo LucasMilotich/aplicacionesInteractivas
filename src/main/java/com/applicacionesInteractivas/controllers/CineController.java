@@ -2,7 +2,6 @@ package com.applicacionesInteractivas.controllers;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
@@ -10,13 +9,10 @@ import com.applicacionesInteractivas.bd.CineDAO;
 import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.PeliculaDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
-import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Funcion;
 import com.applicacionesInteractivas.modelo.Pelicula;
 import com.applicacionesInteractivas.modelo.Sala;
-import com.applicacionesInteractivas.modelo.Venta;
-import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 import com.applicacionesInteractivas.vista.formularios.cines.FormAltaCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormElimCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormModifCine;
@@ -99,8 +95,9 @@ public class CineController {
     }
 
     public Vector<String> getListadoPeliculas() {
+    	
         Vector<String> listado = new Vector<String>();
-        for (Pelicula p : peliculas) {
+        for (Pelicula p : this.getPeliculas()) {
             listado.add(p.getNombre());
         }
 
@@ -119,10 +116,11 @@ public class CineController {
         }
     }
 
-    public Vector<String> getListadoSalas() {
+    public Vector<String> getListadoSalas(String cuit) {
         Vector<String> listado = new Vector<String>();
-        for (Sala s : salas) {
-            listado.add(s.getNombre());
+        for (Sala s : this.getSalas()) {
+        	if(s.getCine().getCuit().equals(cuit))
+        		listado.add(s.getNombre());
         }
         return listado;
     }
@@ -141,7 +139,7 @@ public class CineController {
 
     public Vector<String> getListadoFunciones() {
         Vector<String> listado = new Vector<String>();
-        for (Funcion f : funciones) {
+        for (Funcion f : getFunciones()) {
             listado.add(f.getHorario().toString());
         }
         return listado;
@@ -256,24 +254,24 @@ public class CineController {
 
     }
 
-    public void crearCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
+    public void crearCine(String cuit, String nombre, String domicilio) {
 
-        this.cines.add(Cine.crearCine(cuit, nombre, domicilio, cantidadSalas, capacidadTotal));
+        this.cines.add(Cine.crearCine(cuit, nombre, domicilio));
+    
     }
 
     public void modificarCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
-        Cine c = this.getCine(cuit);
+        
+    	Cine c = this.getCine(cuit);
         Cine.modificarCine(c, cuit, nombre, domicilio, false);
+    
     }
 
     public void eliminarCine(String cuit) {
 
         Cine c = this.getCine(cuit);
-        if (c != null) {
-            cines.remove(c);
-            Cine.modificarCine(c, c.getCuit(), c.getNombre(), c.getDomicilio(), true);
-        }
-
+        cines.remove(c);
+        Cine.modificarCine(c, c.getCuit(), c.getNombre(), c.getDomicilio(), true);
 
     }
 
@@ -298,17 +296,13 @@ public class CineController {
 
     }
 
-    public void eliminarSala(String cuit, String nombre) {
+    public void eliminarSala(String nombre, String cuit) {
 
         Sala s = this.getSala(cuit, nombre);
         salas.remove(s);
         Sala.modificarSala(s, nombre, s.getFilas(), s.getColumnas(),true);
 
     }
-
-
-
-
 
     public void crearPelicula(String nombre, String director, String genero, 
                               String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
@@ -358,24 +352,16 @@ public class CineController {
     }
 
     private Funcion getFuncion(String horario) {
-        for (Funcion f : funciones) {
-            if (f.esFuncion(horario))
-                return f;
-        }
+//        for (Funcion f : funciones) {
+//            if (f.esFuncion(horario))
+//                return f;
+//        }
         return null;
     }
 
     public Sala getSala(String cuit, String nombreSala) {
         for (Sala s : salas) {
             if (s.esSala(nombreSala) && s.getCine().getCuit().equals(s.getCine().getCuit()) )
-                return s;
-        }
-        return null;
-    }
-
-    private Sala getSala(String nombre, Cine cine) {
-        for (Sala s : salas) {
-            if (s.esSala(nombre) && s.getCine().getCuit().equals(cine.getCuit()))
                 return s;
         }
         return null;

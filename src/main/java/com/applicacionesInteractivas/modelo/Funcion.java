@@ -6,7 +6,12 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class Funcion {
-    private LocalDateTime horario;
+
+    private Pelicula pelicula;
+    private Sala sala;
+    private List<AsientoFuncion> asientoFunciones;
+	private LocalDateTime horario;
+	private boolean deleted;
 
     public Pelicula getPelicula() {
         return pelicula;
@@ -32,10 +37,6 @@ public class Funcion {
         this.asientoFunciones = asientoFunciones;
     }
 
-    private Pelicula pelicula;
-    private Sala sala;
-    private List<AsientoFuncion> asientoFunciones;
-
     public Funcion(Pelicula pelicula, Sala sala, LocalDateTime horario) {
     	this.horario = horario;
     	this.pelicula = pelicula;
@@ -58,7 +59,15 @@ public class Funcion {
         this.horario = horario;
     }
     
-    public boolean esFuncion(String horario) {
-    	return this.getHorario().equals(horario);
-    }
+//    public boolean esFuncion(String horario) {
+//    	return this.getHorario().equals(horario);
+//    }
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
+	}
 }

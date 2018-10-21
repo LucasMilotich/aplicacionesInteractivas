@@ -73,7 +73,7 @@ public class FormModifPelicula extends JFrame{
 		this.add(txtDirector);
 		
 		lblGenero = new JLabel();
-		lblGenero.setText("Director");
+		lblGenero.setText("Genero");
 		this.add(lblGenero);
 		
 		txtGenero = new JTextField();

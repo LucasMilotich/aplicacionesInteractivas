@@ -10,7 +10,11 @@ public class Cine {
     private String cuit;
     private String nombre;
     private String domicilio;
-
+    private boolean deleted = false;
+    private List<Pelicula> peliculas;
+    private List<Funcion> funciones;
+    private List<Sala> salas;
+    
     public boolean isDeleted() {
         return deleted;
     }
@@ -19,12 +23,6 @@ public class Cine {
         this.deleted = deleted;
     }
 
-    private boolean deleted = false;
-
-    private List<Pelicula> peliculas;
-    private List<Funcion> funciones;
-    private List<Sala> salas;
-
     public int getCantidadSalas(){
         return salas.size();
     }
@@ -32,7 +30,7 @@ public class Cine {
         return salas.stream().mapToInt(i -> i.getFilas() * i.getColumnas()).sum();
     }
 
-    public static Cine crearCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
+    public static Cine crearCine(String cuit, String nombre, String domicilio) {
         Cine cine = new Cine(cuit, nombre, domicilio);
         CineDAO.getInstance().insert(cine);
         return cine;

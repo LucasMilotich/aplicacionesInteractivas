@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,7 +18,6 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaFunciones;
-import com.applicacionesInteractivas.vista.formularios.tabla.TablaPeliculas;
 
 public class FormModifFuncion extends JFrame{
 
@@ -59,6 +58,7 @@ public class FormModifFuncion extends JFrame{
 		
 		txtCine = new JTextField();
 		txtCine.setColumns(12);
+		txtCine.setEditable(false);
 		this.add(txtCine);
 
 		lblSala= new JLabel("Sala");
@@ -66,6 +66,7 @@ public class FormModifFuncion extends JFrame{
 
 		txtSala = new JTextField();
 		txtSala.setColumns(12);
+		txtSala.setEditable(false);
 		this.add(txtSala);
 
 		lblPelicula = new JLabel("Pelicula");
@@ -73,6 +74,7 @@ public class FormModifFuncion extends JFrame{
 
 		txtPelicula = new JTextField();
 		txtPelicula.setColumns(12);
+		txtPelicula.setEditable(false);
 		this.add(txtPelicula);
 		
 		btnModificar = new JButton("Modificar");
@@ -94,14 +96,15 @@ public class FormModifFuncion extends JFrame{
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            try{
-		            	txtHorario.setText((String) table.getValueAt(row, 0));
-		            	txtCine.setText((String) table.getValueAt(row, 1));
-						txtSala.setText((String) table.getValueAt(row, 2));
-
+		            	txtCine.setText((String) table.getValueAt(row, 0));
+						txtSala.setText((String) table.getValueAt(row, 1));
 						txtPelicula.setText((String) table.getValueAt(row, 2));
-						txtSala.setEditable(true);
+						txtHorario.setText((String) table.getValueAt(row, 3)
+								);
+		            	txtSala.setEditable(true);
 						txtCine.setEditable(true);
 						txtPelicula.setEditable(true);
+						txtHorario.setEditable(true);
 			            btnModificar.setEnabled(true);
 		            }
 		            catch(Exception e){
@@ -142,10 +145,10 @@ public class FormModifFuncion extends JFrame{
 		tableContainer = new JPanel();
 		tableContainer.add(miBarra);
 		
-		mainPanel.add(horarioContainer);
 		mainPanel.add(cineContainer);
 		mainPanel.add(peliculaContainer);
 		mainPanel.add(salaContainer);
+		mainPanel.add(horarioContainer);
 		mainPanel.add(btnContainer);
 		mainPanel.add(tableContainer);
 		

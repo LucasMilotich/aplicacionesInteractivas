@@ -43,27 +43,21 @@ public class CineDAO implements ICRUD<Cine> {
 
     @Override
     public void delete(Cine d) {
-        try {
-            Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("delete from " + PoolConnection.dbName + ".cine where cuit = ?");
-            s.setString(1, d.getCuit());
-            s.execute();
-            PoolConnection.getPoolConnection().releaseConnection(con);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    	
     }
 
     @Override
     public void update(Cine cine) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".cine set cuit = ?, nombre = ?, domicilio = ?, deleted = ?");
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".cine set cuit = ?, "+
+            										   "nombre = ?, domicilio = ?, deleted = ? where cuit = ?");
             s.setString(1, cine.getCuit());
 
             s.setString(2, cine.getNombre());
             s.setString(3, cine.getDomicilio());
             s.setBoolean(4, cine.isDeleted());
+            s.setString(5, cine.getCuit());
 
             s.execute();
             PoolConnection.getPoolConnection().releaseConnection(con);
@@ -88,7 +82,7 @@ public class CineDAO implements ICRUD<Cine> {
         ArrayList<Cine> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".cine where cuit =?");
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".cine where cuit = ?");
             s.setString(1, cuit);
             ResultSet rs = s.executeQuery();
 
@@ -109,7 +103,7 @@ public class CineDAO implements ICRUD<Cine> {
         ArrayList<Cine> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".cine");
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".cine where deleted = false");
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {
