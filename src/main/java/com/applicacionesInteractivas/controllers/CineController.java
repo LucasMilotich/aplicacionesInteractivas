@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -127,13 +128,17 @@ public class CineController {
     }
 
     public List<Funcion> getFunciones() {
-        return funciones;
+        if (funciones.size() == 0) {
+            return funciones = FuncionDAO.getInstance().findAll();
+        } else {
+            return funciones;
+        }
     }
 
     public Vector<String> getListadoFunciones() {
         Vector<String> listado = new Vector<String>();
         for (Funcion f : funciones) {
-            listado.add(f.getHorario());
+            listado.add(f.getHorario().toString());
         }
         return listado;
     }
@@ -287,7 +292,17 @@ public class CineController {
 
         Sala s = this.getSala(cuit, nombre);
 
-        Sala.modificarSala(s, nombre, filas, columnas);
+        Sala.modificarSala(s, nombre, filas, columnas,s.isDeleted());
+
+    }
+
+    public void eliminarSala(String cuit, String nombre) {
+
+
+        Sala s = this.getSala(cuit, nombre);
+        salas.remove(s);
+        Sala.modificarSala(s, nombre, s.getFilas(), s.getColumnas(),true);
+
 
     }
 
@@ -326,12 +341,12 @@ public class CineController {
         return null;
     }
 
-    public void crearFuncion(Pelicula pelicula, Sala sala, String horario) {
-        Funcion f = new Funcion(pelicula, sala, horario);
+    public void crearFuncion(Pelicula pelicula, Sala sala, LocalDateTime horario) {
+        Funcion f = Funcion.crearFuncion(pelicula,sala,horario);
         this.funciones.add(f);
     }
 
-    public void modificarFuncion(String horario, String asientos) {
+    public void modificarFuncion(Pelicula pelicula, Sala sala,LocalDateTime horario) {
 
     }
 
@@ -351,7 +366,7 @@ public class CineController {
 
     public Sala getSala(String cuit, String nombreSala) {
         for (Sala s : salas) {
-            if (s.esSala(nombreSala))
+            if (s.esSala(nombreSala) && s.getCine().getCuit().equals(s.getCine().getCuit()) )
                 return s;
         }
         return null;

@@ -9,43 +9,51 @@ import com.applicacionesInteractivas.modelo.Funcion;
 
 public class TablaFunciones extends AbstractTableModel {
 
-	private static final long serialVersionUID = -2458393323291422128L;
-	private List<Funcion> funciones;
-	private String[] columnNames = {"Horario"};
-	
-	public TablaFunciones() {
-		funciones = new ArrayList<Funcion>();
-	}
-	
-	@Override
-	public int getColumnCount() {
-		return 2;
-	}
+    private static final long serialVersionUID = -2458393323291422128L;
+    private List<Funcion> funciones;
+    private String[] columnNames = {"Horario", "Cine", "Sala", "Pelicula"};
 
-	@Override
-	public int getRowCount() {
-		return this.funciones.size();
-	}
+    public TablaFunciones() {
+        funciones = new ArrayList<Funcion>();
+    }
 
-	@Override
-	public Object getValueAt(int row, int col) {
-		Funcion func = funciones.get(row);
-	    switch(col) {
-	      case 0: return func.getHorario();
-	      default: return "";
-	    }
-	}
-	
-	@Override
-	public String getColumnName(int column) {
-		return columnNames[column];
-	}
+    @Override
+    public int getColumnCount() {
+        return 3;
+    }
 
-	public void setFunciones(List<Funcion> funciones) {
-		this.funciones = funciones;
-	}
+    @Override
+    public int getRowCount() {
+        return this.funciones.size();
+    }
 
-	public List<Funcion> getFunciones() {
-		return funciones;
-	}
+    @Override
+    public Object getValueAt(int row, int col) {
+        Funcion func = funciones.get(row);
+        switch (col) {
+            case 0:
+                return func.getHorario();
+            case 1:
+                return func.getSala().getCine().getCuit();
+            case 2:
+                return func.getSala().getNombre();
+            case 3:
+                return func.getPelicula().getNombre();
+            default:
+                return "";
+        }
+    }
+
+    @Override
+    public String getColumnName(int column) {
+        return columnNames[column];
+    }
+
+    public void setFunciones(List<Funcion> funciones) {
+        this.funciones = funciones;
+    }
+
+    public List<Funcion> getFunciones() {
+        return funciones;
+    }
 }

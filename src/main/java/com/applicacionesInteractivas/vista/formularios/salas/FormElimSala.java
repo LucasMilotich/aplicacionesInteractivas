@@ -35,7 +35,8 @@ public class FormElimSala extends JFrame{
 		btnEliminar = new JButton("Eliminar Sala");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			//cine.eliminarSala((String) tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0));
+			cine.eliminarSala((String) tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0),
+					(String) tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3));
 			JOptionPane.showMessageDialog(null,"Sala eliminada!");
 			this.setVisible(false);
 		});

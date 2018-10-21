@@ -53,7 +53,7 @@ public class SalaDAO implements ICRUD<Sala> {
             s.setInt(2, sala.getFilas());
             s.setInt(3, sala.getColumnas());
             s.setString(4, sala.getCine().getCuit());
-            s.setBoolean(5, false);
+            s.setBoolean(5, sala.isDeleted());
             s.setString(6, sala.getCine().getCuit());
             s.setString(7, sala.getNombre());
 
@@ -80,7 +80,7 @@ public class SalaDAO implements ICRUD<Sala> {
         ArrayList<Sala> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".sala");
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".sala where deleted = false");
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {
