@@ -13,8 +13,10 @@ public class TablaPeliculas extends AbstractTableModel{
 	private List<Pelicula> peliculas;
 	private String[] columnNames = {"Nombre",
             "Director",
+            "Genero",
             "Duracion",
             "Idioma",
+            "Subtitulos",
             "Calificacion",
             "Observacion"};
 	
@@ -24,7 +26,7 @@ public class TablaPeliculas extends AbstractTableModel{
 	
 	@Override
 	public int getColumnCount() {
-		return 6;
+		return 8;
 	}
 
 	@Override
@@ -38,10 +40,12 @@ public class TablaPeliculas extends AbstractTableModel{
 	    switch(col) {
 	      case 0: return peli.getNombre();
 	      case 1: return peli.getDirector();
-	      case 2: return peli.getDuracion();
-	      case 3: return peli.getIdioma();
-	      case 4: return peli.getCalificacion();
-	      case 5: return peli.getObservacion();
+	      case 2: return peli.getGenero();
+	      case 3: return peli.getDuracion();
+	      case 4: return peli.getIdioma();
+	      case 5: return peli.getSubtitulos();
+	      case 6: return peli.getCalificacion();
+	      case 7: return peli.getObservacion();
 	      default: return "";
 	    }
 	}

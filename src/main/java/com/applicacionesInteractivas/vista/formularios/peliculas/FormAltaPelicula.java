@@ -11,15 +11,14 @@ import com.applicacionesInteractivas.controllers.CineController;
 
 public class FormAltaPelicula extends JFrame{
 
-	/**
-	 * 
-	 */
 	private JPanel mainPanel;
 	private static final long serialVersionUID = -1575972637826323094L;
 	private JLabel lblNombrePelicula;
 	private JTextField txtNombrePelicula;
 	private JLabel lblDirector;
 	private JTextField txtDirector;
+	private JLabel lblGenero;
+	private JTextField txtGenero;
 	private JLabel lblDuracion;
 	private JTextField txtDuracion;
 	private JLabel lblIdioma;
@@ -54,6 +53,14 @@ public class FormAltaPelicula extends JFrame{
 		txtDirector = new JTextField();
 		txtDirector.setColumns(12);
 		this.add(txtDirector);
+		
+		lblGenero = new JLabel();
+		lblGenero.setText("Genero");
+		this.add(lblGenero);
+		
+		txtGenero = new JTextField();
+		txtGenero.setColumns(12);
+		this.add(txtGenero);
 		
 		lblDuracion = new JLabel();
 		lblDuracion.setText("Duracion");
@@ -100,9 +107,11 @@ public class FormAltaPelicula extends JFrame{
 			CineController cine = CineController.getInstance();
 			cine.crearPelicula(txtNombrePelicula.getText(),
 							   txtDirector.getText(),
+							   txtGenero.getText(),
 							   txtDuracion.getText(), 
 							   txtIdioma.getText(), 
-							   Integer.parseInt(txtDuracion.getText()),
+							   txtSubtitulos.getText(),
+							   Integer.parseInt(txtCalificacion.getText()),
 							   txtObservacion.getText());
 			JOptionPane.showMessageDialog(null,"Pelicula creada!");
 			this.setVisible(false);
@@ -116,6 +125,10 @@ public class FormAltaPelicula extends JFrame{
 		JPanel directorContainer = new JPanel();
 		directorContainer.add(lblDirector);
 		directorContainer.add(txtDirector);
+		
+		JPanel generoContainer = new JPanel();
+		generoContainer.add(lblGenero);
+		generoContainer.add(txtGenero);
 		
 		JPanel duracionContainer = new JPanel();
 		duracionContainer.add(lblDuracion);
@@ -144,6 +157,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		mainPanel.add(nombreContainer);
 		mainPanel.add(directorContainer);
+		mainPanel.add(generoContainer);
 		mainPanel.add(duracionContainer);
 		mainPanel.add(idiomaContainer);
 		mainPanel.add(subtitulosContainer);

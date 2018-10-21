@@ -24,6 +24,8 @@ public class FormModifPelicula extends JFrame{
 	private JTextField txtNombrePelicula;
 	private JLabel lblDirector;
 	private JTextField txtDirector;
+	private JLabel lblGenero;
+	private JTextField txtGenero;
 	private JLabel lblDuracion;
 	private JTextField txtDuracion;
 	private JLabel lblIdioma;
@@ -39,7 +41,7 @@ public class FormModifPelicula extends JFrame{
 	private JTable tablaPeliculas;
 	private JScrollPane miBarra;
 	private JPanel mainPanel;
-	private JPanel nombreContainer,directorContainer,duracionContainer;
+	private JPanel nombreContainer,directorContainer,generoContainer,duracionContainer;
 	private JPanel idiomaContainer,califContainer,obsContainer,subsContainer;
 	private JPanel btnContainer;
 	private JPanel tableContainer;
@@ -69,6 +71,15 @@ public class FormModifPelicula extends JFrame{
 		txtDirector.setColumns(12);
 		txtDirector.setEditable(false);
 		this.add(txtDirector);
+		
+		lblGenero = new JLabel();
+		lblGenero.setText("Director");
+		this.add(lblGenero);
+		
+		txtGenero = new JTextField();
+		txtGenero.setColumns(12);
+		txtGenero.setEditable(false);
+		this.add(txtGenero);
 		
 		lblDuracion = new JLabel();
 		lblDuracion.setText("Duracion");
@@ -120,9 +131,11 @@ public class FormModifPelicula extends JFrame{
 			CineController cine = CineController.getInstance();
 			cine.modificarPelicula(txtNombrePelicula.getText(),
 							   txtDirector.getText(),
+							   txtGenero.getText(),
 							   txtDuracion.getText(), 
-							   txtIdioma.getText(), 
-							   Integer.parseInt(txtDuracion.getText()),
+							   txtIdioma.getText(),
+							   txtSubtitulos.getText(),
+							   Integer.parseInt(txtCalificacion.getText()),
 							   txtObservacion.getText());
 			JOptionPane.showMessageDialog(null,"Pelicula modificada!");
 			this.setVisible(false);
@@ -142,13 +155,17 @@ public class FormModifPelicula extends JFrame{
 		            	txtNombrePelicula.setText((String) table.getValueAt(row, 0));
 		            	txtDirector.setText((String) table.getValueAt(row, 1));
 		            	txtDirector.setEditable(true);
-		            	txtDuracion.setText((String) table.getValueAt(row, 2));
+		            	txtGenero.setText((String) table.getValueAt(row, 2));
+		            	txtGenero.setEditable(true);
+		            	txtDuracion.setText((String) table.getValueAt(row, 3));
 		            	txtDuracion.setEditable(true);
-		            	txtIdioma.setText((String) table.getValueAt(row, 3));
+		            	txtIdioma.setText((String) table.getValueAt(row, 4));
 		            	txtIdioma.setEditable(true);
-		            	txtCalificacion.setText(Integer.toString((int) table.getValueAt(row, 4)));
+		            	txtSubtitulos.setText((String) table.getValueAt(row, 5));
+		            	txtSubtitulos.setEditable(true);
+		            	txtCalificacion.setText(Integer.toString((int) table.getValueAt(row, 6)));
 		            	txtCalificacion.setEditable(true);
-		            	txtObservacion.setText((String) table.getValueAt(row, 5));
+		            	txtObservacion.setText((String) table.getValueAt(row, 7));
 		            	txtObservacion.setEditable(true);
 			            
 			            btnModificar.setEnabled(true);
@@ -176,6 +193,10 @@ public class FormModifPelicula extends JFrame{
 		directorContainer = new JPanel();
 		directorContainer.add(lblDirector);
 		directorContainer.add(txtDirector);
+		
+		generoContainer = new JPanel();
+		generoContainer.add(lblGenero);
+		generoContainer.add(txtGenero);
 		
 		duracionContainer = new JPanel();
 		duracionContainer.add(lblDuracion);
@@ -205,6 +226,7 @@ public class FormModifPelicula extends JFrame{
 		
 		mainPanel.add(nombreContainer);
 		mainPanel.add(directorContainer);
+		mainPanel.add(generoContainer);
 		mainPanel.add(duracionContainer);
 		mainPanel.add(idiomaContainer);
 		mainPanel.add(subsContainer);

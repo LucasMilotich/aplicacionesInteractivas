@@ -295,16 +295,13 @@ public class CineController {
 
 
 
-    public void crearPelicula(String nombre, String director,
-                              String duracion, String idioma, int calificacion, String observacion) {
-
-        //Corregir el parametro de lista de subtitulos
-        Pelicula p = new Pelicula(nombre, director, duracion, idioma, null, calificacion, observacion);
-        this.peliculas.add(p);
+    public void crearPelicula(String nombre, String director, String genero, 
+                              String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
+    	this.peliculas.add(Pelicula.crearPelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion));
     }
 
-    public void modificarPelicula(String nombre, String director,
-                                  String duracion, String idioma, int calificacion, String observacion) {
+    public void modificarPelicula(String nombre, String director, String genero,
+                                  String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
         Pelicula p = this.getPelicula(nombre);
         if (p != null) {
             p.setDirector(director);

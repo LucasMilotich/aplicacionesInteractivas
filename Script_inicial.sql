@@ -37,15 +37,15 @@ create table sala
 
 
 CREATE TABLE pelicula(
-id_pelicula		INTEGER(10) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-nombre			VARCHAR(50),
+nombre			VARCHAR(50) NOT NULL PRIMARY KEY,
 director		VARCHAR(50),
 genero			VARCHAR(10),
 duracion		SMALLINT(3),
 idioma			VARCHAR(30),
 subtitulos		VARCHAR(30),
 calificacion	SMALLINT(2),
-observaciones	VARCHAR(100)
+observaciones	VARCHAR(100),
+deleted			TINYINT(1) DEFAULT '0' NULL
 );
 
 CREATE TABLE funcione(
