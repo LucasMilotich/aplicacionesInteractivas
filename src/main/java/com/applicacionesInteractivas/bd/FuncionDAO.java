@@ -1,10 +1,10 @@
 package com.applicacionesInteractivas.bd;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class FuncionDAO implements ICRUD<Funcion> {
             s.setString(1, funcion.getSala().getCine().getCuit());
             s.setString(2, funcion.getPelicula().getNombre());
             s.setString(3, funcion.getSala().getNombre());
-            s.setDate(4, Date.valueOf(funcion.getHorario().toLocalDate()));
+            s.setTimestamp(4,  funcion.getHorario());
             s.setBoolean(5, false);
             
             s.execute();
@@ -87,7 +87,8 @@ public class FuncionDAO implements ICRUD<Funcion> {
     	return new Funcion(
                 CineController.getInstance().getPelicula(rs.getString(2)),
                 CineController.getInstance().getSala(rs.getString(1),rs.getString(3)),
-                LocalDateTime.parse(rs.getString(4), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
+                rs.getTimestamp(4)
+                //LocalDateTime.parse(rs.getString(4), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"))
         );
     }
 }

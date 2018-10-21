@@ -1,16 +1,16 @@
 package com.applicacionesInteractivas.modelo;
 
-import com.applicacionesInteractivas.bd.FuncionDAO;
-
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
+
+import com.applicacionesInteractivas.bd.FuncionDAO;
 
 public class Funcion {
 
     private Pelicula pelicula;
     private Sala sala;
     private List<AsientoFuncion> asientoFunciones;
-	private LocalDateTime horario;
+	private Timestamp horario;
 	private boolean deleted;
 
     public Pelicula getPelicula() {
@@ -37,25 +37,25 @@ public class Funcion {
         this.asientoFunciones = asientoFunciones;
     }
 
-    public Funcion(Pelicula pelicula, Sala sala, LocalDateTime horario) {
+    public Funcion(Pelicula pelicula, Sala sala, Timestamp horario) {
     	this.horario = horario;
     	this.pelicula = pelicula;
     	this.sala = sala;
     	this.asientoFunciones = null;
     }
 
-    public static Funcion crearFuncion(Pelicula pelicula, Sala sala, LocalDateTime horario){
+    public static Funcion crearFuncion(Pelicula pelicula, Sala sala, Timestamp horario){
         Funcion f = new Funcion(pelicula, sala, horario);
         FuncionDAO.getInstance().insert(f) ;
 
         return f;
     }
 
-    public LocalDateTime getHorario() {
+    public Timestamp getHorario() {
         return horario;
     }
 
-    public void setHorario(LocalDateTime horario) {
+    public void setHorario(Timestamp horario) {
         this.horario = horario;
     }
     

@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -329,14 +330,14 @@ public class CineController {
     }
 
     public Pelicula getPelicula(String nombre) {
-        for (Pelicula p : peliculas) {
+        for (Pelicula p : getPeliculas()) {
             if (p.esPelicula(nombre))
                 return p;
         }
         return null;
     }
 
-    public void crearFuncion(Pelicula pelicula, Sala sala, LocalDateTime horario) {
+    public void crearFuncion(Pelicula pelicula, Sala sala, Timestamp horario) {
         Funcion f = Funcion.crearFuncion(pelicula,sala,horario);
         this.funciones.add(f);
     }
@@ -360,7 +361,7 @@ public class CineController {
     }
 
     public Sala getSala(String cuit, String nombreSala) {
-        for (Sala s : salas) {
+        for (Sala s : getSalas()) {
             if (s.esSala(nombreSala) && s.getCine().getCuit().equals(s.getCine().getCuit()) )
                 return s;
         }
