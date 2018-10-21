@@ -91,7 +91,11 @@ public class CineController {
     }
 
     public List<Pelicula> getPeliculas() {
-        return peliculas;
+    	if (peliculas.size() == 0) {
+            return peliculas = PeliculaDAO.getInstance().findAll();
+        } else {
+            return peliculas;
+        }
     }
 
     public Vector<String> getListadoPeliculas() {
@@ -289,20 +293,16 @@ public class CineController {
 
     public void modificarSala(String cuit, String nombre, int filas, int columnas) {
 
-
         Sala s = this.getSala(cuit, nombre);
-
         Sala.modificarSala(s, nombre, filas, columnas,s.isDeleted());
 
     }
 
     public void eliminarSala(String cuit, String nombre) {
 
-
         Sala s = this.getSala(cuit, nombre);
         salas.remove(s);
         Sala.modificarSala(s, nombre, s.getFilas(), s.getColumnas(),true);
-
 
     }
 
@@ -312,25 +312,26 @@ public class CineController {
 
     public void crearPelicula(String nombre, String director, String genero, 
                               String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
+    	
     	this.peliculas.add(Pelicula.crearPelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion));
+    
     }
 
     public void modificarPelicula(String nombre, String director, String genero,
                                   String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
-        Pelicula p = this.getPelicula(nombre);
-        if (p != null) {
-            p.setDirector(director);
-            p.setDuracion(duracion);
-            p.setIdioma(idioma);
-            p.setCalificacion(calificacion);
-            p.setObservacion(observacion);
-        }
+        
+    	Pelicula p = this.getPelicula(nombre);
+        Pelicula.modificarPelicula(p, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion, p.isDeleted());
+    
     }
 
     public void eliminarPelicula(String nombre) {
-        Pelicula p = this.getPelicula(nombre);
-        if (p != null)
-            peliculas.remove(p);
+        
+    	Pelicula p = this.getPelicula(nombre);
+        peliculas.remove(p);
+        Pelicula.modificarPelicula(p, p.getNombre(), p.getDirector(), p.getGenero(), p.getDuracion(), 
+        		p.getIdioma(), p.getSubtitulos(), p.getCalificacion(), p.getObservacion(), true);
+    
     }
 
     public Pelicula getPelicula(String nombre) {

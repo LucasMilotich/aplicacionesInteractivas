@@ -12,6 +12,7 @@ public class Pelicula {
     private String subtitulos;
     private int calificacion;
     private String observacion;
+    private boolean deleted;
 
     public Pelicula() {
     }
@@ -34,7 +35,8 @@ public class Pelicula {
     }
     
     public static Pelicula modificarPelicula(Pelicula p, String nombre, String director, String genero,
-    										String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+    										String duracion, String idioma, String subtitulos, int calificacion,
+    										String observacion, boolean deleted) {
     	if(p != null) {
     		p.setNombre(nombre);
     		p.setDirector(director);
@@ -44,6 +46,7 @@ public class Pelicula {
     		p.setSubtitulos(subtitulos);
     		p.setCalificacion(calificacion);
     		p.setObservacion(observacion);
+    		p.setDeleted(deleted);
     	}
     	PeliculaDAO.getInstance().update(p);
     	return p;
@@ -111,6 +114,14 @@ public class Pelicula {
 
 	public void setGenero(String genero) {
 		this.genero = genero;
+	}
+
+	public boolean isDeleted() {
+		return deleted;
+	}
+
+	public void setDeleted(boolean deleted) {
+		this.deleted = deleted;
 	}
 
 	public boolean esPelicula(String nombre) {

@@ -7,7 +7,8 @@ public class Sala {
     private String nombre;
     private int filas;
     private int columnas;
-
+    private boolean deleted;
+    
     public boolean isDeleted() {
         return deleted;
     }
@@ -15,8 +16,6 @@ public class Sala {
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
     }
-
-    private boolean deleted;
 
     public Cine getCine() {
         return cine;

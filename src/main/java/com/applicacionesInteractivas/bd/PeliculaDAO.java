@@ -1,13 +1,13 @@
 package com.applicacionesInteractivas.bd;
 
-import com.applicacionesInteractivas.modelo.Cine;
-import com.applicacionesInteractivas.modelo.Pelicula;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.applicacionesInteractivas.modelo.Pelicula;
 
 public class PeliculaDAO implements ICRUD<Pelicula> {
 
@@ -52,9 +52,9 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
     public void update(Pelicula p) {
     	try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".cine set nombre = ?, director = ?, "
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".pelicula set nombre = ?, director = ?, "
             										 + "genero = ?, duracion = ?, idioma = ?, subtitulos = ?, calificacion = ?, "
-            										 + "observacion = ? where nombre = ?");
+            										 + "observaciones = ?, deleted = ? where nombre = ?");
             s.setString(1, p.getNombre());
             s.setString(2, p.getDirector());
             s.setString(3, p.getGenero());
@@ -63,7 +63,8 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             s.setString(6, p.getSubtitulos());
             s.setInt(7, p.getCalificacion());
             s.setString(8, p.getObservacion());
-            s.setString(9, p.getNombre());
+            s.setBoolean(9, p.isDeleted());
+            s.setString(10, p.getNombre());
 
             s.execute();
             PoolConnection.getPoolConnection().releaseConnection(con);
@@ -103,7 +104,7 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
     }
 
     @Override
-    public Pelicula mapToEntity(ResultSet rs) {
+    public Pelicula mapToEntity(ResultSet rs) throws SQLException {
     	return new Pelicula(
                 rs.getString(1),
                 rs.getString(2),
