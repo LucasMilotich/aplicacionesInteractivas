@@ -1,8 +1,11 @@
 package com.applicacionesInteractivas.vista.formularios;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.UsuarioController;
 import com.applicacionesInteractivas.controllers.VentaController;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormAltaDescuento;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormModifDescuento;
 import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
 
@@ -71,6 +74,12 @@ public class JFormularioMenuPpal extends JFrame {
     private JMenu menuVentas = new JMenu("Ventas");
     private JMenuItem ventaBoleteriaMenuItem = new JMenuItem("Venta boleteria");
 
+    //Descuentos
+    private JMenu menuDescuentos = new JMenu("Descuentos");
+    private JMenuItem menuAltaDescuento = new JMenuItem("Alta Descuento");
+    private JMenuItem menuModificarDescuento = new JMenuItem("Modificar descuento");
+    private JMenuItem menuBajaDescuento = new JMenuItem("Baja descuento");
+
     public JFormularioMenuPpal() {
 
         this.setSize(600, 600);
@@ -87,6 +96,7 @@ public class JFormularioMenuPpal extends JFrame {
         funcionesInit();
         usuarioInit();
         ventaInit();
+        descuentoInit();
 
     }
 
@@ -244,6 +254,30 @@ public class JFormularioMenuPpal extends JFrame {
         	VentaBoleteria ventaBoleteria = new VentaBoleteria();
 //        	ventaController.setVentaBoleteria(ventaBoleteria);
         	ventaBoleteria.setVisible(true);
+        });
+
+    }
+
+    private void descuentoInit(){
+
+        DescuentoController usuarioController = DescuentoController.getInstance();
+
+        mainPanel.add(menuDescuentos);
+        menuBar.add(menuDescuentos);
+        menuDescuentos.add(menuAltaDescuento);
+        menuDescuentos.add(menuModificarDescuento);
+        menuDescuentos.add(menuBajaDescuento);
+
+        menuAltaDescuento.addActionListener(e -> {
+            FormAltaDescuento altaUsuarioForm = new FormAltaDescuento ();
+//            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
+            altaUsuarioForm.setVisible(true);
+        });
+
+        menuModificarDescuento.addActionListener(e -> {
+            FormModifDescuento altaUsuarioForm = new FormModifDescuento ();
+//            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
+            altaUsuarioForm.setVisible(true);
         });
 
     }

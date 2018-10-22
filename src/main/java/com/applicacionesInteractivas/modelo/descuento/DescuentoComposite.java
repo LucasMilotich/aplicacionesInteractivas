@@ -15,6 +15,16 @@ public class DescuentoComposite extends Descuento {
     }
 
     @Override
+    public boolean isDosPorUno() {
+        return false;
+    }
+
+    @Override
+    public boolean isPorcentaje() {
+        return false;
+    }
+
+    @Override
     public double aplicarDescuento() {
         return 0;
     }
