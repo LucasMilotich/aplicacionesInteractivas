@@ -45,7 +45,7 @@ public class DescuentoDAO implements ICRUD<Descuento> {
                 s.setInt(6, 0);
                 s.setInt(7, porcentajeSobreVenta.getPorcentajeSobreVenta());
 
-            }
+            } 
             s.setBoolean(8, false);
 
             s.execute();
