@@ -2,6 +2,7 @@ package com.applicacionesInteractivas.vista.formularios.funciones;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
@@ -98,7 +99,8 @@ public class FormAltaFuncion extends JFrame{
 			Pelicula p = cineController.getPelicula(String.valueOf(comboPelicula.getSelectedItem()));
 			cineController.crearFuncion(p,
 										s,
-					LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+				Timestamp.valueOf(LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm"))));
+			
 			JOptionPane.showMessageDialog(null,"Funcion creada!");
 			this.setVisible(false);
 		});
