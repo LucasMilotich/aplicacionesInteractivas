@@ -1,7 +1,6 @@
 package com.applicacionesInteractivas.bd;
 
 import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DosPorUno;
 import com.applicacionesInteractivas.modelo.descuento.PorcentajeSobreVenta;

@@ -26,7 +26,7 @@ public class DescuentoController {
 
     }
 
-    public Descuento getDescuento(String cuil , String nombre){
+    public Descuento getDescuento(String cuil, String nombre) {
         for (Descuento c : getDescuentos()) {
             if (c.getCine().getCuit().equals(cuil) && c.getNombre().equals(nombre))
                 return c;
@@ -42,10 +42,20 @@ public class DescuentoController {
         return instance;
     }
 
-    public void modificarDescuento(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, int cantProdAComprar, int cantProdAPagar, int porcentaje){
-        Descuento d = getDescuento(cineCuil,nombre);
+    public void eliminarDescuento(String cineCuil, String nombre) {
+        Descuento d = getDescuento(cineCuil, nombre);
+        if (d.isPorcentaje()) {
+            Descuento.modificarDescuento(d, d.getVigenciaDesde(), d.getVigenciaHasta(), 0, 0, ((PorcentajeSobreVenta) d).getPorcentajeSobreVenta(), true);
+        } else if (d.isDosPorUno()) {
+            Descuento.modificarDescuento(d, d.getVigenciaDesde(), d.getVigenciaHasta(), ((DosPorUno) d).getCantidadProductosRequeridos(), ((DosPorUno) d).getCantidadProductosAPagar(), 0, true);
+        }
+        descuentos.remove(d);
+    }
+
+    public void modificarDescuento(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, int cantProdAComprar, int cantProdAPagar, int porcentaje) {
+        Descuento d = getDescuento(cineCuil, nombre);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        Descuento.modificarDescuento(d, LocalDate.parse(vigenciaDesde,dtf),  LocalDate.parse(vigenciaHasta,dtf),  cantProdAComprar,  cantProdAPagar,  porcentaje,false);
+        Descuento.modificarDescuento(d, LocalDate.parse(vigenciaDesde, dtf), LocalDate.parse(vigenciaHasta, dtf), cantProdAComprar, cantProdAPagar, porcentaje, false);
     }
 
     public void crearDescuento(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, String tipoDescuento) {

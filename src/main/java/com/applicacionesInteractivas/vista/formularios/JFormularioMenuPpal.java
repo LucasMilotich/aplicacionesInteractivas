@@ -5,6 +5,7 @@ import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.UsuarioController;
 import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.vista.formularios.descuentos.FormAltaDescuento;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormElimDescuento;
 import com.applicacionesInteractivas.vista.formularios.descuentos.FormModifDescuento;
 import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
@@ -276,6 +277,12 @@ public class JFormularioMenuPpal extends JFrame {
 
         menuModificarDescuento.addActionListener(e -> {
             FormModifDescuento altaUsuarioForm = new FormModifDescuento ();
+//            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
+            altaUsuarioForm.setVisible(true);
+        });
+
+        menuBajaDescuento.addActionListener(e -> {
+            FormElimDescuento altaUsuarioForm = new FormElimDescuento ();
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             altaUsuarioForm.setVisible(true);
         });

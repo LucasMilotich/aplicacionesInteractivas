@@ -74,18 +74,22 @@ public class FormAltaDescuento extends JFrame{
 		
 		lblVigenciaDesde = new JLabel();
 		lblVigenciaDesde.setText("Vigencia desde");
+		lblVigenciaDesde.setToolTipText("La fecha es de formato dd/mm/aaaa");
 		this.add(lblVigenciaDesde);
 		
 		txtVigenciaDesde = new JTextField();
 		txtVigenciaDesde.setColumns(12);
+		txtVigenciaDesde.setToolTipText("La fecha es de formato dd/mm/aaaa");
 		this.add(txtVigenciaDesde);
 
 		lblVigenciaHasta = new JLabel();
 		lblVigenciaHasta.setText("Vigencia hasta");
+		lblVigenciaHasta.setToolTipText("La fecha es de formato dd/mm/aaaa");
 		this.add(lblVigenciaHasta);
 		
 		txtVigenciaHasta = new JTextField();
 		txtVigenciaHasta.setColumns(12);
+		txtVigenciaHasta.setToolTipText("La fecha es de formato dd/mm/aaaa");
 		this.add(txtVigenciaHasta);
 
 		lblTipoDescuento = new JLabel();
