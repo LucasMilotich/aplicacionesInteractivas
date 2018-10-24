@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -13,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.modelo.Pelicula;
+import com.applicacionesInteractivas.modelo.Sala;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaFunciones;
 
 public class FormElimFuncion extends JFrame{
@@ -24,10 +27,12 @@ public class FormElimFuncion extends JFrame{
 	private JScrollPane miBarra;
 	private JPanel btnContainer, tableContainer;
 	private JPanel mainPanel;
+	private String cuit, nombreSala, nombrePeli;
+	private Timestamp horario;
 
 	public FormElimFuncion() {
 		
-		this.setSize(320, 360);
+		this.setSize(600, 360);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Eliminar Funcion");
@@ -36,7 +41,9 @@ public class FormElimFuncion extends JFrame{
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.eliminarFuncion((String) tablaFunciones.getValueAt(tablaFunciones.getSelectedRow(), 0));
+			Pelicula p = cine.getPelicula(nombrePeli);
+			Sala s = cine.getSala(cuit, nombreSala);
+			cine.eliminarFuncion(p, s, horario);
 			JOptionPane.showMessageDialog(null,"Funcion modificada!");
 			this.setVisible(false);
 		});
@@ -52,6 +59,10 @@ public class FormElimFuncion extends JFrame{
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
 		            try{
+		            	cuit = (String)table.getValueAt(table.getSelectedRow(), 0);
+		            	nombreSala = (String)table.getValueAt(table.getSelectedRow(), 1);
+		            	nombrePeli = (String)table.getValueAt(table.getSelectedRow(), 2);
+		            	horario = (Timestamp)table.getValueAt(table.getSelectedRow(), 3);
 			            btnEliminar.setEnabled(true);
 		            }
 		            catch(Exception e){

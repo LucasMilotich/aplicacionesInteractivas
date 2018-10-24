@@ -52,7 +52,7 @@ CREATE TABLE funcion(
 cuit			VARCHAR(12) NOT NULL,
 pelicula		VARCHAR(50) NOT NULL,
 sala			VARCHAR(50) NOT NULL,
-horario			DATE NOT NULL,
+horario			TIMESTAMP NOT NULL,
 deleted 		TINYINT(1) DEFAULT '0' NULL
 );
 

@@ -51,6 +51,21 @@ public class Funcion {
         return f;
     }
 
+	public static Funcion modificarFuncion(Funcion f, Timestamp horarioNuevo) {
+		FuncionDAO.getInstance().delete(f);
+		if (f != null) {
+			f.setHorario(horarioNuevo);
+		}
+		FuncionDAO.getInstance().insert(f);
+		
+		return f;
+	}
+	
+	public static Funcion eliminarFuncion(Funcion f) {
+		FuncionDAO.getInstance().delete(f);
+		return f;
+	}
+	
     public Timestamp getHorario() {
         return horario;
     }
@@ -58,10 +73,6 @@ public class Funcion {
     public void setHorario(Timestamp horario) {
         this.horario = horario;
     }
-    
-//    public boolean esFuncion(String horario) {
-//    	return this.getHorario().equals(horario);
-//    }
 
 	public boolean isDeleted() {
 		return deleted;
@@ -70,4 +81,5 @@ public class Funcion {
 	public void setDeleted(boolean deleted) {
 		this.deleted = deleted;
 	}
+
 }

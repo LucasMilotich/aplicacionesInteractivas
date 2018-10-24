@@ -133,4 +133,8 @@ public class UsuarioController {
         usuario.setDeleted(true);
         Usuario.modificarUsuario(usuario,usuario.getNombreUsuario(),usuario.getEmail(),usuario.getPassword(),usuario.getNombre(),usuario.getDomicilio(),usuario.getDni(),usuario.getFechaNacimiento(),usuario.isDeleted());
     }
+    
+    public boolean validarAcceso(String username, String password) {
+    	return Usuario.validarAcceso(username, password);
+    }
 }

@@ -8,6 +8,8 @@ public class Main {
 
         JFormularioMenuPpal jFormularioMenuPpal = new JFormularioMenuPpal();
         jFormularioMenuPpal.setVisible(true);
+    	/*JFormularioLogin login = new JFormularioLogin();
+    	login.setVisible(true);*/
 
     }
 

@@ -92,6 +92,28 @@ public class UsuarioDAO implements ICRUD<Usuario> {
     public Usuario findBy(int id) {
         return null;
     }
+    
+    public boolean validarAcceso(String username, String password) {
+    	Connection con = null;
+        boolean result = false;
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select IF(COUNT(1) > 0, 1, 0) from " + PoolConnection.dbName + ".usuario where "+
+            											"nombre_usuario = ? and password = ? and deleted = false");
+            s.setString(1, username);
+            s.setString(2, password);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getBoolean(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+    }
 
     @Override
     public List<Usuario> findAll() {

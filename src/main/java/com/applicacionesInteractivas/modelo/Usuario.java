@@ -10,7 +10,15 @@ import java.util.List;
 public class Usuario {
 
     private List<IRol> roles;
-
+    private String nombreUsuario;
+    private String email;
+    private String password;
+    private String nombre;
+    private String domicilio;
+    private String dni;
+    private LocalDate fechaNacimiento;
+    private boolean deleted = false;
+    
     public Usuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, LocalDate fechaNacimiento, boolean deleted) {
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -47,15 +55,10 @@ public class Usuario {
         UsuarioDAO.getInstance().modificarRoles(usuario);
 
     }
-
-    private String nombreUsuario;
-    private String email;
-    private String password;
-    private String nombre;
-    private String domicilio;
-    private String dni;
-    private LocalDate fechaNacimiento;
-    private boolean deleted = false;
+    
+    public static boolean validarAcceso(String nombreUsuario, String password) {
+    	return UsuarioDAO.getInstance().validarAcceso(nombreUsuario, password);
+    }
 
     public boolean isDeleted() {
         return deleted;

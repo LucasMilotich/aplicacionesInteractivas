@@ -8,8 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.applicacionesInteractivas.modelo.Cine;
-import com.applicacionesInteractivas.modelo.Usuario;
-import com.applicacionesInteractivas.vista.formularios.usuarios.Columns;
 
 public class CineDAO implements ICRUD<Cine> {
 

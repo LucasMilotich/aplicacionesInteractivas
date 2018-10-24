@@ -6,9 +6,12 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
+
+import com.applicacionesInteractivas.controllers.UsuarioController;
 
 public class JFormularioLogin extends JFrame {
 
@@ -44,11 +47,18 @@ public class JFormularioLogin extends JFrame {
 		
 		JButton btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
-		btnConfirmar.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JFrame form2 = new JFormularioMenuPpal();
+		btnConfirmar.addActionListener(e -> {
+			UsuarioController usuarioController = UsuarioController.getInstance();
+			String username = txtUsuario.getText();
+			String password = String.copyValueOf(txtContrasena.getPassword());
+			boolean acceso = usuarioController.validarAcceso(username, password);
+			if (acceso) {
+				JOptionPane.showMessageDialog(null, "Accediendo..");
+				JFormularioMenuPpal form2 = new JFormularioMenuPpal();
+				this.setVisible(false);
 				form2.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(null, "El usuario y contrasenia ingresados son incorrectos. Por favor verifiquelos.");
 			}
 		});
 		this.add(btnConfirmar);

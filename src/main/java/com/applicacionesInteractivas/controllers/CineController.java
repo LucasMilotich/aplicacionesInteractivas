@@ -1,7 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -34,6 +33,7 @@ public class CineController {
     public static CineController getInstance() {
         if (instance == null) {
             instance = new CineController();
+            instance.buildModel();
         }
         return instance;
     }
@@ -342,21 +342,22 @@ public class CineController {
         this.funciones.add(f);
     }
 
-    public void modificarFuncion(Pelicula pelicula, Sala sala,LocalDateTime horario) {
-
+    public void modificarFuncion(Pelicula pelicula, Sala sala,Timestamp horarioViejo, Timestamp horarioNuevo) {
+    	Funcion f = this.getFuncion(pelicula, sala, horarioViejo);
+    	Funcion.modificarFuncion(f, horarioNuevo);
     }
 
-    public void eliminarFuncion(String horario) {
-        Funcion f = this.getFuncion(horario);
-        if (f != null)
-            funciones.remove(f);
+    public void eliminarFuncion(Pelicula pelicula, Sala sala,Timestamp horario) {
+    	Funcion f = this.getFuncion(pelicula, sala, horario);
+    	funciones.remove(f);
+    	Funcion.eliminarFuncion(f);
     }
 
-    private Funcion getFuncion(String horario) {
-//        for (Funcion f : funciones) {
-//            if (f.esFuncion(horario))
-//                return f;
-//        }
+    private Funcion getFuncion(Pelicula p, Sala s, Timestamp horario) {
+        for (Funcion f : funciones) {
+            if (f.getPelicula().getNombre().equals(p.getNombre()) && f.getSala().esSala(s.getNombre()) && f.getHorario().equals(horario))
+                return f;
+        }
         return null;
     }
 

@@ -4,9 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +40,27 @@ public class FuncionDAO implements ICRUD<Funcion> {
     }
 
     @Override
-    public void delete(Funcion funcion) {
-    	
+    public void delete(Funcion f) {
+    	try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".funcion set deleted = ?"
+            										 + " where cuit = ? and pelicula = ? and sala = ? and horario = ?");
+            s.setBoolean(1, true);
+            s.setString(2, f.getSala().getCine().getCuit());
+            s.setString(3, f.getPelicula().getNombre());
+            s.setString(4, f.getSala().getNombre());
+            s.setTimestamp(5, f.getHorario());
+
+            s.execute();
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void update(Funcion funcion) {
-        
+    public void update(Funcion f) {
+    	
     }
 
     @Override

@@ -4,8 +4,9 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,6 +18,8 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.modelo.Pelicula;
+import com.applicacionesInteractivas.modelo.Sala;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaFunciones;
 
 public class FormModifFuncion extends JFrame{
@@ -36,6 +39,7 @@ public class FormModifFuncion extends JFrame{
 	private JScrollPane miBarra;
 	private JPanel horarioContainer, cineContainer,peliculaContainer,salaContainer, btnContainer, tableContainer;
 	private JPanel mainPanel;
+	private Timestamp horarioViejo;
 	
 	public FormModifFuncion() {
 		
@@ -80,7 +84,10 @@ public class FormModifFuncion extends JFrame{
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-//			cine.modificarFuncion(LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+			Pelicula p = cine.getPelicula(txtPelicula.getText());
+			Sala s = cine.getSala(txtCine.getText(), txtSala.getText());
+			Timestamp t = Timestamp.valueOf(LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
+			cine.modificarFuncion(p, s, horarioViejo, t);
 			JOptionPane.showMessageDialog(null,"Funcion modificada!");
 			this.setVisible(false);
 		});
@@ -99,12 +106,9 @@ public class FormModifFuncion extends JFrame{
 		            	txtCine.setText((String) table.getValueAt(row, 0));
 						txtSala.setText((String) table.getValueAt(row, 1));
 						txtPelicula.setText((String) table.getValueAt(row, 2));
-						txtHorario.setText((String) table.getValueAt(row, 3)
-								);
-		            	txtSala.setEditable(true);
-						txtCine.setEditable(true);
-						txtPelicula.setEditable(true);
-						txtHorario.setEditable(true);
+						txtHorario.setText( table.getValueAt(row, 3).toString());
+						horarioViejo = (Timestamp) table.getValueAt(row, 3);
+		            	txtHorario.setEditable(true);
 			            btnModificar.setEnabled(true);
 		            }
 		            catch(Exception e){
