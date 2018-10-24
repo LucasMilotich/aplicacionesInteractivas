@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.modelo.descuento;
 
+import com.applicacionesInteractivas.bd.DescuentoDAO;
 import com.applicacionesInteractivas.modelo.Cine;
 
 import java.time.LocalDate;
@@ -68,4 +69,19 @@ public abstract class Descuento {
     public abstract boolean isPorcentaje();
 
     protected abstract double aplicarDescuento();
+
+    public static Descuento modificarDescuento(Descuento d, LocalDate vigenciaDesde, LocalDate vigenciaHasta, int cantidadRequeridosDeProductos, int cantidadACobrar, int porcentaje, boolean deleted){
+        d.setVigenciaDesde(vigenciaDesde);
+        d.setVigenciaHasta(vigenciaHasta);
+        if (cantidadACobrar > 0 && cantidadRequeridosDeProductos > 0 && porcentaje == 0){
+            ((DosPorUno) d).setCantidadProductosAPagar(cantidadACobrar);
+            ((DosPorUno) d).setCantidadProductosRequeridos(cantidadACobrar);
+        }else if (cantidadACobrar == 0 && cantidadRequeridosDeProductos == 0 && porcentaje > 0){
+            ((PorcentajeSobreVenta) d).setPorcentajeSobreVenta(porcentaje);
+        }
+        d.setDeleted(deleted);
+        DescuentoDAO.getInstance().update(d);
+
+        return d;
+    }
 }

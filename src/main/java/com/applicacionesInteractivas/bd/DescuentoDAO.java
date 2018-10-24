@@ -34,18 +34,7 @@ public class DescuentoDAO implements ICRUD<Descuento> {
             s.setDate(3, Date.valueOf(descuento.getVigenciaDesde()));
             s.setDate(4, Date.valueOf(descuento.getVigenciaHasta()));
 
-            if (descuento.isDosPorUno()) {
-                DosPorUno dosPorUno = (DosPorUno) descuento;
-                s.setInt(5, dosPorUno.getCantidadProductosRequeridos());
-                s.setInt(6, dosPorUno.getCantidadProductosAPagar());
-                s.setInt(7, 0);
-            } else if (descuento.isPorcentaje()) {
-                PorcentajeSobreVenta porcentajeSobreVenta = (PorcentajeSobreVenta) descuento;
-                s.setInt(5, 0);
-                s.setInt(6, 0);
-                s.setInt(7, porcentajeSobreVenta.getPorcentajeSobreVenta());
-
-            }
+            getDescuentoVariable(descuento, s);
             s.setBoolean(8, false);
 
             s.execute();
@@ -62,7 +51,42 @@ public class DescuentoDAO implements ICRUD<Descuento> {
 
     @Override
     public void update(Descuento descuento) {
+        try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".descuento set cuit = ?, "+
+                "nombre = ?, vigencia_desde = ?, vigencia_hasta = ? , cant_prod_requeridos= ? , cant_prod_a_pagar=? , porcentaje_descuento=?, deleted=? where cuit = ? and nombre =?");
+            s.setString(1, descuento.getCine().getCuit());
 
+            s.setString(2, descuento.getNombre());
+            s.setDate(3, Date.valueOf(descuento.getVigenciaDesde()));
+            s.setDate(4,Date.valueOf( descuento.getVigenciaHasta()));
+
+            getDescuentoVariable(descuento, s);
+
+            s.setBoolean(8, descuento.isDeleted());
+            s.setString(9, descuento.getCine().getCuit());
+            s.setString(10, descuento.getNombre());
+
+
+            s.execute();
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void getDescuentoVariable(Descuento descuento, PreparedStatement s) throws SQLException {
+        if (descuento.isDosPorUno()) {
+            DosPorUno dosPorUno = (DosPorUno) descuento;
+            s.setInt(5, dosPorUno.getCantidadProductosRequeridos());
+            s.setInt(6, dosPorUno.getCantidadProductosAPagar());
+            s.setInt(7, 0);
+        } else if (descuento.isPorcentaje()) {
+            PorcentajeSobreVenta porcentajeSobreVenta = (PorcentajeSobreVenta) descuento;
+            s.setInt(5, 0);
+            s.setInt(6, 0);
+            s.setInt(7, porcentajeSobreVenta.getPorcentajeSobreVenta());
+        }
     }
 
     @Override

@@ -82,12 +82,13 @@ public class FormModifDescuento extends JFrame{
 		
 		btnModificar = new JButton("Modificar Descuento");
 		btnModificar.addActionListener(e -> {
-			CineController cine = CineController.getInstance();
-			cine.modificarCine(txtCuit.getText(),
-					txtNombre.getText(),
-					txtVigenciaDesde.getText(),
-					Integer.parseInt(txtVigenciaHasta.getText()),
-					Integer.parseInt(txtProdAComprar.getText()));
+			DescuentoController descuentoController= DescuentoController.getInstance();
+			descuentoController.modificarDescuento(txtCuit.getText(), txtNombre.getText(),
+				txtVigenciaDesde.getText(),
+				txtVigenciaHasta.getText(),
+				Integer.parseInt(txtProdAComprar.getText()),
+				Integer.parseInt(txtProdAPagar.getText()),
+				Integer.parseInt(txtPorcentaje.getText()));
 			JOptionPane.showMessageDialog(null,"Descuento modificado!");
 			this.setVisible(false);
 		});
