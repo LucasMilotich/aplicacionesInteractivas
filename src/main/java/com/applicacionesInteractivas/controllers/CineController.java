@@ -278,7 +278,7 @@ public class CineController {
 
     public Cine getCine(String cuit) {
 
-        for (Cine c : cines) {
+        for (Cine c : getCines()) {
             if (c.esCine(cuit))
                 return c;
         }

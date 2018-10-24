@@ -56,11 +56,20 @@ horario			TIMESTAMP NOT NULL,
 deleted 		TINYINT(1) DEFAULT '0' NULL
 );
 
-CREATE TABLE descuento(
-id_descuento	INTEGER(10) NOT NULL AUTO_INCREMENT,
-descripcion		VARCHAR(30),
-vigencia		DATE
+create table descuento
+(
+  cuit                 varchar(12)            null,
+  nombre               varchar(30)            null,
+  vigencia_desde       date                   null,
+  vigencia_hasta       date                   null,
+  cant_prod_requeridos int(10)                null,
+  cant_prod_a_pagar    int(10)                null,
+  porcentaje_descuento int(10)                null,
+  deleted              tinyint(1) default '0' null,
+  constraint descuento_pk
+  unique (cuit, nombre)
 );
+
 
 CREATE TABLE venta(
 id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
