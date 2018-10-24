@@ -24,7 +24,7 @@ public class VentaController {
 		this.ventaBoleteria = ventaBoleteria;
 	}
 	
-    public void venderBoleteria(){
+    public void venderBoleteria(String cineCuil, String nombrePelicula, String sala, String horario, int cantidad, String formaPago, List<String> descuentoNombre){
 
     }
 

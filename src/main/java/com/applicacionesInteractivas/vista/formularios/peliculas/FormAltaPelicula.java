@@ -33,7 +33,7 @@ public class FormAltaPelicula extends JFrame{
 
 	public FormAltaPelicula() {
 		
-		this.setSize(320, 360);
+		this.setSize(500, 500);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Crear Pelicula");
