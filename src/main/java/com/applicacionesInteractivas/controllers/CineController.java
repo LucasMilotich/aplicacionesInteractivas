@@ -353,7 +353,7 @@ public class CineController {
     	Funcion.eliminarFuncion(f);
     }
 
-    private Funcion getFuncion(Pelicula p, Sala s, Timestamp horario) {
+    public Funcion getFuncion(Pelicula p, Sala s, Timestamp horario) {
         for (Funcion f : funciones) {
             if (f.getPelicula().getNombre().equals(p.getNombre()) && f.getSala().esSala(s.getNombre()) && f.getHorario().equals(horario))
                 return f;

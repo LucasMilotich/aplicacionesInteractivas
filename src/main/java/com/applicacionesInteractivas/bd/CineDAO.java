@@ -33,6 +33,16 @@ public class CineDAO implements ICRUD<Cine> {
 
 
             s.execute();
+
+            s = con.prepareStatement("insert into " + PoolConnection.dbName + ".venta_etrada values (?,?,?,?)");
+            s.setString(1, d.getCuit());
+
+            s.setString(2, d.getNombre());
+            s.setString(3, d.getDomicilio());
+            s.setBoolean(4, false);
+
+
+            s.execute();
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();

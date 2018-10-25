@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class VentaController {
 		this.ventaBoleteria = ventaBoleteria;
 	}
 	
-    public void venderBoleteria(String cineCuil, String nombrePelicula, String salaNombre, String horario, int cantidad, String formaPago, List<String> descuentoNombre){
+    public void venderBoleteria(String cineCuil, String nombrePelicula, String salaNombre, String horario, String formaPago, List<String> descuentoNombre, List<AsientoFuncion> asientos){
         // precio harcodeado
 
         List<Descuento>  descuentos = DescuentoController.getInstance().getDescuentos();
@@ -35,9 +36,9 @@ public class VentaController {
         Cine cine = CineController.getInstance().getCine(cineCuil);
         Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
         Sala sala = CineController.getInstance().getSala(cineCuil,salaNombre);
-        Funcion funcion = CineController.getInstance().getFuncion(cineCuil,nombrePelicula,salaNombre, horario);
+        Funcion funcion = CineController.getInstance().getFuncion(pelicula,sala, Timestamp.valueOf(horario));
 
-        Venta
+
 
 
     }

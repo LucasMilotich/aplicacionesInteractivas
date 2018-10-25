@@ -1,5 +1,7 @@
 package com.applicacionesInteractivas.modelo;
 
+import java.util.Random;
+
 public class Entrada {
 
     public Entrada(){}
@@ -10,10 +12,38 @@ public class Entrada {
         this.codAutenticacion = Double.toString(Math.random());
 
     }
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private  AsientoFuncion  asiento;
     private  String  estado;
-    private  String  codAutenticacion;
+    private  String  codAutenticacion  = Integer.toString((new Random()).nextInt());
+
+    public Funcion getFuncion() {
+        return funcion;
+    }
+
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
+    }
+
+    public Venta getVenta() {
+        return venta;
+    }
+
+    public void setVenta(Venta venta) {
+        this.venta = venta;
+    }
+
     private Funcion funcion;
+    private Venta venta;
 
     public AsientoFuncion getAsiento() {
         return asiento;
