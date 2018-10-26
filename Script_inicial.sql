@@ -89,3 +89,14 @@ id_funcion		INTEGER(10),
 cantidad		INTEGER(5),
 metodo_pago		INTEGER(1)
 );
+
+Create table entrada(
+id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
+estado varchar (255),
+cuit varchar (12),
+nombre_sala varchar (255),
+nombre_pelicula varchar (255),
+asiento varchar (255),
+horario timestamp
+
+)

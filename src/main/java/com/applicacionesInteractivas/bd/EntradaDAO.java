@@ -23,15 +23,15 @@ public class EntradaDAO implements ICRUD<Entrada> {
     public void insert(Entrada entrada) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".entrada values (?,?,?,?,?)");
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".entrada values (?,?,?,?,?,?)");
             s.setString(1, entrada.getEstado());
 
             s.setString(2, entrada.getCodAutenticacion());
             s.setString(3, entrada.getFuncion().getSala().getCine().getCuit());
             s.setString(4, entrada.getFuncion().getSala().getNombre());
             s.setString(5, entrada.getFuncion().getPelicula().getNombre());
-            s.setInt(5, entrada.getAsiento().getId());
-            s.setTimestamp(6,entrada.getFuncion().getHorario());
+            s.setString(5, Integer.toString(entrada.getAsiento().getAsiento().getPosx()) + ";" +Integer.toString(entrada.getAsiento().getAsiento().getPosY()));
+            s.setTimestamp(6, entrada.getFuncion().getHorario());
             s.execute();
 
             s = con.prepareStatement("SELECT LAST_INSERT_ID()");

@@ -3,6 +3,7 @@ package com.applicacionesInteractivas.modelo;
 import com.applicacionesInteractivas.bd.EntradaDAO;
 import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
+import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 
@@ -66,7 +67,7 @@ public class Venta {
 
 
 
-    private static Venta operar(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, DescuentoComposite descuento) throws AsientoFuncionNoDefinido {
+    private static Venta operar(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, Descuento descuento) throws AsientoFuncionNoDefinido {
 
         Venta venta = new Venta();
 
@@ -100,7 +101,7 @@ public class Venta {
         return null;
     }
 
-    public static Venta venderEntrada(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, DescuentoComposite descuento) throws AsientoFuncionNoDefinido {
+    public static Venta venderEntrada(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, Descuento descuento) throws AsientoFuncionNoDefinido {
         return operar(cine, pelicula, sala, funcion, asientos, medioDePago, descuento);
     }
 
