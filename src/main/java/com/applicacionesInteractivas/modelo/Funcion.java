@@ -1,6 +1,7 @@
 package com.applicacionesInteractivas.modelo;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.applicacionesInteractivas.bd.FuncionDAO;
@@ -41,7 +42,12 @@ public class Funcion {
     	this.horario = horario;
     	this.pelicula = pelicula;
     	this.sala = sala;
-    	this.asientoFunciones = null;
+    	this.asientoFunciones = new ArrayList<AsientoFuncion>();
+    	for(int i = 0; i < sala.getFilas(); i++) {
+    		for(int j = 0; j < sala.getColumnas(); j++) {
+    			this.asientoFunciones.add(new AsientoFuncion(false, new Asiento(i,j),this));
+    		}
+    	}
     }
 
     public static Funcion crearFuncion(Pelicula pelicula, Sala sala, Timestamp horario){

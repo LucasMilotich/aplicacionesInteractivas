@@ -1,14 +1,13 @@
 package com.applicacionesInteractivas.vista.formularios.tabla;
 
-import com.applicacionesInteractivas.modelo.Funcion;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DosPorUno;
 import com.applicacionesInteractivas.modelo.descuento.PorcentajeSobreVenta;
-import sun.security.krb5.internal.crypto.Des;
-
-import javax.swing.table.AbstractTableModel;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TablaDescuentos extends AbstractTableModel {
 

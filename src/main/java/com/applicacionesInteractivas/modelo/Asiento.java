@@ -2,10 +2,16 @@ package com.applicacionesInteractivas.modelo;
 
 public class Asiento {
 
-private int    posx;
-private int posY;
+	private int posx;
+	private int posY;
 
-    public int getPosx() {
+    public Asiento(int posx, int posY) {
+		super();
+		this.posx = posx;
+		this.posY = posY;
+	}
+
+	public int getPosx() {
         return posx;
     }
 

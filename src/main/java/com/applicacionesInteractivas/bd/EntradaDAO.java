@@ -1,13 +1,12 @@
 package com.applicacionesInteractivas.bd;
 
-import com.applicacionesInteractivas.modelo.AsientoFuncion;
-import com.applicacionesInteractivas.modelo.Entrada;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.applicacionesInteractivas.modelo.Entrada;
 
 public class EntradaDAO implements ICRUD<Entrada> {
 

@@ -4,15 +4,19 @@ import java.util.Random;
 
 public class Entrada {
 
-    public Entrada(){}
+    private int id;
+    private AsientoFuncion  asiento;
+    private String  estado;
+    private String  codAutenticacion  = Integer.toString((new Random()).nextInt());
+    private Funcion funcion;
+    private Venta venta;
+    
     public Entrada(AsientoFuncion asiento, Funcion funcion){
         this.asiento = asiento;
         this.funcion = funcion;
         this.estado = "VENDIDO";
         this.codAutenticacion = Double.toString(Math.random());
-
     }
-    private int id;
 
     public int getId() {
         return id;
@@ -21,11 +25,7 @@ public class Entrada {
     public void setId(int id) {
         this.id = id;
     }
-
-    private  AsientoFuncion  asiento;
-    private  String  estado;
-    private  String  codAutenticacion  = Integer.toString((new Random()).nextInt());
-
+    
     public Funcion getFuncion() {
         return funcion;
     }
@@ -41,9 +41,6 @@ public class Entrada {
     public void setVenta(Venta venta) {
         this.venta = venta;
     }
-
-    private Funcion funcion;
-    private Venta venta;
 
     public AsientoFuncion getAsiento() {
         return asiento;
