@@ -79,7 +79,6 @@ create table descuento
   unique (cuit, nombre)
 );
 
-
 CREATE TABLE venta(
 id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
 cuit			VARCHAR(12),
@@ -88,7 +87,6 @@ id_funcion		INTEGER(10),
 cantidad		INTEGER(5),
 metodo_pago		INTEGER(1)
 );
-
 Create table entrada(
 id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
 estado varchar (255),

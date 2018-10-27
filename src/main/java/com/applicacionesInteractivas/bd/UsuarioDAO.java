@@ -24,7 +24,7 @@ public class UsuarioDAO implements ICRUD<Usuario> {
         Connection con = null;
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".usuario values (?,?,?,?,?,?,?)");
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".usuario values (?,?,?,?,?,?,?,?)");
             s.setString(Columns.DNI + 1, u.getDni());
             s.setString(Columns.NOMBREUSUARIO + 1, u.getNombreUsuario());
             s.setString(Columns.NOMBRE + 1, u.getNombre());
@@ -32,6 +32,7 @@ public class UsuarioDAO implements ICRUD<Usuario> {
             s.setString(Columns.PASSWORD + 1, u.getPassword());
             s.setString(Columns.EMAIL + 1, u.getEmail());
             s.setDate(Columns.FECHANACIMIENTO + 1, Date.valueOf(u.getFechaNacimiento()));
+            s.setBoolean(8, false);
             s.execute();
 
         } catch (Exception e) {
@@ -63,7 +64,7 @@ public class UsuarioDAO implements ICRUD<Usuario> {
         try {
             con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".usuario set " +
-                    " dni = ?, nombre  = ?,  domicilio= ?, nombre_usuario= ?,email= ?, fecha_nacimiento = ?,  password  = ?, deleted = ?");
+                " dni = ?, nombre  = ?,  domicilio= ?, nombre_usuario= ?,email= ?, fecha_nacimiento = ?,  password  = ?, deleted = ?");
             s.setString(Columns.DNI + 1, u.getDni());
             s.setString(Columns.NOMBREUSUARIO + 1, u.getNombreUsuario());
             s.setString(Columns.NOMBRE + 1, u.getNombre());
@@ -92,14 +93,14 @@ public class UsuarioDAO implements ICRUD<Usuario> {
     public Usuario findBy(int id) {
         return null;
     }
-    
+
     public boolean validarAcceso(String username, String password) {
-    	Connection con = null;
+        Connection con = null;
         boolean result = false;
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select IF(COUNT(1) > 0, 1, 0) from " + PoolConnection.dbName + ".usuario where "+
-            											"nombre_usuario = ? and password = ? and deleted = false");
+            PreparedStatement s = con.prepareStatement("select IF(COUNT(1) > 0, 1, 0) from " + PoolConnection.dbName + ".usuario where " +
+                "nombre_usuario = ? and password = ? and deleted = false");
             s.setString(1, username);
             s.setString(2, password);
             ResultSet rs = s.executeQuery();
@@ -138,14 +139,14 @@ public class UsuarioDAO implements ICRUD<Usuario> {
     @Override
     public Usuario mapToEntity(ResultSet rs) throws SQLException {
         return new Usuario(
-                rs.getString(Columns.NOMBREUSUARIO + 1),
-                rs.getString(Columns.EMAIL + 1),
-                rs.getString(Columns.PASSWORD + 1),
-                rs.getString(Columns.NOMBRE + 1),
-                rs.getString(Columns.DOMICILIO + 1),
-                rs.getString(Columns.DNI + 1),
-                rs.getDate(Columns.FECHANACIMIENTO + 1).toLocalDate(),
-                rs.getBoolean(Columns.DELETED));
+            rs.getString(Columns.NOMBREUSUARIO + 1),
+            rs.getString(Columns.EMAIL + 1),
+            rs.getString(Columns.PASSWORD + 1),
+            rs.getString(Columns.NOMBRE + 1),
+            rs.getString(Columns.DOMICILIO + 1),
+            rs.getString(Columns.DNI + 1),
+            rs.getDate(Columns.FECHANACIMIENTO + 1).toLocalDate(),
+            rs.getBoolean(Columns.DELETED));
     }
 
     public void modificarRoles(Usuario usuario) {
@@ -154,7 +155,7 @@ public class UsuarioDAO implements ICRUD<Usuario> {
         try {
             con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("delete from " + PoolConnection.dbName + ".rol_usuario " +
-                    " where nombre_usuario = ?");
+                " where nombre_usuario = ?");
             s.setString(1, usuario.getNombreUsuario());
             System.out.printf("The query is %s ", s.toString());
             s.execute();

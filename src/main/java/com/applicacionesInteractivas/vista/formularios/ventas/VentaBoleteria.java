@@ -158,8 +158,8 @@ public class VentaBoleteria extends JFrame {
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
 			String nombrePeli = (String)comboPelicula.getSelectedItem();
 			//A la venta no deberia pasarsele una Funcion en vez de salaNombre y el horario? La funcion tiene ambas.
-			ventaController.venderBoleteria(cuitCine, nombrePeli, salaNombre, horario, 
-											formaPago, descuentoNombre, asientos);
+			/*ventaController.venderBoleteria(cuitCine, nombrePeli, salaNombre, horario, 
+											formaPago, descuentoNombre, asientos);*/
 			JOptionPane.showMessageDialog(null,"Venta realizada!");
 			this.setVisible(false);
 		});
