@@ -51,7 +51,7 @@ public class VentaBoleteria extends JFrame {
 	
 	public VentaBoleteria() {
 
-		this.setSize(320, 300);
+		this.setSize(600, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");

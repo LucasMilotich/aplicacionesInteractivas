@@ -124,7 +124,7 @@ public class FuncionDAO implements ICRUD<Funcion> {
             	ResultSet rs2 = ss.executeQuery();
             	
             	while(rs2.next()){
-            		asientos.add(new AsientoFuncion(rs2.getBoolean(3), new Asiento(rs.getInt(1), rs.getInt(2)), f));
+            		asientos.add(new AsientoFuncion(rs2.getBoolean(3), new Asiento(rs2.getInt(1), rs2.getInt(2)), f));
             	}
             	
             	f.setAsientoFunciones(asientos);
