@@ -49,21 +49,20 @@ deleted			TINYINT(1) DEFAULT '0' NULL
 );
 
 CREATE TABLE funcion(
+id_funcion		int(3) PRIMARY KEY AUTO_INCREMENT,
 cuit			VARCHAR(12) NOT NULL,
 pelicula		VARCHAR(50) NOT NULL,
 sala			VARCHAR(50) NOT NULL,
-horario			TIMESTAMP NOT NULL,
+fecha			DATE NOT NULL,
+hora			TIME NOT NULL,
 deleted 		TINYINT(1) DEFAULT '0' NULL
 );
 
 CREATE TABLE asiento_funcion(
-cuit			VARCHAR(12) NOT NULL,
-pelicula		VARCHAR(50) NOT NULL,
-sala			VARCHAR(50) NOT NULL,
-horario			TIMESTAMP NOT NULL,
+id_funcion		INT(3) NOT NULL,
 fila			SMALLINT(2) NOT NULL,
 columna			SMALLINT(2) NOT NULL,
-deleted 		TINYINT(1) DEFAULT '0' NULL
+ocupado			TINYINT(1) DEFAULT '0' NULL
 );
 
 create table descuento
@@ -98,5 +97,4 @@ nombre_sala varchar (255),
 nombre_pelicula varchar (255),
 asiento varchar (255),
 horario timestamp
-
-)
+);

@@ -1,17 +1,20 @@
 package com.applicacionesInteractivas.modelo;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.applicacionesInteractivas.bd.FuncionDAO;
 
 public class Funcion {
-
+	
+	private int id;
     private Pelicula pelicula;
     private Sala sala;
     private List<AsientoFuncion> asientoFunciones;
-	private Timestamp horario;
+	private LocalDate fecha;
+	private LocalTime hora;
 	private boolean deleted;
 
     public Pelicula getPelicula() {
@@ -38,8 +41,9 @@ public class Funcion {
         this.asientoFunciones = asientoFunciones;
     }
 
-    public Funcion(Pelicula pelicula, Sala sala, Timestamp horario) {
-    	this.horario = horario;
+    public Funcion(Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora) {
+    	this.fecha = fecha;
+    	this.hora = hora;
     	this.pelicula = pelicula;
     	this.sala = sala;
     	this.asientoFunciones = new ArrayList<AsientoFuncion>();
@@ -49,36 +53,59 @@ public class Funcion {
     		}
     	}
     }
+    
+    public Funcion(int id, Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora) {
+    	this.id = id;
+    	this.fecha = fecha;
+    	this.hora = hora;
+    	this.pelicula = pelicula;
+    	this.sala = sala;
+    	this.deleted = false;
+    	this.asientoFunciones = null;
+    }
 
-    public static Funcion crearFuncion(Pelicula pelicula, Sala sala, Timestamp horario){
-        Funcion f = new Funcion(pelicula, sala, horario);
+    public static Funcion crearFuncion(Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora){
+        Funcion f = new Funcion(pelicula, sala, fecha, hora);
         FuncionDAO.getInstance().insert(f) ;
 
         return f;
     }
 
-	public static Funcion modificarFuncion(Funcion f, Timestamp horarioNuevo) {
-		FuncionDAO.getInstance().delete(f);
+	public static Funcion modificarFuncion(Funcion f, LocalDate fechaNueva, LocalTime horaNueva) {
+		
 		if (f != null) {
-			f.setHorario(horarioNuevo);
+			f.setFecha(fechaNueva);
+			f.setHora(horaNueva);
 		}
-		FuncionDAO.getInstance().insert(f);
+		FuncionDAO.getInstance().update(f);
 		
 		return f;
 	}
 	
 	public static Funcion eliminarFuncion(Funcion f) {
+		
+		if (f != null) {
+			f.setDeleted(true);
+		}
 		FuncionDAO.getInstance().delete(f);
 		return f;
 	}
 	
-    public Timestamp getHorario() {
-        return horario;
-    }
+	public LocalDate getFecha() {
+		return fecha;
+	}
 
-    public void setHorario(Timestamp horario) {
-        this.horario = horario;
-    }
+	public void setFecha(LocalDate fecha) {
+		this.fecha = fecha;
+	}
+
+	public LocalTime getHora() {
+		return hora;
+	}
+
+	public void setHora(LocalTime hora) {
+		this.hora = hora;
+	}
 
 	public boolean isDeleted() {
 		return deleted;
@@ -88,4 +115,12 @@ public class Funcion {
 		this.deleted = deleted;
 	}
 
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
 }

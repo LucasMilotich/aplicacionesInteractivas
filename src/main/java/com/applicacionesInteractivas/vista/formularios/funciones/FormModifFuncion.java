@@ -4,11 +4,11 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.LocalDate;
+import java.time.LocalTime;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -18,18 +18,26 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.modelo.Pelicula;
-import com.applicacionesInteractivas.modelo.Sala;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaFunciones;
 
 public class FormModifFuncion extends JFrame{
 
 	private static final long serialVersionUID = 1785958213568294559L;
-	private JLabel lblHorario;
+	private JLabel lblDia;
+	private JLabel lblMes;
+	private JLabel lblAnio;
+	private JLabel lblHora;
 	private JLabel lblSala;
 	private JLabel lblCine;
 	private JLabel lblPelicula;
-	private JTextField txtHorario;
+	private String[] listaDias = {"1","2","3","4","5","6","7","8","9","10","11","12",
+			"13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
+	private JComboBox<String> comboDia;
+	private String[] listaMeses = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"};
+	private JComboBox<String> comboMes;
+	private String[] listaAnio = {"2018"};
+	private JComboBox<String> comboAnio;
+	private JTextField txtHora;
 	private JTextField txtSala;
 	private JTextField txtCine;
 	private JTextField txtPelicula;
@@ -39,7 +47,7 @@ public class FormModifFuncion extends JFrame{
 	private JScrollPane miBarra;
 	private JPanel horarioContainer, cineContainer,peliculaContainer,salaContainer, btnContainer, tableContainer;
 	private JPanel mainPanel;
-	private Timestamp horarioViejo;
+	private int idFuncion;
 	
 	public FormModifFuncion() {
 		
@@ -49,13 +57,37 @@ public class FormModifFuncion extends JFrame{
 		this.setTitle("Modificar Funcion");
 		mainPanel = new JPanel();
 		
-		lblHorario = new JLabel("Horario");
-		this.add(lblHorario);
+		lblDia = new JLabel("Dia");
+		this.add(lblDia);
 		
-		txtHorario = new JTextField();
-		txtHorario.setColumns(12);
-		txtHorario.setEditable(false);
-		this.add(txtHorario);
+		comboDia = new JComboBox<String>(listaDias);
+		comboDia.setSelectedItem(null);
+		comboDia.setEnabled(false);;
+		this.add(comboDia);
+		
+		lblMes = new JLabel("Mes");
+		this.add(lblMes);
+		
+		comboMes = new JComboBox<String>(listaMeses);
+		comboMes.setSelectedItem(null);
+		comboMes.setEnabled(false);;
+		this.add(comboMes);
+		
+		lblAnio = new JLabel("Anio");
+		this.add(lblAnio);
+		
+		comboAnio = new JComboBox<String>(listaAnio);
+		comboAnio.setSelectedItem(null);
+		comboAnio.setEnabled(false);;
+		this.add(comboAnio);
+		
+		lblHora = new JLabel("Hora");
+		this.add(lblHora);
+		
+		txtHora = new JTextField();
+		txtHora.setColumns(12);
+		txtHora.setEnabled(false);
+		this.add(txtHora);
 		
 		lblCine = new JLabel("Cine");
 		this.add(lblCine);
@@ -84,10 +116,12 @@ public class FormModifFuncion extends JFrame{
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			Pelicula p = cine.getPelicula(txtPelicula.getText());
-			Sala s = cine.getSala(txtCine.getText(), txtSala.getText());
-			Timestamp t = Timestamp.valueOf(LocalDateTime.parse(txtHorario.getText(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")));
-			cine.modificarFuncion(p, s, horarioViejo, t);
+			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
+								Integer.valueOf((String)comboMes.getSelectedItem()),
+								Integer.valueOf((String)comboDia.getSelectedItem()));
+			String[] horario = txtHora.getText().split(":");
+			LocalTime hora = LocalTime.of(Integer.parseInt(horario[0]),Integer.parseInt(horario[1]));
+			cine.modificarFuncion(idFuncion, fecha, hora);;
 			JOptionPane.showMessageDialog(null,"Funcion modificada!");
 			this.setVisible(false);
 		});
@@ -103,12 +137,19 @@ public class FormModifFuncion extends JFrame{
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            try{
-		            	txtCine.setText((String) table.getValueAt(row, 0));
-						txtSala.setText((String) table.getValueAt(row, 1));
-						txtPelicula.setText((String) table.getValueAt(row, 2));
-						txtHorario.setText( table.getValueAt(row, 3).toString());
-						horarioViejo = (Timestamp) table.getValueAt(row, 3);
-		            	txtHorario.setEditable(true);
+		            	txtCine.setText((String) table.getValueAt(row, 1));
+						txtSala.setText((String) table.getValueAt(row, 2));
+						txtPelicula.setText((String) table.getValueAt(row, 3));
+						LocalDate fecha = (LocalDate)table.getValueAt(row, 4);
+						comboDia.setSelectedItem(String.valueOf(fecha.getDayOfMonth()));
+						comboDia.setEnabled(true);
+						comboMes.setSelectedItem(String.valueOf(fecha.getMonthValue()));
+						comboMes.setEnabled(true);
+						comboAnio.setSelectedItem(String.valueOf(fecha.getYear()));
+						comboAnio.setEnabled(true);
+						txtHora.setText( table.getValueAt(row, 5).toString());
+		            	txtHora.setEnabled(true);
+		            	idFuncion = (int)table.getValueAt(row, 0);
 			            btnModificar.setEnabled(true);
 		            }
 		            catch(Exception e){
@@ -128,8 +169,14 @@ public class FormModifFuncion extends JFrame{
 		miBarra.setViewportView(tablaFunciones);
 		
 		horarioContainer = new JPanel();
-		horarioContainer.add(lblHorario);
-		horarioContainer.add(txtHorario);
+		horarioContainer.add(lblDia);
+		horarioContainer.add(comboDia);
+		horarioContainer.add(lblMes);
+		horarioContainer.add(comboMes);
+		horarioContainer.add(lblAnio);
+		horarioContainer.add(comboAnio);
+		horarioContainer.add(lblHora);
+		horarioContainer.add(txtHora);
 		
 		cineContainer = new JPanel();
 		cineContainer.add(lblCine);
