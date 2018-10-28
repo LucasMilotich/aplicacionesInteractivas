@@ -1,6 +1,7 @@
 package com.applicacionesInteractivas.controllers;
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -138,10 +139,12 @@ public class CineController {
         }
     }
 
-    public Vector<String> getListadoFunciones() {
+    public Vector<String> getListadoFunciones(String cuitCine, String nombrePeli, LocalDate fecha) {
         Vector<String> listado = new Vector<String>();
         for (Funcion f : getFunciones()) {
-            listado.add(f.getHorario().toString());
+        	if(f.getSala().getCine().getCuit().equals(cuitCine) && f.getPelicula().getNombre().equals(nombrePeli) &&
+        			f.getFecha().equals(fecha))
+        		listado.add(f.getHora().toString());
         }
         return listado;
     }
@@ -337,25 +340,25 @@ public class CineController {
         return null;
     }
 
-    public void crearFuncion(Pelicula pelicula, Sala sala, Timestamp horario) {
-        Funcion f = Funcion.crearFuncion(pelicula,sala,horario);
+    public void crearFuncion(Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora) {
+        Funcion f = Funcion.crearFuncion(pelicula,sala,fecha,hora);
         this.funciones.add(f);
     }
 
-    public void modificarFuncion(Pelicula pelicula, Sala sala,Timestamp horarioViejo, Timestamp horarioNuevo) {
-    	Funcion f = this.getFuncion(pelicula, sala, horarioViejo);
-    	Funcion.modificarFuncion(f, horarioNuevo);
+    public void modificarFuncion(int idFuncion,LocalDate fecha, LocalTime hora) {
+    	Funcion f = this.getFuncion(idFuncion);
+    	Funcion.modificarFuncion(f, fecha, hora);
     }
 
-    public void eliminarFuncion(Pelicula pelicula, Sala sala,Timestamp horario) {
-    	Funcion f = this.getFuncion(pelicula, sala, horario);
+    public void eliminarFuncion(int idFuncion) {
+    	Funcion f = this.getFuncion(idFuncion);
     	funciones.remove(f);
     	Funcion.eliminarFuncion(f);
     }
 
-    public Funcion getFuncion(Pelicula p, Sala s, Timestamp horario) {
+    public Funcion getFuncion(int id) {
         for (Funcion f : funciones) {
-            if (f.getPelicula().getNombre().equals(p.getNombre()) && f.getSala().esSala(s.getNombre()) && f.getHorario().equals(horario))
+            if (f.getId() == id)
                 return f;
         }
         return null;

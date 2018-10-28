@@ -1,9 +1,12 @@
 package com.applicacionesInteractivas.bd;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,24 +30,28 @@ public class FuncionDAO implements ICRUD<Funcion> {
     public void insert(Funcion funcion) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".funcion values (?,?,?,?,?)");
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".funcion(cuit,pelicula,sala,fecha,hora,deleted)"
+            											+"values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             s.setString(1, funcion.getSala().getCine().getCuit());
             s.setString(2, funcion.getPelicula().getNombre());
             s.setString(3, funcion.getSala().getNombre());
-            s.setTimestamp(4,  funcion.getHorario());
-            s.setBoolean(5, false);
+            s.setDate(4,  Date.valueOf(funcion.getFecha()));
+            s.setTime(5, Time.valueOf(funcion.getHora()));
+            s.setBoolean(6, false);
             s.execute();
+
+            ResultSet keys = s.getGeneratedKeys();
+            keys.next();
+            int idFuncion = keys.getInt(1);
+            funcion.setId(idFuncion);
             
             for(AsientoFuncion af : funcion.getAsientoFunciones()) {
             	PreparedStatement ss = con.prepareStatement("insert into " + PoolConnection.dbName + ".asiento_funcion "+
-            												"values (?,?,?,?,?,?,?)");
-            	ss.setString(1, funcion.getSala().getCine().getCuit());
-                ss.setString(2, funcion.getPelicula().getNombre());
-                ss.setString(3, funcion.getSala().getNombre());
-                ss.setTimestamp(4,  funcion.getHorario());
-                ss.setInt(5, af.getAsiento().getPosx());
-                ss.setInt(6, af.getAsiento().getPosY());
-                ss.setBoolean(7, false);
+            												"values (?,?,?,?)");
+            	ss.setInt(1,  funcion.getId());
+                ss.setInt(2, af.getAsiento().getPosx());
+                ss.setInt(3, af.getAsiento().getPosY());
+                ss.setBoolean(4, false);
                 ss.execute();
             }
             
@@ -60,27 +67,10 @@ public class FuncionDAO implements ICRUD<Funcion> {
     	try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".funcion set deleted = ?"
-            										 + " where cuit = ? and pelicula = ? and sala = ? and horario = ?");
-            s.setBoolean(1, true);
-            s.setString(2, f.getSala().getCine().getCuit());
-            s.setString(3, f.getPelicula().getNombre());
-            s.setString(4, f.getSala().getNombre());
-            s.setTimestamp(5, f.getHorario());
+            										 + " where id_funcion = ?");
+            s.setBoolean(1, f.isDeleted());
+            s.setInt(2, f.getId());
             s.execute();
-            
-            for(AsientoFuncion af : f.getAsientoFunciones()) {
-            	PreparedStatement ss = con.prepareStatement("update " + PoolConnection.dbName + ".funcion set deleted = ?"
-										 				+ " where cuit = ? and pelicula = ? and sala = ? and horario = ?"
-            											+ " and fila = ? and columna = ?");
-				ss.setBoolean(1, true);
-				ss.setString(2, f.getSala().getCine().getCuit());
-				ss.setString(3, f.getPelicula().getNombre());
-				ss.setString(4, f.getSala().getNombre());
-				ss.setTimestamp(5, f.getHorario());
-				ss.setInt(6, af.getAsiento().getPosx());
-				ss.setInt(7, af.getAsiento().getPosY());
-				ss.execute();
-            }
             
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
@@ -90,7 +80,19 @@ public class FuncionDAO implements ICRUD<Funcion> {
 
     @Override
     public void update(Funcion f) {
-    	
+    	try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".funcion set fecha = ?, hora = ?"
+            										 + " where id_funcion = ?");
+            s.setDate(1, Date.valueOf(f.getFecha()));
+            s.setTime(2, Time.valueOf(f.getHora()));
+            s.setInt(3, f.getId());
+            s.execute();
+            
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -115,12 +117,9 @@ public class FuncionDAO implements ICRUD<Funcion> {
             while (rs.next()) {
             	Funcion f = mapToEntity(rs);
             	ArrayList<AsientoFuncion> asientos = new ArrayList<AsientoFuncion>();
-            	PreparedStatement ss = con.prepareStatement("select fila, columna, deleted from " + PoolConnection.dbName + ".asiento_funcion where "
-            												+"cuit = ? and pelicula = ? and sala = ? and horario = ? ");
-            	ss.setString(1, rs.getString(1));
-            	ss.setString(2, rs.getString(2));
-            	ss.setString(3, rs.getString(3));
-            	ss.setTimestamp(4, rs.getTimestamp(4));
+            	PreparedStatement ss = con.prepareStatement("select fila, columna, ocupado from " + PoolConnection.dbName + ".asiento_funcion where "
+            												+"id_funcion = ? ");
+            	ss.setInt(1, rs.getInt(1));
             	ResultSet rs2 = ss.executeQuery();
             	
             	while(rs2.next()){
@@ -141,9 +140,11 @@ public class FuncionDAO implements ICRUD<Funcion> {
     @Override
     public Funcion mapToEntity(ResultSet rs) throws SQLException{
     	return new Funcion(
-                CineController.getInstance().getPelicula(rs.getString(2)),
-                CineController.getInstance().getSala(rs.getString(1),rs.getString(3)),
-                rs.getTimestamp(4)
+    			rs.getInt(1),
+                CineController.getInstance().getPelicula(rs.getString(3)),
+                CineController.getInstance().getSala(rs.getString(2),rs.getString(4)),
+                rs.getDate(5).toLocalDate(),
+                rs.getTime(6).toLocalTime()
         );
     }
 }

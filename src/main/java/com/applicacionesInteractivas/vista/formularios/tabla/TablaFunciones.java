@@ -11,7 +11,7 @@ public class TablaFunciones extends AbstractTableModel {
 
     private static final long serialVersionUID = -2458393323291422128L;
     private List<Funcion> funciones;
-    private String[] columnNames = {"Cine", "Sala", "Pelicula", "Horario"};
+    private String[] columnNames = {"Id", "Cine", "Sala", "Pelicula", "Fecha", "Hora"};
 
     public TablaFunciones() {
         funciones = new ArrayList<Funcion>();
@@ -19,7 +19,7 @@ public class TablaFunciones extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 6;
     }
 
     @Override
@@ -32,13 +32,17 @@ public class TablaFunciones extends AbstractTableModel {
         Funcion func = funciones.get(row);
         switch (col) {
             case 0:
-                return func.getSala().getCine().getCuit();
+            	return func.getId();
             case 1:
-                return func.getSala().getNombre();
+                return func.getSala().getCine().getCuit();
             case 2:
-                return func.getPelicula().getNombre();
+                return func.getSala().getNombre();
             case 3:
-                return func.getHorario();
+                return func.getPelicula().getNombre();
+            case 4:
+                return func.getFecha();
+            case 5:
+            	return func.getHora();
             default:
                 return "";
         }

@@ -1,7 +1,6 @@
 package com.applicacionesInteractivas.vista.formularios.ventas;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.time.LocalDate;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -10,10 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.controllers.VentaController;
 
 public class VentaBoleteria extends JFrame {
 
@@ -25,18 +26,17 @@ public class VentaBoleteria extends JFrame {
 	private Vector<String> listadoPeliculas;
 	private JComboBox<String> comboPelicula;
 	private JLabel lblDia;
-	private String[] listaDias = {"01","02","03","04","05","06","07","08","09","10","11","12",
+	private String[] listaDias = {"1","2","3","4","5","6", "7","8","9","10","11","12",
 			"13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31"};
 	private JComboBox<String> comboDia;
 	private JLabel lblMes;
-	private String[] listaMeses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio",
-									"Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+	private String[] listaMeses = {"01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"};
 	private JComboBox<String> comboMes;
 	private JLabel lblAnio;
 	private String[] listaAnio = {"2018"};
+	private JButton btnBuscarFunciones;
 	private JComboBox<String> comboAnio;
 	private JLabel lblFuncion;
-	private Vector<String> listadoFunciones;
 	private JComboBox<String> comboFuncion;
 	private JLabel lblCantidad;
 	private String[] listaCantidad = {"1","2","3","4","5","6","7","8","9","10"};
@@ -51,7 +51,7 @@ public class VentaBoleteria extends JFrame {
 	
 	public VentaBoleteria() {
 
-		this.setSize(600, 600);
+		this.setSize(400, 500);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");
@@ -64,16 +64,14 @@ public class VentaBoleteria extends JFrame {
 		comboCine = new JComboBox<String>();
 		comboCine.setModel(cineModel);
 		comboCine.setSelectedItem(null);
-		comboCine.addActionListener(new ActionListener() {
+		/*comboCine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 		    {
-		        //String selectedItem = (String) comboCine.getSelectedItem();
-		        
-				listadoFunciones = CineController.getInstance().getListadoFunciones();
+		        listadoFunciones = CineController.getInstance().getListadoFunciones();
 				ComboBoxModel<String> funcionModel = new DefaultComboBoxModel<String>(listadoFunciones);
 				comboFuncion.setModel(funcionModel);
 		    }
-		});
+		});*/
 		this.add(comboCine);
 		
 		lblPelicula = new JLabel("Pelicula");
@@ -83,25 +81,50 @@ public class VentaBoleteria extends JFrame {
 		ComboBoxModel<String> peliculaModel = new DefaultComboBoxModel<String>(listadoPeliculas);
 		comboPelicula = new JComboBox<String>();
 		comboPelicula.setModel(peliculaModel);
+		comboPelicula.setSelectedItem(null);
 		this.add(comboPelicula);
 		
 		lblDia = new JLabel("Dia");
 		this.add(lblDia);
 		
 		comboDia = new JComboBox<String>(listaDias);
+		comboDia.setSelectedItem(null);
 		this.add(comboDia);
 		
 		lblMes = new JLabel("Mes");
 		this.add(lblMes);
 		
 		comboMes = new JComboBox<String>(listaMeses);
+		comboMes.setSelectedItem(null);
 		this.add(comboMes);
 		
 		lblAnio = new JLabel("Anio");
 		this.add(lblAnio);
 		
 		comboAnio = new JComboBox<String>(listaAnio);
+		comboAnio.setSelectedItem(null);
 		this.add(comboAnio);
+		
+		btnBuscarFunciones = new JButton("Buscar funciones");
+		btnBuscarFunciones.addActionListener(e -> {
+			CineController cineController = CineController.getInstance();
+			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
+			String nombrePeli = (String)comboPelicula.getSelectedItem();
+			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
+					Integer.valueOf((String)comboMes.getSelectedItem()),
+					Integer.valueOf((String)comboDia.getSelectedItem()));
+			Vector<String> funciones = cineController.getListadoFunciones(cuitCine, nombrePeli, fecha);
+			if(funciones.size() == 0) {
+				JOptionPane.showMessageDialog(null,"No se han encontrado funciones para los datos ingresados!");
+				comboFuncion.setSelectedItem(null);
+				comboFuncion.setModel(null);
+			}else {
+				ComboBoxModel<String> funcionModel = new DefaultComboBoxModel<String>(funciones);
+				comboFuncion.setModel(funcionModel);
+			}
+				
+		});
+		this.add(btnBuscarFunciones);
 		
 		lblFuncion = new JLabel("Funcion");
 		this.add(lblFuncion);
@@ -130,6 +153,16 @@ public class VentaBoleteria extends JFrame {
 		
 		btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
+		btnConfirmar.addActionListener(e -> {
+			VentaController ventaController = VentaController.getInstance();
+			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
+			String nombrePeli = (String)comboPelicula.getSelectedItem();
+			//A la venta no deberia pasarsele una Funcion en vez de salaNombre y el horario? La funcion tiene ambas.
+			/*ventaController.venderBoleteria(cuitCine, nombrePeli, salaNombre, horario, 
+											formaPago, descuentoNombre, asientos);*/
+			JOptionPane.showMessageDialog(null,"Venta realizada!");
+			this.setVisible(false);
+		});
 		this.add(btnConfirmar);
 		
 		this.mainPanel = new JPanel();
@@ -149,6 +182,7 @@ public class VentaBoleteria extends JFrame {
 		fechaContainer.add(comboMes);
 		fechaContainer.add(lblAnio);
 		fechaContainer.add(comboAnio);
+		fechaContainer.add(btnBuscarFunciones);
 		
 		JPanel funcionContainer = new JPanel();
 		funcionContainer.add(lblFuncion);

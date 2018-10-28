@@ -1,9 +1,9 @@
 package com.applicacionesInteractivas.modelo;
 
-import com.applicacionesInteractivas.bd.CineDAO;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.applicacionesInteractivas.bd.CineDAO;
 
 public class Cine {
 
