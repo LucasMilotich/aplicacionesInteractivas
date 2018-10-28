@@ -40,7 +40,7 @@ public class TablaEntradas extends AbstractTableModel{
 	    switch(col) {
 	      case 0: return Integer.toString(cine.getAsiento().getAsiento().getPosx()) + " " + Integer.toString(cine.getAsiento().getAsiento().getPosY());
 	      case 1: return cine.getCodAutenticacion();
-	      case 2: return cine.getFuncion().getHorario();
+	      case 2: return cine.getFuncion().getFecha().toString() + " " + cine.getFuncion().getHora().toString();
 	      case 3: return cine.getFuncion().getSala().getNombre();
 	      case 4: return cine.getFuncion().getSala().getCine().getNombre();
 	      default: return "";

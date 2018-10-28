@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.applicacionesInteractivas.bd.CineDAO;
+import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Cine;
@@ -27,6 +29,23 @@ public class VentaController {
         return instance;
     }
 
+
+    public VentaBoleteria getVentaBoleteria() {
+        return ventaBoleteria;
+    }
+
+    public List<Venta> getVentas() {
+        if (ventas.size() == 0) {
+            return ventas = VentaDAO.getInstance().findAll();
+        } else {
+            return ventas;
+        }
+    }
+
+    public void setVentas(List<Venta> ventas) {
+        this.ventas = ventas;
+    }
+
     private List<Venta> ventas = new ArrayList<>();
 
     public void setVentaBoleteria(VentaBoleteria ventaBoleteria) {
@@ -42,16 +61,18 @@ public class VentaController {
         Cine cine = CineController.getInstance().getCine(cineCuil);
         Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
         Sala sala = CineController.getInstance().getSala(cineCuil, salaNombre);
-        Funcion funcion = CineController.getInstance().getFuncion(pelicula, sala, Timestamp.valueOf(horario));
+        //Funcion funcion = CineController.getInstance().getFuncion(pelicula, sala, Timestamp.valueOf(horario));
 
-        try {
-            Venta.venderEntrada(cine, pelicula, sala, funcion, asientos, formaPago, descuentoAAplicar);
-        } catch (AsientoFuncionNoDefinido asientoFuncionNoDefinido) {
-            asientoFuncionNoDefinido.printStackTrace();
-        }
+//        try {
+//            Venta.venderEntrada(cine, pelicula, sala, funcion, asientos, formaPago, descuentoAAplicar);
+//        } catch (AsientoFuncionNoDefinido asientoFuncionNoDefinido) {
+//            asientoFuncionNoDefinido.printStackTrace();
+//        }
 
 
     }
+
+
 
     private Descuento buildCompositeDescuento(List<Descuento> descuentos) {
         DescuentoComposite d = new DescuentoComposite();
@@ -60,6 +81,11 @@ public class VentaController {
         }
 
         return d;
+    }
+
+    public Venta retirarVentaPorTerminal(int idVenta){
+
+        return VentaDAO.getInstance().findBy(idVenta);
     }
 
 }

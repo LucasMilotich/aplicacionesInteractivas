@@ -10,7 +10,10 @@ public class Entrada {
     private String  codAutenticacion  = Integer.toString((new Random()).nextInt());
     private Funcion funcion;
     private Venta venta;
-    
+
+    public Entrada() {
+    }
+
     public Entrada(AsientoFuncion asiento, Funcion funcion){
         this.asiento = asiento;
         this.funcion = funcion;

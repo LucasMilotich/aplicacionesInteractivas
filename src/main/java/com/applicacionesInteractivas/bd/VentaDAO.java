@@ -1,11 +1,13 @@
 package com.applicacionesInteractivas.bd;
 
+import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Venta;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class VentaDAO implements ICRUD<Venta> {
@@ -60,11 +62,34 @@ public class VentaDAO implements ICRUD<Venta> {
 
     @Override
     public List<Venta> findAll() {
-        return null;
+        Connection con = null;
+        ArrayList<Venta> result = new ArrayList<>();
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".venta where deleted = false");
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result.add(mapToEntity(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
     }
 
     @Override
     public Venta mapToEntity(ResultSet rs) throws SQLException {
-        return null;
+        Venta venta = new Venta();
+        venta.setId(rs.getInt(1));
+        venta.setCine(CineDAO.getInstance().findByCuit(rs.getString(2)));
+        venta.setCantidad(rs.getInt(3));
+        venta.setMedioDePago(rs.getString(4));
+        venta.setPrecioUnitario(rs.getDouble(5));
+        venta.setTotal(rs.getDouble(6));
+        venta.setEntradas(EntradaDAO.getInstance().findByIdVenta(venta.getId()));
+        return venta;
     }
 }

@@ -82,17 +82,15 @@ create table descuento
 CREATE TABLE venta(
 id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
 cuit			VARCHAR(12),
-id_pelicula		INTEGER(10),
-id_funcion		INTEGER(10),
 cantidad		INTEGER(5),
-metodo_pago		INTEGER(1)
+metodo_pago		INTEGER(1),
+precio_unitario		DOUBLE,
+total		DOUBLE
 );
 Create table entrada(
-id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
+id		INTEGER(10) NOT NULL AUTO_INCREMENT,
+id_venta INTEGER,
 estado varchar (255),
-cuit varchar (12),
-nombre_sala varchar (255),
-nombre_pelicula varchar (255),
 asiento varchar (255),
-horario timestamp
+id_funcion integer,
 );

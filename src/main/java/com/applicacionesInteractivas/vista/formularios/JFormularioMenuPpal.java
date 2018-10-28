@@ -7,6 +7,7 @@ import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.vista.formularios.descuentos.FormAltaDescuento;
 import com.applicacionesInteractivas.vista.formularios.descuentos.FormElimDescuento;
 import com.applicacionesInteractivas.vista.formularios.descuentos.FormModifDescuento;
+import com.applicacionesInteractivas.vista.formularios.terminal.TerminalForm;
 import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
 
@@ -81,6 +82,10 @@ public class JFormularioMenuPpal extends JFrame {
     private JMenuItem menuModificarDescuento = new JMenuItem("Modificar descuento");
     private JMenuItem menuBajaDescuento = new JMenuItem("Baja descuento");
 
+    //Terminal
+    private JMenu menuTerminal = new JMenu("Terminal");
+    private JMenuItem menuRetirarVenta = new JMenuItem("Retirar");
+
     public JFormularioMenuPpal() {
 
         this.setSize(600, 600);
@@ -98,6 +103,7 @@ public class JFormularioMenuPpal extends JFrame {
         usuarioInit();
         ventaInit();
         descuentoInit();
+        terminalInit();
 
     }
 
@@ -289,4 +295,15 @@ public class JFormularioMenuPpal extends JFrame {
 
     }
 
+    private void terminalInit(){
+        mainPanel.add(menuTerminal);
+        menuBar.add(menuTerminal);
+        menuTerminal.add(menuRetirarVenta);
+        menuRetirarVenta.addActionListener(e -> {
+            TerminalForm terminalForm = new TerminalForm ();
+//            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
+            terminalForm.setVisible(true);
+        });
+
+    }
 }
