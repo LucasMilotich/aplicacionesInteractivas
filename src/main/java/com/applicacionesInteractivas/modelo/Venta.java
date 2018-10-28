@@ -3,10 +3,13 @@ package com.applicacionesInteractivas.modelo;
 import com.applicacionesInteractivas.bd.EntradaDAO;
 import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
+import com.applicacionesInteractivas.modelo.backend.IObserver;
+import com.applicacionesInteractivas.modelo.backend.NovedadesObserver;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,6 +30,12 @@ public class Venta {
     private List<Entrada> entradas;
     private String medioDePago;
     private Cine cine;
+
+    private List<IObserver> observers = new ArrayList<>();
+
+    public Venta(){
+        observers.add(new NovedadesObserver());
+    }
 
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
@@ -102,7 +111,9 @@ public class Venta {
     }
 
     public static Venta venderEntrada(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, Descuento descuento) throws AsientoFuncionNoDefinido {
-        return operar(cine, pelicula, sala, funcion, asientos, medioDePago, descuento);
+        Venta venta =  operar(cine, pelicula, sala, funcion, asientos, medioDePago, descuento);
+        venta.notificarObservers(venta);
+        return venta ;
     }
 
 
@@ -120,5 +131,11 @@ public class Venta {
 
     public void setPrecioUnitario(int precioUnitario) {
         this.precioUnitario = precioUnitario;
+    }
+
+    private void notificarObservers(Venta venta){
+        for (IObserver io : observers){
+            io.notificarVenta(this);
+        }
     }
 }
