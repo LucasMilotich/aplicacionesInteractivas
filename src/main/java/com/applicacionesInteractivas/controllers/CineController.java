@@ -100,7 +100,7 @@ public class CineController {
     	
         Vector<String> listado = new Vector<String>();
         for (Pelicula p : this.getPeliculas()) {
-            listado.add(p.getNombre());
+            listado.add(p.getId() + " - " + p.getNombre());
         }
 
         return listado;
@@ -122,7 +122,7 @@ public class CineController {
         Vector<String> listado = new Vector<String>();
         for (Sala s : this.getSalas()) {
         	if(s.getCine().getCuit().equals(cuit))
-        		listado.add(s.getNombre());
+        		listado.add(String.valueOf(s.getId()) + " - " + s.getNombre());
         }
         return listado;
     }
@@ -139,10 +139,10 @@ public class CineController {
         }
     }
 
-    public Vector<String> getListadoFunciones(String cuitCine, String nombrePeli, LocalDate fecha) {
+    public Vector<String> getListadoFunciones(String cuitCine, int idPeli, LocalDate fecha) {
         Vector<String> listado = new Vector<String>();
         for (Funcion f : getFunciones()) {
-        	if(f.getSala().getCine().getCuit().equals(cuitCine) && f.getPelicula().getNombre().equals(nombrePeli) &&
+        	if(f.getSala().getCine().getCuit().equals(cuitCine) && f.getPelicula().getId() == idPeli &&
         			f.getFecha().equals(fecha))
         		listado.add(f.getHora().toString());
         }
@@ -264,7 +264,7 @@ public class CineController {
     
     }
 
-    public void modificarCine(String cuit, String nombre, String domicilio, int cantidadSalas, int capacidadTotal) {
+    public void modificarCine(String cuit, String nombre, String domicilio) {
         
     	Cine c = this.getCine(cuit);
         Cine.modificarCine(c, cuit, nombre, domicilio, false);
@@ -290,21 +290,24 @@ public class CineController {
     }
 
     public void crearSala(String nombre, int filas, int columnas, Cine cine) {
-        this.salas.add(Sala.crearSala(nombre, filas, columnas, cine));
+    	Sala s = Sala.crearSala(nombre, filas, columnas, cine);
+        this.salas.add(s);
+        cine.agregarSala(s);
     }
 
-    public void modificarSala(String cuit, String nombre, int filas, int columnas) {
+    public void modificarSala(int id, String nombre, int filas, int columnas) {
 
-        Sala s = this.getSala(cuit, nombre);
+        Sala s = this.getSala(id);
         Sala.modificarSala(s, nombre, filas, columnas,s.isDeleted());
 
     }
 
-    public void eliminarSala(String nombre, String cuit) {
+    public void eliminarSala(int id) {
 
-        Sala s = this.getSala(cuit, nombre);
+        Sala s = this.getSala(id);
         salas.remove(s);
-        Sala.modificarSala(s, nombre, s.getFilas(), s.getColumnas(),true);
+        Sala.eliminarSala(s);
+        s.getCine().eliminarSala(s);
 
     }
 
@@ -315,26 +318,25 @@ public class CineController {
     
     }
 
-    public void modificarPelicula(String nombre, String director, String genero,
+    public void modificarPelicula(int id, String nombre, String director, String genero,
                                   String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
         
-    	Pelicula p = this.getPelicula(nombre);
+    	Pelicula p = this.getPelicula(id);
         Pelicula.modificarPelicula(p, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion, p.isDeleted());
     
     }
 
-    public void eliminarPelicula(String nombre) {
+    public void eliminarPelicula(int id) {
         
-    	Pelicula p = this.getPelicula(nombre);
+    	Pelicula p = this.getPelicula(id);
         peliculas.remove(p);
-        Pelicula.modificarPelicula(p, p.getNombre(), p.getDirector(), p.getGenero(), p.getDuracion(), 
-        		p.getIdioma(), p.getSubtitulos(), p.getCalificacion(), p.getObservacion(), true);
+        Pelicula.eliminarPelicula(p);
     
     }
 
-    public Pelicula getPelicula(String nombre) {
+    public Pelicula getPelicula(int id) {
         for (Pelicula p : getPeliculas()) {
-            if (p.esPelicula(nombre))
+            if (p.esPelicula(id))
                 return p;
         }
         return null;
@@ -364,9 +366,9 @@ public class CineController {
         return null;
     }
 
-    public Sala getSala(String cuit, String nombreSala) {
+    public Sala getSala(int id) {
         for (Sala s : getSalas()) {
-            if (s.esSala(nombreSala) && s.getCine().getCuit().equals(s.getCine().getCuit()) )
+            if (s.getId() == id)
                 return s;
         }
         return null;

@@ -30,11 +30,11 @@ public class FuncionDAO implements ICRUD<Funcion> {
     public void insert(Funcion funcion) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".funcion(cuit,pelicula,sala,fecha,hora,deleted)"
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".funcion(cuit,id_pelicula,id_sala,fecha,hora,deleted)"
             											+"values (?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             s.setString(1, funcion.getSala().getCine().getCuit());
-            s.setString(2, funcion.getPelicula().getNombre());
-            s.setString(3, funcion.getSala().getNombre());
+            s.setInt(2, funcion.getPelicula().getId());
+            s.setInt(3, funcion.getSala().getId());
             s.setDate(4,  Date.valueOf(funcion.getFecha()));
             s.setTime(5, Time.valueOf(funcion.getHora()));
             s.setBoolean(6, false);
@@ -141,8 +141,8 @@ public class FuncionDAO implements ICRUD<Funcion> {
     public Funcion mapToEntity(ResultSet rs) throws SQLException{
     	return new Funcion(
     			rs.getInt(1),
-                CineController.getInstance().getPelicula(rs.getString(3)),
-                CineController.getInstance().getSala(rs.getString(2),rs.getString(4)),
+                CineController.getInstance().getPelicula(rs.getInt(3)),
+                CineController.getInstance().getSala(rs.getInt(4)),
                 rs.getDate(5).toLocalDate(),
                 rs.getTime(6).toLocalTime()
         );

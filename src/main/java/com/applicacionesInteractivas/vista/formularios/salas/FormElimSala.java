@@ -13,7 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaSalas;
 
 public class FormElimSala extends JFrame{
@@ -23,6 +22,7 @@ public class FormElimSala extends JFrame{
 	private JTable tablaSalas;
 	private TablaSalas tablaSalasModel;
 	private JScrollPane mibarra;
+	private int idSala;
 	private JPanel mainPanel;
 
 	public FormElimSala() {
@@ -35,8 +35,7 @@ public class FormElimSala extends JFrame{
 		btnEliminar = new JButton("Eliminar Sala");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.eliminarSala((String) tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 0),
-					(String) tablaSalas.getValueAt(tablaSalas.getSelectedRow(), 3));
+			cine.eliminarSala(idSala);
 			JOptionPane.showMessageDialog(null,"Sala eliminada!");
 			this.setVisible(false);
 		});
@@ -54,6 +53,7 @@ public class FormElimSala extends JFrame{
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
 		            try{
+		            	idSala = (int) table.getValueAt(row, 0);
 			            btnEliminar.setEnabled(true);
 		            }
 		            catch(Exception e){

@@ -11,8 +11,6 @@ public class Cine {
     private String nombre;
     private String domicilio;
     private boolean deleted = false;
-    private List<Pelicula> peliculas;
-    private List<Funcion> funciones;
     private List<Sala> salas;
     
     public boolean isDeleted() {
@@ -50,8 +48,6 @@ public class Cine {
         this.cuit = cuit;
         this.nombre = nombre;
         this.domicilio = domicilio;
-        this.peliculas = new ArrayList<Pelicula>();
-        this.funciones = new ArrayList<Funcion>();
         this.salas = new ArrayList<Sala>();
     }
 
@@ -75,22 +71,17 @@ public class Cine {
         return false;
     }
 
-    public Sala altaSala(String nombre, int capacidad) {
-        return null;
+    public void agregarSala(Sala s) {
+        this.salas.add(s);
     }
 
-    public Sala modificarSala(String nombre, int capacidad) {
-        return null;
-    }
-
-    public boolean eliminarSala(int idSala) {
-        return false;
+    public void eliminarSala(Sala s) {
+        this.salas.remove(s);
     }
 
     public Venta consultarVenta(String id) {
         return null;
     }
-
 
     public String getCuit() {
         return cuit;

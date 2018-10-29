@@ -1,16 +1,5 @@
 package com.applicacionesInteractivas.vista.formularios;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.controllers.DescuentoController;
-import com.applicacionesInteractivas.controllers.UsuarioController;
-import com.applicacionesInteractivas.controllers.VentaController;
-import com.applicacionesInteractivas.vista.formularios.descuentos.FormAltaDescuento;
-import com.applicacionesInteractivas.vista.formularios.descuentos.FormElimDescuento;
-import com.applicacionesInteractivas.vista.formularios.descuentos.FormModifDescuento;
-import com.applicacionesInteractivas.vista.formularios.terminal.TerminalForm;
-import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
-import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
-
 import java.awt.FlowLayout;
 
 import javax.swing.JFrame;
@@ -19,9 +8,16 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.controllers.DescuentoController;
+import com.applicacionesInteractivas.controllers.UsuarioController;
+import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.vista.formularios.cines.FormAltaCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormElimCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormModifCine;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormAltaDescuento;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormElimDescuento;
+import com.applicacionesInteractivas.vista.formularios.descuentos.FormModifDescuento;
 import com.applicacionesInteractivas.vista.formularios.funciones.FormAltaFuncion;
 import com.applicacionesInteractivas.vista.formularios.funciones.FormElimFuncion;
 import com.applicacionesInteractivas.vista.formularios.funciones.FormModifFuncion;
@@ -31,6 +27,9 @@ import com.applicacionesInteractivas.vista.formularios.peliculas.FormModifPelicu
 import com.applicacionesInteractivas.vista.formularios.salas.FormAltaSala;
 import com.applicacionesInteractivas.vista.formularios.salas.FormElimSala;
 import com.applicacionesInteractivas.vista.formularios.salas.FormModifSala;
+import com.applicacionesInteractivas.vista.formularios.terminal.TerminalForm;
+import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
+import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.EliminarUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.roles.ABMRoles;
 import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
@@ -267,7 +266,7 @@ public class JFormularioMenuPpal extends JFrame {
 
     private void descuentoInit(){
 
-        DescuentoController usuarioController = DescuentoController.getInstance();
+        DescuentoController descuentoController = DescuentoController.getInstance();
 
         mainPanel.add(menuDescuentos);
         menuBar.add(menuDescuentos);

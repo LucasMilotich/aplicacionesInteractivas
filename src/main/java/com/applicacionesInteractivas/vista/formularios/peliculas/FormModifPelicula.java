@@ -40,6 +40,7 @@ public class FormModifPelicula extends JFrame{
 	private TablaPeliculas tablaPeliculasModel;
 	private JTable tablaPeliculas;
 	private JScrollPane miBarra;
+	private int idPelicula;
 	private JPanel mainPanel;
 	private JPanel nombreContainer,directorContainer,generoContainer,duracionContainer;
 	private JPanel idiomaContainer,califContainer,obsContainer,subsContainer;
@@ -129,7 +130,8 @@ public class FormModifPelicula extends JFrame{
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.modificarPelicula(txtNombrePelicula.getText(),
+			cine.modificarPelicula(idPelicula,
+							   txtNombrePelicula.getText(),
 							   txtDirector.getText(),
 							   txtGenero.getText(),
 							   txtDuracion.getText(), 
@@ -152,21 +154,22 @@ public class FormModifPelicula extends JFrame{
 		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
 		            try{
-		            	txtNombrePelicula.setText((String) table.getValueAt(row, 0));
-		            	txtDirector.setText((String) table.getValueAt(row, 1));
+		            	txtNombrePelicula.setText((String) table.getValueAt(row, 1));
+		            	txtDirector.setText((String) table.getValueAt(row, 2));
 		            	txtDirector.setEditable(true);
-		            	txtGenero.setText((String) table.getValueAt(row, 2));
+		            	txtGenero.setText((String) table.getValueAt(row, 3));
 		            	txtGenero.setEditable(true);
-		            	txtDuracion.setText((String) table.getValueAt(row, 3));
+		            	txtDuracion.setText((String) table.getValueAt(row, 4));
 		            	txtDuracion.setEditable(true);
-		            	txtIdioma.setText((String) table.getValueAt(row, 4));
+		            	txtIdioma.setText((String) table.getValueAt(row, 5));
 		            	txtIdioma.setEditable(true);
-		            	txtSubtitulos.setText((String) table.getValueAt(row, 5));
+		            	txtSubtitulos.setText((String) table.getValueAt(row, 6));
 		            	txtSubtitulos.setEditable(true);
-		            	txtCalificacion.setText(Integer.toString((int) table.getValueAt(row, 6)));
+		            	txtCalificacion.setText(Integer.toString((int) table.getValueAt(row, 7)));
 		            	txtCalificacion.setEditable(true);
-		            	txtObservacion.setText((String) table.getValueAt(row, 7));
+		            	txtObservacion.setText((String) table.getValueAt(row, 8));
 		            	txtObservacion.setEditable(true);
+		            	idPelicula = (int)table.getValueAt(row, 0);
 			            
 			            btnModificar.setEnabled(true);
 		            }

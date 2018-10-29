@@ -24,20 +24,20 @@ domicilio	VARCHAR(50),
 deleted          tinyint(1) default '0' null
 );
 
-create table sala
+CREATE TABLE sala
 (
-  nombre   varchar(50) null,
-  filas    int(2)      null,
-  columnas int(2)      null,
-  cuit     varchar(12) not null,
+  id_sala	int(3) PRIMARY KEY AUTO_INCREMENT,
+  nombre   	varchar(50) null,
+  filas    	int(2)      null,
+  columnas 	int(2)      null,
+  cuit     	varchar(12) not null,
   deleted tinyint(1) default '0' null
-  constraint sala_pk
-  unique (nombre, cuit)
 );
 
 
 CREATE TABLE pelicula(
-nombre			VARCHAR(50) NOT NULL PRIMARY KEY,
+id_pelicula		INT(3) PRIMARY KEY AUTO_INCREMENT,
+nombre			VARCHAR(50) NOT NULL,
 director		VARCHAR(50),
 genero			VARCHAR(30),
 duracion		SMALLINT(3),
@@ -51,8 +51,8 @@ deleted			TINYINT(1) DEFAULT '0' NULL
 CREATE TABLE funcion(
 id_funcion		int(3) PRIMARY KEY AUTO_INCREMENT,
 cuit			VARCHAR(12) NOT NULL,
-pelicula		VARCHAR(50) NOT NULL,
-sala			VARCHAR(50) NOT NULL,
+id_pelicula		INT(3) NOT NULL,
+id_sala			INT(3) NOT NULL,
 fecha			DATE NOT NULL,
 hora			TIME NOT NULL,
 deleted 		TINYINT(1) DEFAULT '0' NULL
@@ -65,7 +65,7 @@ columna			SMALLINT(2) NOT NULL,
 ocupado			TINYINT(1) DEFAULT '0' NULL
 );
 
-create table descuento
+CREATE TABLE descuento
 (
   cuit                 varchar(12)            null,
   nombre               varchar(30)            null,
@@ -80,17 +80,26 @@ create table descuento
 );
 
 CREATE TABLE venta(
-id_venta		INTEGER(10) NOT NULL AUTO_INCREMENT,
+id_venta		INTEGER(10) PRIMARY KEY AUTO_INCREMENT,
 cuit			VARCHAR(12),
 cantidad		INTEGER(5),
 metodo_pago		INTEGER(1),
-precio_unitario		DOUBLE,
-total		DOUBLE
+precio_unitario	DOUBLE,
+total			DOUBLE
 );
-Create table entrada(
-id		INTEGER(10) NOT NULL AUTO_INCREMENT,
-id_venta INTEGER,
-estado varchar (255),
-asiento varchar (255),
-id_funcion integer,
+
+CREATE TABLE entrada(
+id				INTEGER(10) PRIMARY KEY AUTO_INCREMENT,
+id_venta 		INTEGER(10) NOT NULL,
+estado 			VARCHAR(255),
+asiento 		VARCHAR(255),
+id_funcion 		INTEGER(3) NOT NULL
+);
+
+CREATE TABLE datos_tarjeta(
+id_venta		INTEGER(10) NOT NULL,
+tipo_tarjeta	INT(1) NOT NULL,
+numero			VARCHAR(16) NOT NULL,
+vencimiento		VARCHAR(4) NOT NULL,
+codigo_seg		VARCHAR(4) NOT NULL
 );

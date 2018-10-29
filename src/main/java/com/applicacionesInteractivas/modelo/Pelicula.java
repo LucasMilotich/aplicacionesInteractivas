@@ -4,6 +4,7 @@ import com.applicacionesInteractivas.bd.PeliculaDAO;
 
 public class Pelicula {
 
+	private int id;
     private String nombre;
     private String director;
     private String genero;
@@ -14,11 +15,20 @@ public class Pelicula {
     private String observacion;
     private boolean deleted;
 
-    public Pelicula() {
-    }
-
     public Pelicula(String nombre, String director, String genero, String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
         this.nombre = nombre;
+        this.director = director;
+        this.genero = genero;
+        this.duracion = duracion;
+        this.idioma = idioma;
+        this.subtitulos = subtitulos;
+        this.calificacion = calificacion;
+        this.observacion = observacion;
+    }
+    
+    public Pelicula(int id, String nombre, String director, String genero, String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+        this.id = id;
+    	this.nombre = nombre;
         this.director = director;
         this.genero = genero;
         this.duracion = duracion;
@@ -50,6 +60,14 @@ public class Pelicula {
     	}
     	PeliculaDAO.getInstance().update(p);
     	return p;
+    }
+    
+    public static Pelicula eliminarPelicula(Pelicula p) {
+    	if (p != null) {
+			p.setDeleted(true);
+		}
+		PeliculaDAO.getInstance().delete(p);
+		return p;
     }
 
     public String getNombre() {
@@ -124,7 +142,15 @@ public class Pelicula {
 		this.deleted = deleted;
 	}
 
-	public boolean esPelicula(String nombre) {
-    	return this.getNombre().equals(nombre);
+	public boolean esPelicula(int id) {
+    	return this.getId() == id;
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

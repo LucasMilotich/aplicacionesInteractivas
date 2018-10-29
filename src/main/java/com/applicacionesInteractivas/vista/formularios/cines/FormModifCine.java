@@ -29,10 +29,6 @@ public class FormModifCine extends JFrame{
 	private JTextField txtNombre;
 	private JLabel lblDomicilio;
 	private JTextField txtDomicilio;
-	private JLabel lblCantSalas;
-	private JTextField txtCantSalas;
-	private JLabel lblCapTotal;
-	private JTextField txtCapTotal;
 	private JButton btnModificar;
 	private JTable tabCines;
 	private TablaCines tablaCines;
@@ -50,8 +46,6 @@ public class FormModifCine extends JFrame{
 		lblCuit = new JLabel("CUIT");
 		lblNombre = new JLabel("Nombre");
 		lblDomicilio = new JLabel("Domicilio");
-		lblCantSalas = new JLabel("Cant. Salas");
-		lblCapTotal = new JLabel("Cap. Total");
 		
 		txtCuit = new JTextField();
 		txtCuit.setColumns(12);
@@ -65,22 +59,12 @@ public class FormModifCine extends JFrame{
 		txtDomicilio.setColumns(12);
 		txtDomicilio.setEnabled(false);
 		
-		txtCantSalas = new JTextField();
-		txtCantSalas.setColumns(12);
-		txtCantSalas.setEnabled(false);
-		
-		txtCapTotal = new JTextField();
-		txtCapTotal.setColumns(12);
-		txtCapTotal.setEnabled(false);
-		
 		btnModificar = new JButton("Modificar Cine");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
 			cine.modificarCine(txtCuit.getText(),
 					txtNombre.getText(),
-					txtDomicilio.getText(),
-					Integer.parseInt(txtCantSalas.getText()),
-					Integer.parseInt(txtCapTotal.getText()));
+					txtDomicilio.getText());
 			JOptionPane.showMessageDialog(null,"Cine modificado!");
 			this.setVisible(false);
 		});
@@ -97,14 +81,6 @@ public class FormModifCine extends JFrame{
 		JPanel domContainer = new JPanel();
 		domContainer.add(lblDomicilio);
 		domContainer.add(txtDomicilio);
-		
-		JPanel cantContainer = new JPanel();
-		cantContainer.add(lblCantSalas);
-		cantContainer.add(txtCantSalas);
-		
-		JPanel capContainer = new JPanel();
-		capContainer.add(lblCapTotal);
-		capContainer.add(txtCapTotal);
 		
 		JPanel btnContainer = new JPanel();
 		btnContainer.add(btnModificar);
@@ -123,10 +99,6 @@ public class FormModifCine extends JFrame{
 			            txtNombre.setEnabled(true);
 			            txtDomicilio.setText((String) table.getValueAt(row, 2));
 			            txtDomicilio.setEnabled(true);
-			            txtCantSalas.setText(Integer.toString((int)table.getValueAt(row, 3)));
-			            txtCantSalas.setEnabled(true);
-			            txtCapTotal.setText(Integer.toString((int)table.getValueAt(row, 4)));
-			            txtCapTotal.setEnabled(true);
 		            
 			            btnModificar.setEnabled(true);
 		            }
@@ -153,8 +125,6 @@ public class FormModifCine extends JFrame{
 		mainPanel.add(cuitContainer);
 		mainPanel.add(nombreContainer);
 		mainPanel.add(domContainer);
-		mainPanel.add(cantContainer);
-		mainPanel.add(capContainer);
 		mainPanel.add(btnContainer);
 		mainPanel.add(tablaCinesContainer);
 		

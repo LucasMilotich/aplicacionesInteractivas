@@ -1,13 +1,16 @@
 package com.applicacionesInteractivas.modelo;
 
+import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
 
 public class Sala {
-
+	
+	private int id;
     private String nombre;
     private int filas;
     private int columnas;
     private boolean deleted;
+    private Cine cine;
     
     public boolean isDeleted() {
         return deleted;
@@ -24,15 +27,24 @@ public class Sala {
     public void setCine(Cine cine) {
         this.cine = cine;
     }
-
-    private Cine cine;
-
+    
     public Sala(String nombre, int filas, int columnas, Cine cine) {
         super();
         this.nombre = nombre;
         this.filas = filas;
         this.columnas = columnas;
         this.cine = cine;
+        this.deleted = false;
+    }
+
+    public Sala(int id, String nombre, int filas, int columnas, Cine cine) {
+        super();
+        this.id = id;
+        this.nombre = nombre;
+        this.filas = filas;
+        this.columnas = columnas;
+        this.cine = cine;
+        this.deleted = false;
     }
 
     public static Sala crearSala(String nombre, int filas, int columnas, Cine cine) {
@@ -44,14 +56,23 @@ public class Sala {
     public static Sala modificarSala(Sala s, String nombre, int filas, int columnas, Boolean deleted) {
 
         if (s != null) {
+        	s.setNombre(nombre);
             s.setFilas(filas);
             s.setColumnas(columnas);
-            s.setDeleted(deleted);
         }
 
         SalaDAO.getInstance().update(s);
         return s;
     }
+    
+    public static Sala eliminarSala(Sala s) {
+		
+		if (s != null) {
+			s.setDeleted(true);
+		}
+		SalaDAO.getInstance().delete(s);
+		return s;
+	}
 
     public String getNombre() {
         return nombre;
@@ -80,4 +101,12 @@ public class Sala {
     public boolean esSala(String nombre) {
         return this.getNombre().equals(nombre);
     }
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
 }

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,9 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
     public void insert(Pelicula p) {
     	try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".pelicula values (?,?,?,?,?,?,?,?,?)");
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".pelicula"+
+            						"(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observaciones, deleted)"+
+            						" values (?,?,?,?,?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             s.setString(1, p.getNombre());
             s.setString(2, p.getDirector());
             s.setString(3, p.getGenero());
@@ -34,9 +37,12 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             s.setInt(7, p.getCalificacion());
             s.setString(8, p.getObservacion());
             s.setBoolean(9, false);
-
-
             s.execute();
+            
+            ResultSet keys = s.getGeneratedKeys();
+            keys.next();
+            int idPelicula = keys.getInt(1);
+            p.setId(idPelicula);
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -45,7 +51,17 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
 
     @Override
     public void delete(Pelicula pelicula) {
-        
+    	try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".pelicula set deleted = ? where id_pelicula = ?");
+            s.setBoolean(1, pelicula.isDeleted());
+            s.setInt(2, pelicula.getId());
+            s.execute();
+            
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -54,7 +70,7 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             Connection con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".pelicula set nombre = ?, director = ?, "
             										 + "genero = ?, duracion = ?, idioma = ?, subtitulos = ?, calificacion = ?, "
-            										 + "observaciones = ?, deleted = ? where nombre = ?");
+            										 + "observaciones = ? where id_pelicula = ?");
             s.setString(1, p.getNombre());
             s.setString(2, p.getDirector());
             s.setString(3, p.getGenero());
@@ -63,10 +79,9 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             s.setString(6, p.getSubtitulos());
             s.setInt(7, p.getCalificacion());
             s.setString(8, p.getObservacion());
-            s.setBoolean(9, p.isDeleted());
-            s.setString(10, p.getNombre());
-
+            s.setInt(9, p.getId());
             s.execute();
+            
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -106,14 +121,15 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
     @Override
     public Pelicula mapToEntity(ResultSet rs) throws SQLException {
     	return new Pelicula(
-                rs.getString(1),
+    			rs.getInt(1),
                 rs.getString(2),
                 rs.getString(3),
                 rs.getString(4),
                 rs.getString(5),
                 rs.getString(6),
-                rs.getInt(7),
-                rs.getString(8)
+                rs.getString(7),
+                rs.getInt(8),
+                rs.getString(9)
         );
     }
 }

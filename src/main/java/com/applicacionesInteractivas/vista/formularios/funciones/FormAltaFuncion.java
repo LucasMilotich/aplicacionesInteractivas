@@ -119,11 +119,8 @@ public class FormAltaFuncion extends JFrame{
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			String values = String.valueOf(comboCine.getSelectedItem());
-			String[] cine = values.split(" - ");
-			//Cine c = cineController.getCine(cine[0]);
-			Sala s = cineController.getSala(cine[0], String.valueOf(comboSala.getSelectedItem()));
-			Pelicula p = cineController.getPelicula(String.valueOf(comboPelicula.getSelectedItem()));
+			Sala s = cineController.getSala(Integer.parseInt(String.valueOf(comboSala.getSelectedItem()).split(" - ")[0]));
+			Pelicula p = cineController.getPelicula(Integer.parseInt(String.valueOf(comboPelicula.getSelectedItem()).split(" - ")[0]));
 			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
 											Integer.valueOf((String)comboMes.getSelectedItem()),
 											Integer.valueOf((String)comboDia.getSelectedItem()));

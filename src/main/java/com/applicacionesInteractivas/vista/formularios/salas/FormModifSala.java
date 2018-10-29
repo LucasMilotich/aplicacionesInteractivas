@@ -32,6 +32,7 @@ public class FormModifSala extends JFrame {
     private JTable tablaSalas;
     private TablaSalas tablaSalasModel;
     private JScrollPane mibarra;
+    private int idSala;
     private JPanel mainPanel;
     private JPanel nombreContainer, columContainer,cineContainer, filaContainer, btnContainer, tableContainer;
 
@@ -45,7 +46,6 @@ public class FormModifSala extends JFrame {
         mainPanel = new JPanel();
 
         lblNombre = new JLabel("Nombre");
-
 
         txtNombre = new JTextField();
         txtNombre.setColumns(12);
@@ -70,8 +70,8 @@ public class FormModifSala extends JFrame {
         btnModificar.setEnabled(false);
         btnModificar.addActionListener(e -> {
             CineController cine = CineController.getInstance();
-            cine.modificarSala( txtCine.getText(),
-                    txtNombre.getText(),
+            cine.modificarSala( idSala,
+            		txtNombre.getText(),
                     Integer.parseInt(txtFilas.getText()),
                     Integer.parseInt(txtColumnas.getText()));
             JOptionPane.showMessageDialog(null, "Sala modificada!");
@@ -87,13 +87,14 @@ public class FormModifSala extends JFrame {
                 int row = table.rowAtPoint(point);
                 if (mouseEvent.getClickCount() == 2 && table.getSelectedRow() != -1) {
                     try {
-                        txtCine.setText((String) table.getValueAt(row, 3));
-                        txtNombre.setText((String) table.getValueAt(row, 0));
-                        txtFilas.setText(Integer.toString((int) table.getValueAt(row, 1)));
+                        txtCine.setText((String) table.getValueAt(row, 4));
+                        txtNombre.setText((String) table.getValueAt(row, 1));
+                        txtNombre.setEditable(true);
+                        txtFilas.setText(Integer.toString((int) table.getValueAt(row, 2)));
                         txtFilas.setEditable(true);
-
-                        txtColumnas.setText(Integer.toString((int) table.getValueAt(row, 2)));
+                        txtColumnas.setText(Integer.toString((int) table.getValueAt(row, 3)));
                         txtColumnas.setEditable(true);
+                        idSala = (int) table.getValueAt(row, 0);
 
                         btnModificar.setEnabled(true);
                     } catch (Exception e) {

@@ -1,6 +1,7 @@
 package com.applicacionesInteractivas.vista.formularios.peliculas;
 
 import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -21,6 +22,7 @@ public class FormElimPelicula extends JFrame{
 	private JTable tablaPeliculas;
 	private TablaPeliculas tablaPeliculasModel;
 	private JScrollPane miBarra;
+	private int idPelicula;
 	private JPanel mainPanel;
 	private JPanel tableContainer;
 	private JPanel btnContainer;
@@ -37,7 +39,7 @@ public class FormElimPelicula extends JFrame{
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.eliminarPelicula((String) tablaPeliculas.getValueAt(tablaPeliculas.getSelectedRow(), 0));
+			cine.eliminarPelicula(idPelicula);
 			JOptionPane.showMessageDialog(null,"Pelicula eliminada!");
 			this.setVisible(false);
 		});
@@ -49,8 +51,11 @@ public class FormElimPelicula extends JFrame{
 		tablaPeliculas.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
+		        Point point = mouseEvent.getPoint();
+		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
 		            try{
+		            	idPelicula = (int)table.getValueAt(row, 0);
 			            btnEliminar.setEnabled(true);
 		            }
 		            catch(Exception e){

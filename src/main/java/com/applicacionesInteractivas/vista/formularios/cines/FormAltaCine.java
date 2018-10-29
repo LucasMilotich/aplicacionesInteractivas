@@ -28,8 +28,6 @@ public class FormAltaCine extends JFrame{
 	private JPanel panel2;
 	private JPanel panel3;
 	private JPanel panel4;
-	private JPanel panel5;
-	private JPanel panel6;
 	
 	private static final long serialVersionUID = -7869162737881219117L;
 	public FormAltaCine() {

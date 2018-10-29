@@ -109,11 +109,11 @@ public class VentaBoleteria extends JFrame {
 		btnBuscarFunciones.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			String nombrePeli = (String)comboPelicula.getSelectedItem();
+			int idPeli = Integer.parseInt(((String)comboPelicula.getSelectedItem()).split(" - ")[0]);
 			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
 					Integer.valueOf((String)comboMes.getSelectedItem()),
 					Integer.valueOf((String)comboDia.getSelectedItem()));
-			Vector<String> funciones = cineController.getListadoFunciones(cuitCine, nombrePeli, fecha);
+			Vector<String> funciones = cineController.getListadoFunciones(cuitCine, idPeli, fecha);
 			if(funciones.size() == 0) {
 				JOptionPane.showMessageDialog(null,"No se han encontrado funciones para los datos ingresados!");
 				comboFuncion.setSelectedItem(null);
