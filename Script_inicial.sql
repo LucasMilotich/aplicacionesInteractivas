@@ -92,7 +92,8 @@ CREATE TABLE entrada(
 id				INTEGER(10) PRIMARY KEY AUTO_INCREMENT,
 id_venta 		INTEGER(10) NOT NULL,
 estado 			VARCHAR(255),
-asiento 		VARCHAR(255),
+fila 		integer,
+columna integer,
 id_funcion 		INTEGER(3) NOT NULL
 );
 

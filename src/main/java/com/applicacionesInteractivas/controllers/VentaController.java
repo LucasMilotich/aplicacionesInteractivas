@@ -59,8 +59,8 @@ public class VentaController {
         Descuento descuentoAAplicar = buildCompositeDescuento(descuentos);
 
         Cine cine = CineController.getInstance().getCine(cineCuil);
-        Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
-        Sala sala = CineController.getInstance().getSala(cineCuil, salaNombre);
+        //Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
+        //Sala sala = CineController.getInstance().getSala(cineCuil, salaNombre);
         //Funcion funcion = CineController.getInstance().getFuncion(pelicula, sala, Timestamp.valueOf(horario));
 
 //        try {
