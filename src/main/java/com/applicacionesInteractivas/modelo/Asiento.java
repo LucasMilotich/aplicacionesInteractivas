@@ -11,6 +11,7 @@ public class Asiento {
 		this.posY = posY;
 	}
 
+
 	public int getPosx() {
         return posx;
     }

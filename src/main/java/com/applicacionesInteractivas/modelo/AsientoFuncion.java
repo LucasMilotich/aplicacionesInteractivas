@@ -6,19 +6,25 @@ public class AsientoFuncion {
     private Asiento asiento;
     private Funcion funcion;
     //private int id;
-    
+
     public Asiento getAsiento() {
         return asiento;
     }
 
-    public AsientoFuncion(boolean ocupado, Asiento asiento, Funcion funcion) {
-		super();
-		this.ocupado = ocupado;
-		this.asiento = asiento;
-		this.funcion = funcion;
-	}
+    public AsientoFuncion() {
+        super();
+    }
 
-	public void setAsiento(Asiento asiento) {
+    ;
+
+    public AsientoFuncion(boolean ocupado, Asiento asiento, Funcion funcion) {
+        super();
+        this.ocupado = ocupado;
+        this.asiento = asiento;
+        this.funcion = funcion;
+    }
+
+    public void setAsiento(Asiento asiento) {
         this.asiento = asiento;
     }
 
@@ -38,11 +44,11 @@ public class AsientoFuncion {
         this.ocupado = ocupado;
     }
 
-	public Funcion getFuncion() {
-		return funcion;
-	}
+    public Funcion getFuncion() {
+        return funcion;
+    }
 
-	public void setFuncion(Funcion funcion) {
-		this.funcion = funcion;
-	}
+    public void setFuncion(Funcion funcion) {
+        this.funcion = funcion;
+    }
 }

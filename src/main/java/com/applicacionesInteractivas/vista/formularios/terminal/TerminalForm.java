@@ -1,15 +1,12 @@
 package com.applicacionesInteractivas.vista.formularios.terminal;
 
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaEntradas;
+
+import java.awt.*;
 
 public class TerminalForm extends JFrame {
 
@@ -39,7 +36,7 @@ public class TerminalForm extends JFrame {
 
     public TerminalForm() {
 
-        this.setSize(320, 360);
+        this.setSize(520, 560);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Terminal");
@@ -55,32 +52,26 @@ public class TerminalForm extends JFrame {
         lblCantEntradas = new JLabel();
         lblCantEntradas.setText("Cantidad de entradas");
         this.add(lblCantEntradas);
-        lblCantEntradas.setVisible(false);
 
         txtCantEntradas = new JTextField();
         txtCantEntradas.setColumns(12);
         this.add(txtCantEntradas);
-        txtCantEntradas.setVisible(false);
 
         lblTotal = new JLabel();
         lblTotal.setText("Total pagado");
         this.add(lblTotal);
-        lblTotal.setVisible(false);
 
         txtTotal = new JTextField();
         txtTotal.setColumns(12);
         this.add(txtTotal);
-        txtTotal.setVisible(false);
 
         lblMedioDePago = new JLabel();
         lblMedioDePago.setText("Medio de pago ");
         this.add(lblTotal);
-        lblMedioDePago.setVisible(false);
 
         txtMedioDePago = new JTextField();
         txtMedioDePago.setColumns(12);
         this.add(txtTotal);
-        txtMedioDePago.setVisible(false);
 
         btnConfirm = new JButton("Confirmar");
         this.add(btnConfirm);
@@ -103,18 +94,11 @@ public class TerminalForm extends JFrame {
 
         panel5 = new JPanel();
         panel5.add(btnConfirm);
-
-
         JTable entradas = new JTable();
-        TablaEntradas tablaEntradas = new TablaEntradas();
+        entradas.setPreferredScrollableViewportSize(new Dimension(500, 70));
 
-        entradas.setModel(tablaEntradas);
         entradas.setAutoCreateColumnsFromModel(true);
 
-        panel6 = new JPanel();
-        panel6.add(entradas);
-
-        this.add(entradas);
         btnConfirm.addActionListener(e -> {
             VentaController cine = VentaController.getInstance();
             Venta venta = cine.retirarVentaPorTerminal(Integer.parseInt(txtIdentificadorentrada.getText()));
@@ -122,16 +106,42 @@ public class TerminalForm extends JFrame {
             txtCantEntradas.setText(Integer.toString(venta.getCantidad()));
             txtTotal.setText(Double.toString(venta.getTotal()));
             txtMedioDePago.setText(venta.getMedioDePago());
+
+
+            TablaEntradas tablaEntradas = new TablaEntradas();
+
             tablaEntradas.setCines(venta.getEntradas());
-            this.setVisible(false);
+            entradas.setModel(tablaEntradas);
+            panel2.setVisible(true);
+            panel3.setVisible(true);
+            panel4.setVisible(true);
+            panel6.setVisible(true);
+
+
         });
+
+        JScrollPane mibarra = new JScrollPane();
+        mibarra.setBounds(40, 300, 400, 130);
+
+
         mainPanel = new JPanel();
 
         mainPanel.add(panel1);
+        mainPanel.add(panel5);
+        panel2.setVisible(false);
+        panel3.setVisible(false);
+        panel4.setVisible(false);
+
         mainPanel.add(panel2);
         mainPanel.add(panel3);
         mainPanel.add(panel4);
-        mainPanel.add(panel5);
+
+
+        panel6 = new JPanel();
+        mibarra.setViewportView(entradas);
+        panel6.add(mibarra);
+        panel6.setVisible(false);
+
         mainPanel.add(panel6);
 
 

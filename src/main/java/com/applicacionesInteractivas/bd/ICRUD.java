@@ -11,7 +11,7 @@ public interface ICRUD<T> {
      void delete(T t);
      void update(T t);
      T get (T t);
-     T findBy (int id);
+     T findBy (int id) throws SQLException;
 
      List<T> findAll();
 

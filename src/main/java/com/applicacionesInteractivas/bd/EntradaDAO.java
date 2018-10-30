@@ -31,7 +31,7 @@ public class EntradaDAO implements ICRUD<Entrada> {
             s.setString(3, entrada.getFuncion().getSala().getCine().getCuit());
             s.setString(4, entrada.getFuncion().getSala().getNombre());
             s.setString(5, entrada.getFuncion().getPelicula().getNombre());
-            s.setString(5, Integer.toString(entrada.getAsiento().getAsiento().getPosx()) + ";" +Integer.toString(entrada.getAsiento().getAsiento().getPosY()));
+            s.setString(5, Integer.toString(entrada.getAsiento().getAsiento().getPosx()) + ";" + Integer.toString(entrada.getAsiento().getAsiento().getPosY()));
 //            s.setTimestamp(6, entrada.getFuncion().getHorario());
             s.execute();
 
@@ -72,12 +72,14 @@ public class EntradaDAO implements ICRUD<Entrada> {
         return null;
     }
 
-    public List<Entrada> findByIdVenta(int id){
+    public List<Entrada> findByIdVenta(int id) {
         Connection con = null;
         ArrayList<Entrada> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".entrada where id_venta = ?");
+            s.setInt(1, id);
+
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {
@@ -95,11 +97,10 @@ public class EntradaDAO implements ICRUD<Entrada> {
     public Entrada mapToEntity(ResultSet rs) throws SQLException {
         Entrada entrada = new Entrada();
         entrada.setId(rs.getInt(1));
-        entrada.setVenta(VentaDAO.getInstance().findBy(rs.getInt(1)));
+        //entrada.setVenta(VentaDAO.getInstance().findBy(rs.getInt(1)));
         entrada.setEstado(rs.getString(3));
-        // TODO ASientofuncionDAO
-        entrada.setAsiento(null);
-        entrada.setFuncion(FuncionDAO.getInstance().findBy(rs.getInt(5)));
+        entrada.setAsiento(AsientoFuncionDAO.getInstance().findBy(rs.getInt(6), rs.getInt(4), rs.getInt(5)));
+        entrada.setFuncion(FuncionDAO.getInstance().findBy(rs.getInt(6)));
         return entrada;
     }
 }

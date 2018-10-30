@@ -101,8 +101,24 @@ public class FuncionDAO implements ICRUD<Funcion> {
     }
 
     @Override
-    public Funcion findBy(int id) {
-        return null;
+    public Funcion findBy(int id) throws SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".funcion where id_funcion = ?");
+            s.setInt(1, id);
+            rs = s.executeQuery();
+            rs.next();
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+
+        return mapToEntity(rs);
     }
 
     @Override

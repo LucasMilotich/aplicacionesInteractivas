@@ -20,7 +20,7 @@ public class TablaEntradas extends AbstractTableModel{
             "Sala",
             "Cine"};
 
-	public TablaEntradas() {
+	public 	TablaEntradas() {
 		entradas = new ArrayList<Entrada>();
 	}
 

@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +68,6 @@ public class VentaController {
     }
 
 
-
     private Descuento buildCompositeDescuento(List<Descuento> descuentos) {
         DescuentoComposite d = new DescuentoComposite();
         for (Descuento desc : descuentos) {
@@ -77,9 +77,14 @@ public class VentaController {
         return d;
     }
 
-    public Venta retirarVentaPorTerminal(int idVenta){
-
-        return VentaDAO.getInstance().findBy(idVenta);
+    public Venta retirarVentaPorTerminal(int idVenta) {
+        Venta venta = null;
+        try {
+            venta = VentaDAO.getInstance().findBy(idVenta);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return venta;
     }
 
 }
