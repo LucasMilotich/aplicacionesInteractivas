@@ -1,6 +1,10 @@
 package com.applicacionesInteractivas.vista.formularios;
 
 import java.awt.FlowLayout;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -12,6 +16,7 @@ import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.UsuarioController;
 import com.applicacionesInteractivas.controllers.VentaController;
+import com.applicacionesInteractivas.modelo.rol.IRol;
 import com.applicacionesInteractivas.vista.formularios.cines.FormAltaCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormElimCine;
 import com.applicacionesInteractivas.vista.formularios.cines.FormModifCine;
@@ -85,7 +90,9 @@ public class JFormularioMenuPpal extends JFrame {
     private JMenu menuTerminal = new JMenu("Terminal");
     private JMenuItem menuRetirarVenta = new JMenuItem("Retirar");
 
-    public JFormularioMenuPpal() {
+    private List<IRol> rolesLogueado = new ArrayList<>();
+
+    public JFormularioMenuPpal(List<IRol> rolesLogueado) {
 
         this.setSize(600, 600);
         this.setResizable(false);
@@ -94,6 +101,7 @@ public class JFormularioMenuPpal extends JFrame {
         this.getContentPane().setLayout(new FlowLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setJMenuBar(menuBar);
+        this.rolesLogueado = rolesLogueado;
 
         cineInit();
         salasInit();
@@ -104,6 +112,18 @@ public class JFormularioMenuPpal extends JFrame {
         descuentoInit();
         terminalInit();
 
+    }
+
+    private boolean esVisibleSegunRol(List<String> rolesPermitidos) {
+        for (IRol rol : rolesLogueado) {
+            for (String accion : rolesPermitidos) {
+                if (rol.puedeOperar(accion)) {
+                    return true;
+                }
+            }
+
+        }
+        return true;
     }
 
     private void cineInit() {
@@ -132,6 +152,10 @@ public class JFormularioMenuPpal extends JFrame {
             CineController.getInstance().setFormularioElimCine(elimCineForm);
             elimCineForm.setVisible(true);
         });
+
+        altaCineMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        modifCineMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        elimCineMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
     }
 
 
@@ -249,22 +273,22 @@ public class JFormularioMenuPpal extends JFrame {
         });
     }
 
-    private void ventaInit(){
+    private void ventaInit() {
         VentaController ventaController = VentaController.getInstance();
 
         mainPanel.add(menuVentas);
         menuBar.add(menuVentas);
         menuVentas.add(ventaBoleteriaMenuItem);
-        
+
         ventaBoleteriaMenuItem.addActionListener(e -> {
-        	VentaBoleteria ventaBoleteria = new VentaBoleteria();
+            VentaBoleteria ventaBoleteria = new VentaBoleteria();
 //        	ventaController.setVentaBoleteria(ventaBoleteria);
-        	ventaBoleteria.setVisible(true);
+            ventaBoleteria.setVisible(true);
         });
 
     }
 
-    private void descuentoInit(){
+    private void descuentoInit() {
 
         DescuentoController descuentoController = DescuentoController.getInstance();
 
@@ -275,31 +299,31 @@ public class JFormularioMenuPpal extends JFrame {
         menuDescuentos.add(menuBajaDescuento);
 
         menuAltaDescuento.addActionListener(e -> {
-            FormAltaDescuento altaUsuarioForm = new FormAltaDescuento ();
+            FormAltaDescuento altaUsuarioForm = new FormAltaDescuento();
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             altaUsuarioForm.setVisible(true);
         });
 
         menuModificarDescuento.addActionListener(e -> {
-            FormModifDescuento altaUsuarioForm = new FormModifDescuento ();
+            FormModifDescuento altaUsuarioForm = new FormModifDescuento();
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             altaUsuarioForm.setVisible(true);
         });
 
         menuBajaDescuento.addActionListener(e -> {
-            FormElimDescuento altaUsuarioForm = new FormElimDescuento ();
+            FormElimDescuento altaUsuarioForm = new FormElimDescuento();
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             altaUsuarioForm.setVisible(true);
         });
 
     }
 
-    private void terminalInit(){
+    private void terminalInit() {
         mainPanel.add(menuTerminal);
         menuBar.add(menuTerminal);
         menuTerminal.add(menuRetirarVenta);
         menuRetirarVenta.addActionListener(e -> {
-            TerminalForm terminalForm = new TerminalForm ();
+            TerminalForm terminalForm = new TerminalForm();
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             terminalForm.setVisible(true);
         });

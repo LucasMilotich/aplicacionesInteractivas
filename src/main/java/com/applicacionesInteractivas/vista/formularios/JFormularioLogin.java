@@ -50,7 +50,7 @@ public class JFormularioLogin extends JFrame {
 			String password = String.copyValueOf(txtContrasena.getPassword());
 			boolean acceso = usuarioController.validarAcceso(username, password);
 			if (acceso) {
-				JFormularioMenuPpal form2 = new JFormularioMenuPpal();
+				JFormularioMenuPpal form2 = new JFormularioMenuPpal(null);
 				this.setVisible(false);
 				form2.setVisible(true);
 			}else {
