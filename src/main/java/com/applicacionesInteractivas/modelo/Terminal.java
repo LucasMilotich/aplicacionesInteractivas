@@ -1,7 +1,5 @@
 package com.applicacionesInteractivas.modelo;
 
-import com.applicacionesInteractivas.controllers.CineController;
-
 import java.util.ArrayList;
 import java.util.List;
 

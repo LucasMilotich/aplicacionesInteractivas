@@ -1,16 +1,15 @@
 package com.applicacionesInteractivas.controllers;
 
-import com.applicacionesInteractivas.bd.CineDAO;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.applicacionesInteractivas.bd.DescuentoDAO;
 import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DosPorUno;
 import com.applicacionesInteractivas.modelo.descuento.PorcentajeSobreVenta;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DescuentoController {
 
@@ -23,7 +22,12 @@ public class DescuentoController {
         } else {
             return descuentos;
         }
-
+    }
+    
+    public List<Descuento> getDescuentosPorCine(String cuit) {
+    	
+        return DescuentoDAO.getInstance().findAllByCuit(cuit);
+    
     }
 
     public Descuento getDescuento(String cuil, String nombre) {

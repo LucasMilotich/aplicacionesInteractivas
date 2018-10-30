@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Sala;
 
 public class TablaSalas extends AbstractTableModel {

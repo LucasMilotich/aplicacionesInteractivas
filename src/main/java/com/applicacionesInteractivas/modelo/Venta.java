@@ -1,17 +1,15 @@
 package com.applicacionesInteractivas.modelo;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 import com.applicacionesInteractivas.bd.EntradaDAO;
 import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.backend.IObserver;
 import com.applicacionesInteractivas.modelo.backend.NovedadesObserver;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
-import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
-import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
-
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 public class Venta {
 

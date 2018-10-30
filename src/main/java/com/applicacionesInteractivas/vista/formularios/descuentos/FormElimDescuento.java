@@ -1,14 +1,19 @@
 package com.applicacionesInteractivas.vista.formularios.descuentos;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.controllers.DescuentoController;
-import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
-import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.applicacionesInteractivas.controllers.DescuentoController;
+import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;
 
 public class FormElimDescuento extends JFrame {
 

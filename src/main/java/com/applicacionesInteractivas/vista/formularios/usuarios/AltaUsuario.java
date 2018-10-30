@@ -1,13 +1,16 @@
 package com.applicacionesInteractivas.vista.formularios.usuarios;
 
-import com.applicacionesInteractivas.controllers.UsuarioController;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.time.Instant;
 import java.time.LocalDate;
-import java.util.Date;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+
+import com.applicacionesInteractivas.controllers.UsuarioController;
 
 public class AltaUsuario extends JFrame {
 

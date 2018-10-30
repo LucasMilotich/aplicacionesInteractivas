@@ -1,11 +1,11 @@
 package com.applicacionesInteractivas.vista.formularios.usuarios;
 
-import com.applicacionesInteractivas.modelo.Cine;
-import com.applicacionesInteractivas.modelo.Usuario;
-
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+
+import com.applicacionesInteractivas.modelo.Usuario;
 
 public class ABMTableModel extends AbstractTableModel {
     /**

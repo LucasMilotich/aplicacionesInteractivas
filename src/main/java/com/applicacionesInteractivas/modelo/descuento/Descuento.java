@@ -1,13 +1,19 @@
 package com.applicacionesInteractivas.modelo.descuento;
 
+import java.time.LocalDate;
+
 import com.applicacionesInteractivas.bd.DescuentoDAO;
 import com.applicacionesInteractivas.modelo.Cine;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 public abstract class Descuento {
 
+    private LocalDate vigenciaDesde;
+    private LocalDate vigenciaHasta;
+    private Cine cine;
+    private String nombre;
+    private boolean deleted;
+    private DescuentoComposite descuentoComposite;
+    
     public LocalDate getVigenciaDesde() {
         return vigenciaDesde;
     }
@@ -40,10 +46,6 @@ public abstract class Descuento {
         this.deleted = deleted;
     }
 
-    private LocalDate vigenciaDesde;
-    private LocalDate vigenciaHasta;
-    private Cine cine;
-
     public String getNombre() {
         return nombre;
     }
@@ -52,9 +54,6 @@ public abstract class Descuento {
         this.nombre = nombre;
     }
 
-    private String nombre;
-    private boolean deleted;
-
     public DescuentoComposite getDescuentoComposite() {
         return descuentoComposite;
     }
@@ -62,8 +61,6 @@ public abstract class Descuento {
     public void setDescuentoComposite(DescuentoComposite descuentoComposite) {
         this.descuentoComposite = descuentoComposite;
     }
-
-    private DescuentoComposite descuentoComposite;
 
     public abstract boolean isDosPorUno();
     public abstract boolean isPorcentaje();

@@ -1,9 +1,9 @@
 package com.applicacionesInteractivas.modelo.descuento;
 
+import java.time.LocalDate;
+
 import com.applicacionesInteractivas.bd.DescuentoDAO;
 import com.applicacionesInteractivas.modelo.Cine;
-
-import java.time.LocalDate;
 
 public class PorcentajeSobreVenta extends Descuento {
 

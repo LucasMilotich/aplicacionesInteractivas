@@ -1,13 +1,17 @@
 package com.applicacionesInteractivas.vista.formularios.usuarios;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.controllers.UsuarioController;
-import com.applicacionesInteractivas.vista.formularios.tabla.TablaPeliculas;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+
+import com.applicacionesInteractivas.controllers.UsuarioController;
 
 public class EliminarUsuario extends JFrame {
     private JButton btnEliminar;

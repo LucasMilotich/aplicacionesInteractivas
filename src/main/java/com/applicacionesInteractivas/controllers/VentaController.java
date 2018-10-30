@@ -1,17 +1,11 @@
 package com.applicacionesInteractivas.controllers;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.applicacionesInteractivas.bd.CineDAO;
 import com.applicacionesInteractivas.bd.VentaDAO;
-import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Cine;
-import com.applicacionesInteractivas.modelo.Funcion;
-import com.applicacionesInteractivas.modelo.Pelicula;
-import com.applicacionesInteractivas.modelo.Sala;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;

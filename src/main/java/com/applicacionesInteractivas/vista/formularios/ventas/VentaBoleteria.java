@@ -1,5 +1,8 @@
 package com.applicacionesInteractivas.vista.formularios.ventas;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.time.LocalDate;
 import java.util.Vector;
 
@@ -11,10 +14,14 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.VentaController;
+import com.applicacionesInteractivas.modelo.Funcion;
+import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;;
 
 public class VentaBoleteria extends JFrame {
 
@@ -41,17 +48,23 @@ public class VentaBoleteria extends JFrame {
 	private JLabel lblCantidad;
 	private String[] listaCantidad = {"1","2","3","4","5","6","7","8","9","10"};
 	private JComboBox<String> comboCantidad;
+	private JButton btnAsientos;
 	private JLabel lblFormaPago;
 	private String[] listaFormasPago = {"Efectivo", "Tarjeta Debito", "Tarjeta Credito"};
 	private JComboBox<String> comboFormaPago;
+	private JButton btnFormaPago;
 	private JLabel lblDescuento;
-	private JTextField txtDescuento;
+	private JTable tabDescuentos;
+	private TablaDescuentos tablaDescuentos;
+	private JScrollPane mibarra;
 	private JButton btnConfirmar;
+	private FormTarjeta datosTarjeta;
+	private FormAsientos asientos;
 	private JPanel mainPanel;
 	
 	public VentaBoleteria() {
 
-		this.setSize(400, 500);
+		this.setSize(600, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");
@@ -64,14 +77,15 @@ public class VentaBoleteria extends JFrame {
 		comboCine = new JComboBox<String>();
 		comboCine.setModel(cineModel);
 		comboCine.setSelectedItem(null);
-		/*comboCine.addActionListener(new ActionListener() {
+		comboCine.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e)
 		    {
-		        listadoFunciones = CineController.getInstance().getListadoFunciones();
-				ComboBoxModel<String> funcionModel = new DefaultComboBoxModel<String>(listadoFunciones);
-				comboFuncion.setModel(funcionModel);
+				String cuit = ((String)comboCine.getSelectedItem()).split(" - ")[0];
+				tablaDescuentos.setDescuentos(DescuentoController.getInstance().getDescuentosPorCine(cuit));
+		        tabDescuentos.setModel(tablaDescuentos);
+		        tablaDescuentos.fireTableDataChanged();
 		    }
-		});*/
+		});
 		this.add(comboCine);
 		
 		lblPelicula = new JLabel("Pelicula");
@@ -138,18 +152,58 @@ public class VentaBoleteria extends JFrame {
 		comboCantidad = new JComboBox<String>(listaCantidad);
 		this.add(comboCantidad);
 		
+		btnAsientos = new JButton("Seleccionar asientos");
+		btnAsientos.addActionListener(e -> {
+			if(asientos == null) {
+				int id = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+				Funcion f = CineController.getInstance().getFuncion(id);
+				asientos = new FormAsientos(f);
+			}
+			asientos.setAlwaysOnTop(true);
+			asientos.setVisible(true);
+		});
+		this.add(btnAsientos);
+		
 		lblFormaPago = new JLabel("Forma de Pago");
 		this.add(lblFormaPago);
 		
 		comboFormaPago = new JComboBox<>(listaFormasPago);
+		comboFormaPago.setSelectedItem(null);
+		comboFormaPago.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+		    {
+		        String formaPago = (String)comboFormaPago.getSelectedItem();
+		        if(!formaPago.equals("Efectivo")) {
+		        	btnFormaPago.setVisible(true);
+		        }else{
+		        	btnFormaPago.setVisible(false);
+		        }
+		    }
+		});
 		this.add(comboFormaPago);
+		
+		btnFormaPago = new JButton("Datos Tarjeta");
+		btnFormaPago.setVisible(false);
+		btnFormaPago.addActionListener(e -> {
+			if(datosTarjeta == null)
+				datosTarjeta = new FormTarjeta();
+			datosTarjeta.setAlwaysOnTop(true);
+			datosTarjeta.setVisible(true);
+		});
+		this.add(btnFormaPago);
 		
 		lblDescuento = new JLabel("Descuentos");
 		this.add(lblDescuento);
 		
-		txtDescuento = new JTextField();
-		txtDescuento.setColumns(12);
-		this.add(txtDescuento);
+		tabDescuentos = new JTable();
+		tabDescuentos.setPreferredScrollableViewportSize(new Dimension(500, 70));
+		
+		mibarra = new JScrollPane();
+		mibarra.setBounds(40, 300, 400, 130);
+		
+		tablaDescuentos = new TablaDescuentos();
+		
+		mibarra.setViewportView(tabDescuentos);
 		
 		btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
@@ -191,14 +245,16 @@ public class VentaBoleteria extends JFrame {
 		JPanel cantContainer = new JPanel();
 		cantContainer.add(lblCantidad);
 		cantContainer.add(comboCantidad);
+		cantContainer.add(btnAsientos);
 		
 		JPanel formaContainer = new JPanel();
 		formaContainer.add(lblFormaPago);
 		formaContainer.add(comboFormaPago);
+		formaContainer.add(btnFormaPago);
 		
 		JPanel descuentoContainer = new JPanel();
 		descuentoContainer.add(lblDescuento);
-		descuentoContainer.add(txtDescuento);
+		descuentoContainer.add(mibarra);
 		
 		JPanel btnContainer = new JPanel();
 		btnContainer.add(btnConfirmar);

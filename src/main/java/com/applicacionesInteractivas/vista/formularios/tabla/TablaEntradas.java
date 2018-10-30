@@ -1,11 +1,11 @@
 package com.applicacionesInteractivas.vista.formularios.tabla;
 
-import com.applicacionesInteractivas.modelo.Cine;
-import com.applicacionesInteractivas.modelo.Entrada;
-
-import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.swing.table.AbstractTableModel;
+
+import com.applicacionesInteractivas.modelo.Entrada;
 
 public class TablaEntradas extends AbstractTableModel{
 

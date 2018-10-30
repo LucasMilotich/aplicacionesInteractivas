@@ -1,14 +1,18 @@
 package com.applicacionesInteractivas.bd;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DosPorUno;
 import com.applicacionesInteractivas.modelo.descuento.PorcentajeSobreVenta;
 import com.mysql.cj.jdbc.result.ResultSetImpl;
-
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DescuentoDAO implements ICRUD<Descuento> {
 
@@ -105,6 +109,26 @@ public class DescuentoDAO implements ICRUD<Descuento> {
         try {
             con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".descuento where deleted = false");
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result.add(mapToEntity(rs));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+    }
+    
+    public List<Descuento> findAllByCuit(String cuit){
+    	Connection con = null;
+        ArrayList<Descuento> result = new ArrayList<>();
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".descuento where deleted = false and cuit = ?");
+            s.setString(1, cuit);
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {

@@ -1,6 +1,5 @@
 package com.applicacionesInteractivas.modelo;
 
-import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.bd.SalaDAO;
 
 public class Sala {

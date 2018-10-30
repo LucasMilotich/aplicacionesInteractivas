@@ -144,7 +144,7 @@ public class CineController {
         for (Funcion f : getFunciones()) {
         	if(f.getSala().getCine().getCuit().equals(cuitCine) && f.getPelicula().getId() == idPeli &&
         			f.getFecha().equals(fecha))
-        		listado.add(f.getHora().toString());
+        		listado.add(f.getId() + " - " + f.getHora().toString());
         }
         return listado;
     }

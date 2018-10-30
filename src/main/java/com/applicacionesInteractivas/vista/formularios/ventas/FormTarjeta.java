@@ -1,5 +1,7 @@
 package com.applicacionesInteractivas.vista.formularios.ventas;
 
+import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,12 +14,14 @@ public class FormTarjeta extends JFrame{
 	private JLabel lblNumero;
 	private JLabel lblVencimiento;
 	private JLabel lblCodigo;
-	private JTextField txtTipoTarjeta;
+	private JComboBox<String> cmbTipoTarjeta;
 	private JTextField txtNumero;
 	private JTextField txtVencimiento;
 	private JTextField txtCodigo;
+	private String[] listaTipos = {"AMEX", "MasterCard", "Visa"};
+	private JButton btnGuardar;
 	private JPanel mainPanel;
-	private JPanel tipoContainer, numContainer, vencContainer, codContainer;
+	private JPanel tipoContainer, numContainer, vencContainer, codContainer, btnContainer;
 	
 	public FormTarjeta() {
 		this.setSize(400, 500);
@@ -38,8 +42,55 @@ public class FormTarjeta extends JFrame{
 		lblCodigo = new JLabel("Codigo Seguridad");
 		this.add(lblCodigo);
 		
+		cmbTipoTarjeta = new JComboBox<String>(listaTipos);
+		this.add(cmbTipoTarjeta);
 		
+		txtNumero = new JTextField();
+		txtNumero.setColumns(20);
+		this.add(txtNumero);
 		
+		txtVencimiento = new JTextField();
+		txtVencimiento.setColumns(12);
+		this.add(txtVencimiento);
+		
+		txtCodigo = new JTextField();
+		txtCodigo.setColumns(12);
+		this.add(txtCodigo);
+		
+		btnGuardar = new JButton("Guardar y volver");
+		btnGuardar.addActionListener(e -> {
+			this.setVisible(false);
+		});
+		this.add(btnGuardar);
+		
+		mainPanel = new JPanel();
+		
+		tipoContainer = new JPanel();
+		tipoContainer.add(lblTipoTarjeta);
+		tipoContainer.add(cmbTipoTarjeta);
+		
+		numContainer = new JPanel();
+		numContainer.add(lblNumero);
+		numContainer.add(txtNumero);
+		
+		vencContainer = new JPanel();
+		vencContainer.add(lblVencimiento);
+		vencContainer.add(txtVencimiento);
+		
+		codContainer = new JPanel();
+		codContainer.add(lblCodigo);
+		codContainer.add(txtCodigo);
+		
+		btnContainer = new JPanel();
+		btnContainer.add(btnGuardar);
+		
+		mainPanel.add(tipoContainer);
+		mainPanel.add(numContainer);
+		mainPanel.add(vencContainer);
+		mainPanel.add(codContainer);
+		mainPanel.add(btnContainer);
+		
+		getContentPane().add(mainPanel);
 	}
 	
 }

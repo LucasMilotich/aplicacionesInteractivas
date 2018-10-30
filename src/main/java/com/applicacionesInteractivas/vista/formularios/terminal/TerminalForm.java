@@ -1,13 +1,15 @@
 package com.applicacionesInteractivas.vista.formularios.terminal;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.controllers.UsuarioController;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
 import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaEntradas;
-import com.applicacionesInteractivas.vista.formularios.usuarios.ABMTableModel;
-
-import javax.swing.*;
 
 public class TerminalForm extends JFrame {
 

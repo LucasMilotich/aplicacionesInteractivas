@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Entrada;
-import com.applicacionesInteractivas.modelo.Venta;
 
 public class EntradaDAO implements ICRUD<Entrada> {
 

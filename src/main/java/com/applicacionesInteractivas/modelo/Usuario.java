@@ -1,11 +1,10 @@
 package com.applicacionesInteractivas.modelo;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.applicacionesInteractivas.bd.UsuarioDAO;
 import com.applicacionesInteractivas.modelo.rol.IRol;
-
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
 
 public class Usuario {
 

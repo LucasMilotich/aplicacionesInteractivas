@@ -1,16 +1,22 @@
 package com.applicacionesInteractivas.vista.formularios.usuarios;
 
-import com.applicacionesInteractivas.controllers.CineController;
-import com.applicacionesInteractivas.controllers.UsuarioController;
-
-import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
-import java.awt.*;
+import java.awt.HeadlessException;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+
+import com.applicacionesInteractivas.controllers.UsuarioController;
 
 public class ABMUsuario extends JFrame {
     private JTable table1;
