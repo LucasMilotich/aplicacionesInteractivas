@@ -3,7 +3,10 @@ package com.applicacionesInteractivas.vista.formularios.ventas;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -20,7 +23,10 @@ import javax.swing.JTable;
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.VentaController;
+import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
+import com.applicacionesInteractivas.modelo.metodopago.IMetodoPago;
+import com.applicacionesInteractivas.modelo.metodopago.Tarjeta;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;;
 
 public class VentaBoleteria extends JFrame {
@@ -150,6 +156,21 @@ public class VentaBoleteria extends JFrame {
 		this.add(lblCantidad);
 		
 		comboCantidad = new JComboBox<String>(listaCantidad);
+		comboCantidad.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e)
+		    {
+				int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
+				int id = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+				Funcion f = CineController.getInstance().getFuncion(id);
+				if(asientos != null && asientos.isVisible())
+					asientos.setVisible(false);
+				try {
+					asientos = new FormAsientos(f, cantidad);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+		    }
+		});
 		this.add(comboCantidad);
 		
 		btnAsientos = new JButton("Seleccionar asientos");
@@ -157,9 +178,12 @@ public class VentaBoleteria extends JFrame {
 			if(asientos == null) {
 				int id = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
 				Funcion f = CineController.getInstance().getFuncion(id);
-				asientos = new FormAsientos(f);
+				try {
+					asientos = new FormAsientos(f, Integer.parseInt((String)comboCantidad.getSelectedItem()));
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
 			}
-			asientos.setAlwaysOnTop(true);
 			asientos.setVisible(true);
 		});
 		this.add(btnAsientos);
@@ -210,10 +234,11 @@ public class VentaBoleteria extends JFrame {
 		btnConfirmar.addActionListener(e -> {
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			String nombrePeli = (String)comboPelicula.getSelectedItem();
-			//A la venta no deberia pasarsele una Funcion en vez de salaNombre y el horario? La funcion tiene ambas.
-			/*ventaController.venderBoleteria(cuitCine, nombrePeli, salaNombre, horario, 
-											formaPago, descuentoNombre, asientos);*/
+			int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+			String formaPago = ((String)comboFormaPago.getSelectedItem()).split(" - ")[0];
+			List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
+			IMetodoPago metodoPago = new Tarjeta();
+			ventaController.venderBoleteria(cuitCine, idFuncion, formaPago, metodoPago, asientosVenta);
 			JOptionPane.showMessageDialog(null,"Venta realizada!");
 			this.setVisible(false);
 		});

@@ -10,12 +10,14 @@ import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
+import com.applicacionesInteractivas.modelo.metodopago.IMetodoPago;
 import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
 
 public class VentaController {
 
     private static VentaController instance;
     private VentaBoleteria ventaBoleteria;
+    private double precioUnitario = 10D;
 
     public static VentaController getInstance() {
         if (instance == null) {
@@ -47,13 +49,12 @@ public class VentaController {
         this.ventaBoleteria = ventaBoleteria;
     }
 
-    public void venderBoleteria(String cineCuil, String nombrePelicula, String salaNombre, String horario, String formaPago, List<String> descuentoNombre, List<AsientoFuncion> asientos) {
-        // precio harcodeado
+    public void venderBoleteria(String cineCuit, int idFuncion, String formaPago, IMetodoPago metodoPago, List<AsientoFuncion> asientos) {
 
         List<Descuento> descuentos = DescuentoController.getInstance().getDescuentos();
         Descuento descuentoAAplicar = buildCompositeDescuento(descuentos);
 
-        Cine cine = CineController.getInstance().getCine(cineCuil);
+        Cine cine = CineController.getInstance().getCine(cineCuit);
         //Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
         //Sala sala = CineController.getInstance().getSala(cineCuil, salaNombre);
         //Funcion funcion = CineController.getInstance().getFuncion(pelicula, sala, Timestamp.valueOf(horario));
@@ -65,6 +66,13 @@ public class VentaController {
 //        }
 
 
+    }
+    
+    public double calcularPrecioFinal(int cantidad, DescuentoComposite descuentos) {
+    	double result = 0d;
+    	
+    	
+    	return result;
     }
 
 
