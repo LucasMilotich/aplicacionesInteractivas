@@ -20,13 +20,19 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.VentaController;
+import com.applicacionesInteractivas.modelo.Asiento;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
-import com.applicacionesInteractivas.modelo.metodopago.IMetodoPago;
-import com.applicacionesInteractivas.modelo.metodopago.Tarjeta;
+import com.applicacionesInteractivas.modelo.descuento.Descuento;
+import com.applicacionesInteractivas.modelo.medioDePago.Contado;
+import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
+import com.applicacionesInteractivas.modelo.medioDePago.Tarjeta;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaCredito;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaDebito;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;;
 
 public class VentaBoleteria extends JFrame {
@@ -56,7 +62,7 @@ public class VentaBoleteria extends JFrame {
 	private JComboBox<String> comboCantidad;
 	private JButton btnAsientos;
 	private JLabel lblFormaPago;
-	private String[] listaFormasPago = {"Efectivo", "Tarjeta Debito", "Tarjeta Credito"};
+	private String[] listaFormasPago = {"EFECTIVO", "TARJETA DEBITO", "TARJETA CREDITO"};
 	private JComboBox<String> comboFormaPago;
 	private JButton btnFormaPago;
 	private JLabel lblDescuento;
@@ -232,13 +238,44 @@ public class VentaBoleteria extends JFrame {
 		btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
 		btnConfirmar.addActionListener(e -> {
+			int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
-			String formaPago = ((String)comboFormaPago.getSelectedItem()).split(" - ")[0];
-			List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
-			IMetodoPago metodoPago = new Tarjeta();
-			ventaController.venderBoleteria(cuitCine, idFuncion, formaPago, metodoPago, asientosVenta);
+			List<Descuento> descuentos = DescuentoController.getInstance().getDescuentosPorCine(cuitCine);
+			
+			double totalVenta = ventaController.calcularPrecioFinal(cantidad, descuentos);
+			
+			int respuesta = JOptionPane.showConfirmDialog(null, "El total a pagar es de $"+totalVenta+". Desea continuar?",
+														"Question",JOptionPane.YES_NO_OPTION);
+			
+			if(respuesta == JOptionPane.YES_OPTION) {
+				int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+				String formaPago = (String)comboFormaPago.getSelectedItem();
+				List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
+				try {
+					asientosVenta.add(new AsientoFuncion(false, new Asiento(0, 0), FuncionDAO.getInstance().findBy(idFuncion)));
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				//asientosVenta = this.asientos.obtenerAsientosSeleccionados(idFuncion);
+				MedioDePago medioDePago;
+				if(formaPago.equals("EFECTIVO"))
+					medioDePago = new Contado();
+				else {
+					Tarjeta tarjeta = datosTarjeta.getDatosTarjeta(formaPago);
+					
+					if(formaPago.equals("TARJETA CREDITO"))
+						medioDePago = (TarjetaCredito) tarjeta;
+					else
+						medioDePago = (TarjetaDebito) tarjeta;
+				}
+				
+				ventaController.venderBoleteria(cuitCine, idFuncion, totalVenta, medioDePago, asientosVenta);
+			}else {
+				return;
+			}
+			
 			JOptionPane.showMessageDialog(null,"Venta realizada!");
 			this.setVisible(false);
 		});

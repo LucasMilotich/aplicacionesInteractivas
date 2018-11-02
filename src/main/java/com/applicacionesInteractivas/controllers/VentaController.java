@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.applicacionesInteractivas.bd.VentaDAO;
+import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Cine;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
-import com.applicacionesInteractivas.modelo.metodopago.IMetodoPago;
+import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
 
 public class VentaController {
@@ -49,34 +50,29 @@ public class VentaController {
         this.ventaBoleteria = ventaBoleteria;
     }
 
-    public void venderBoleteria(String cineCuit, int idFuncion, String formaPago, IMetodoPago metodoPago, List<AsientoFuncion> asientos) {
-
-        List<Descuento> descuentos = DescuentoController.getInstance().getDescuentos();
-        Descuento descuentoAAplicar = buildCompositeDescuento(descuentos);
+    public void venderBoleteria(String cineCuit, int idFuncion, double total, MedioDePago medioDePago, List<AsientoFuncion> asientos) {
 
         Cine cine = CineController.getInstance().getCine(cineCuit);
-        //Pelicula pelicula = CineController.getInstance().getPelicula(nombrePelicula);
-        //Sala sala = CineController.getInstance().getSala(cineCuil, salaNombre);
-        //Funcion funcion = CineController.getInstance().getFuncion(pelicula, sala, Timestamp.valueOf(horario));
 
-//        try {
-//            Venta.venderEntrada(cine, pelicula, sala, funcion, asientos, formaPago, descuentoAAplicar);
-//        } catch (AsientoFuncionNoDefinido asientoFuncionNoDefinido) {
-//            asientoFuncionNoDefinido.printStackTrace();
-//        }
+        try {
+            Venta.venderEntrada(cine, asientos, total, medioDePago);
+        } catch (AsientoFuncionNoDefinido asientoFuncionNoDefinido) {
+            asientoFuncionNoDefinido.printStackTrace();
+        }
 
 
     }
     
-    public double calcularPrecioFinal(int cantidad, DescuentoComposite descuentos) {
+    public double calcularPrecioFinal(int cantidad, List<Descuento> descuentos) {
     	double result = 0d;
+    	Descuento descuentoComposite = this.buildCompositeDescuento(descuentos);
     	
     	
     	return result;
     }
 
 
-    private Descuento buildCompositeDescuento(List<Descuento> descuentos) {
+    public Descuento buildCompositeDescuento(List<Descuento> descuentos) {
         DescuentoComposite d = new DescuentoComposite();
         for (Descuento desc : descuentos) {
             d.getDescuentos().add(desc);

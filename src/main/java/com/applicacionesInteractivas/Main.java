@@ -1,10 +1,10 @@
 package com.applicacionesInteractivas;
 
 
+import java.util.ArrayList;
+
 import com.applicacionesInteractivas.modelo.rol.IRol;
 import com.applicacionesInteractivas.vista.formularios.JFormularioMenuPpal;
-
-import java.util.ArrayList;
 
 public class Main {
     public static void main(String args[]){

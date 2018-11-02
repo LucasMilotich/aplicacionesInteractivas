@@ -9,10 +9,19 @@ import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.backend.IObserver;
 import com.applicacionesInteractivas.modelo.backend.NovedadesObserver;
-import com.applicacionesInteractivas.modelo.descuento.Descuento;
+import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
 
 public class Venta {
 
+    private int id;
+    private int cantidad;
+    private double precioUnitario = 10;
+    private double total;
+    private List<Entrada> entradas;
+    private MedioDePago medioDePago;
+    private Cine cine;
+    private List<IObserver> observers = new ArrayList<>();
+    
     public int getId() {
         return id;
     }
@@ -21,18 +30,9 @@ public class Venta {
         this.id = id;
     }
 
-    private int id;
-    private int cantidad;
-    private double precioUnitario = 10;
-    private double total;
-    private List<Entrada> entradas;
-    private String medioDePago;
-    private Cine cine;
-
-    private List<IObserver> observers = new ArrayList<>();
-
     public Venta(){
         observers.add(new NovedadesObserver());
+        entradas = new ArrayList<Entrada>();
     }
 
     public void setPrecioUnitario(double precioUnitario) {
@@ -55,11 +55,11 @@ public class Venta {
         this.entradas = entradas;
     }
 
-    public String getMedioDePago() {
+    public MedioDePago getMedioDePago() {
         return medioDePago;
     }
 
-    public void setMedioDePago(String medioDePago) {
+    public void setMedioDePago(MedioDePago medioDePago) {
         this.medioDePago = medioDePago;
     }
 
@@ -71,15 +71,12 @@ public class Venta {
         this.cine = cine;
     }
 
-
-
-
-    private static Venta operar(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, Descuento descuento) throws AsientoFuncionNoDefinido {
+    private static Venta operar(Cine cine, Collection<AsientoFuncion> asientos, double total, MedioDePago medioDePago) throws AsientoFuncionNoDefinido {
 
         Venta venta = new Venta();
 
         venta.cantidad = asientos.size();
-        venta.total = venta.cantidad * venta.precioUnitario;
+        venta.total = total;
         venta.medioDePago = medioDePago;
         venta.cine = cine;
 
@@ -93,7 +90,7 @@ public class Venta {
         Entrada entrada;
 
         for (AsientoFuncion asiento : asientos) {
-            entrada = new Entrada(asiento, funcion);
+            entrada = new Entrada(asiento, venta);
             venta.entradas.add(entrada);
             EntradaDAO.getInstance().insert(entrada);
         }
@@ -108,12 +105,11 @@ public class Venta {
         return null;
     }
 
-    public static Venta venderEntrada(Cine cine, Pelicula pelicula, Sala sala, Funcion funcion, Collection<AsientoFuncion> asientos, String medioDePago, Descuento descuento) throws AsientoFuncionNoDefinido {
-        Venta venta =  operar(cine, pelicula, sala, funcion, asientos, medioDePago, descuento);
+    public static Venta venderEntrada(Cine cine, Collection<AsientoFuncion> asientos, double total, MedioDePago medioDePago) throws AsientoFuncionNoDefinido {
+        Venta venta =  operar(cine, asientos, total, medioDePago);
         venta.notificarObservers(venta);
-        return venta ;
+        return venta;
     }
-
 
     public int getCantidad() {
         return cantidad;

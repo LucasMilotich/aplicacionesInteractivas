@@ -1,12 +1,18 @@
 package com.applicacionesInteractivas.modelo.descuento;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DescuentoComposite extends Descuento {
 
     private List<Descuento> descuentos;
+    
+    public DescuentoComposite() {
+		super();
+		this.descuentos = new ArrayList<Descuento>();
+	}
 
-    public List<Descuento> getDescuentos() {
+	public List<Descuento> getDescuentos() {
         return descuentos;
     }
 

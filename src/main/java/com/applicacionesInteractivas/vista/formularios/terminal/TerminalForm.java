@@ -105,7 +105,7 @@ public class TerminalForm extends JFrame {
             txtIdentificadorentrada.setText(Integer.toString(venta.getId()));
             txtCantEntradas.setText(Integer.toString(venta.getCantidad()));
             txtTotal.setText(Double.toString(venta.getTotal()));
-            txtMedioDePago.setText(venta.getMedioDePago());
+            txtMedioDePago.setText(venta.getMedioDePago().toString());
 
 
             TablaEntradas tablaEntradas = new TablaEntradas();

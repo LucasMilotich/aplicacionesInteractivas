@@ -4,11 +4,15 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.applicacionesInteractivas.modelo.Entrada;
 import com.applicacionesInteractivas.modelo.Venta;
+import com.applicacionesInteractivas.modelo.medioDePago.Contado;
+import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaCredito;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaDebito;
 
 public class VentaDAO implements ICRUD<Venta> {
 
@@ -25,15 +29,21 @@ public class VentaDAO implements ICRUD<Venta> {
     public void insert(Venta venta) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".venta values (?,?,?,?,?)");
-            s.setInt(1, venta.getCantidad());
-
-            s.setDouble(2, venta.getPrecioUnitario());
-            s.setDouble(3, venta.getTotal());
-            s.setInt(4, getMedioDePagoParaDB(venta.getMedioDePago()));
-            s.setString(5, venta.getCine().getCuit());
-
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".venta(cuit, cantidad, metodo_pago, precio_unitario, total)"+
+            											"values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            
+            s.setString(1, venta.getCine().getCuit());
+            s.setInt(2, venta.getCantidad());
+            s.setInt(3, this.getMedioDePagoParaDB(venta.getMedioDePago().toString()));
+            s.setDouble(4, venta.getPrecioUnitario());
+            s.setDouble(5, venta.getTotal());
             s.execute();
+            
+            ResultSet keys = s.getGeneratedKeys();
+            keys.next();
+            int idVenta = keys.getInt(1);
+            venta.setId(idVenta);
+            
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,18 +109,22 @@ public class VentaDAO implements ICRUD<Venta> {
     @Override
     public Venta mapToEntity(ResultSet rs) throws SQLException {
         Venta venta = new Venta();
+        MedioDePago medioDePago;
         venta.setId(rs.getInt(1));
         venta.setCine(CineDAO.getInstance().findByCuit(rs.getString(2)));
         venta.setCantidad(rs.getInt(3));
         switch (rs.getInt(4)) {
             case 1:
-                venta.setMedioDePago("EFECTIVO");
+            	medioDePago = new Contado();
+                venta.setMedioDePago(medioDePago);
                 break;
             case 2:
-                venta.setMedioDePago("TARJETA DE CREDITO");
+            	medioDePago = TarjetaDAO.getInstance().findBy(venta.getId());
+                venta.setMedioDePago((TarjetaCredito)medioDePago);
                 break;
             case 3:
-                venta.setMedioDePago("TARJETA DE DEBITO");
+            	medioDePago = TarjetaDAO.getInstance().findBy(venta.getId());
+                venta.setMedioDePago((TarjetaDebito)medioDePago);
                 break;
         }
         venta.setPrecioUnitario(rs.getDouble(5));
@@ -122,7 +136,7 @@ public class VentaDAO implements ICRUD<Venta> {
     private int getMedioDePagoParaDB(String medioDePago){
         if (medioDePago.equals("EFECTIVO")) return 1;
         if (medioDePago.equals("TARJETA DE CREDITO")) return 2;
-        if (medioDePago.equals("ARJETA DE DEBITO")) return 3;
+        if (medioDePago.equals("TARJETA DE DEBITO")) return 3;
         return 1;
     }
 }

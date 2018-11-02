@@ -1,22 +1,13 @@
 package com.applicacionesInteractivas.modelo.medioDePago;
 
-public class TarjetaCredito extends MedioDePago {
-    private String tipo;
-    private String banco;
+public class TarjetaCredito extends Tarjeta {
 
-    public String getTipo() {
-        return tipo;
-    }
+	public TarjetaCredito(String tipo, String numero, String vencimiento, String codigo) {
+		super(tipo, numero, vencimiento, codigo);
+	}
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getBanco() {
-        return banco;
-    }
-
-    public void setBanco(String banco) {
-        this.banco = banco;
-    }
+	@Override
+	public String toString() {
+		return "TARJETA CREDITO";
+	}
 }

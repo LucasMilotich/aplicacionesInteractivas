@@ -7,6 +7,10 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
+import com.applicacionesInteractivas.modelo.medioDePago.Tarjeta;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaCredito;
+import com.applicacionesInteractivas.modelo.medioDePago.TarjetaDebito;
+
 public class FormTarjeta extends JFrame{
 
 	private static final long serialVersionUID = -7987651527844137711L;
@@ -91,6 +95,20 @@ public class FormTarjeta extends JFrame{
 		mainPanel.add(btnContainer);
 		
 		getContentPane().add(mainPanel);
+	}
+
+	public Tarjeta getDatosTarjeta(String formaPago) {
+		String tipo = (String)cmbTipoTarjeta.getSelectedItem();
+		String numero = (String)txtNumero.getText();
+		String vencimiento = (String)txtVencimiento.getText();
+		String codigo = (String)txtCodigo.getText();
+		Tarjeta tarjeta;
+		if(formaPago.equals("TARJETA CREDITO"))
+			tarjeta = new TarjetaCredito(tipo, numero, vencimiento, codigo);
+		else
+			tarjeta = new TarjetaDebito(tipo, numero, vencimiento, codigo);
+		
+		return tarjeta;
 	}
 	
 }

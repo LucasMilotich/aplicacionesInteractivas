@@ -4,27 +4,27 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.AbstractButton;
-import javax.swing.Icon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JToggleButton;
-import javax.swing.UIManager;
 
 import com.applicacionesInteractivas.bd.AsientoFuncionDAO;
+import com.applicacionesInteractivas.bd.FuncionDAO;
+import com.applicacionesInteractivas.modelo.Asiento;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
 
 public class FormAsientos extends JFrame{
 
 	private static final long serialVersionUID = 2438572568138476459L;
-	private Icon res = (UIManager.getIcon("OptionPane.errorIcon"));
 	private JButton btnGuardar;
-	private JPanel mainPanel;
+	private JPanel panel, mainPanel;
 	private int cant;
 	
 	public FormAsientos(Funcion f, int cantidad) throws SQLException {
@@ -37,7 +37,7 @@ public class FormAsientos extends JFrame{
         cant = cantidad;
         int filas = f.getSala().getFilas();
         int columnas = f.getSala().getColumnas();
-        JPanel panel = new JPanel(new GridLayout(filas, columnas));
+        panel = new JPanel(new GridLayout(filas, columnas));
         for (int row = 0; row < filas; row++) {
         	JLabel lblFila = new JLabel("Fila "+ Integer.toString(row+1));
         	panel.add(lblFila);
@@ -82,4 +82,11 @@ public class FormAsientos extends JFrame{
 		
 		getContentPane().add(mainPanel);
 	}
+
+	/*public List<AsientoFuncion> obtenerAsientosSeleccionados(int idFuncion) throws SQLException {
+//		asientos.add(new AsientoFuncion(false, new Asiento(0, 0), FuncionDAO.getInstance().findBy(idFuncion)));
+		//Recorrer la lista de ToggleButton y fijarse cuales estan selected, si es que estan enabled primero.
+		
+		return asientos;
+	}*/
 }

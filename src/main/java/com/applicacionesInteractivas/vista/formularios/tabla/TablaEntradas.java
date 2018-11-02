@@ -15,8 +15,8 @@ public class TablaEntradas extends AbstractTableModel{
 	private static final long serialVersionUID = -8751294376447351895L;
 	private List<Entrada> entradas;
 	private String[] columnNames = {"Asiento",
-            "Código aunteticación",
-            "Horario Función",
+            "Codigo autenticacion",
+            "Horario Funcion",
             "Sala",
             "Cine"};
 
@@ -36,13 +36,13 @@ public class TablaEntradas extends AbstractTableModel{
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Entrada cine = entradas.get(row);
+		Entrada entrada = entradas.get(row);
 	    switch(col) {
-	      case 0: return Integer.toString(cine.getAsiento().getAsiento().getPosx()) + " " + Integer.toString(cine.getAsiento().getAsiento().getPosY());
-	      case 1: return cine.getCodAutenticacion();
-	      case 2: return cine.getFuncion().getFecha().toString() + " " + cine.getFuncion().getHora().toString();
-	      case 3: return cine.getFuncion().getSala().getNombre();
-	      case 4: return cine.getFuncion().getSala().getCine().getNombre();
+	      case 0: return "Fila: "+ Integer.toString(entrada.getAsientoFuncion().getAsiento().getPosx()+1) + " Asiento: " + Integer.toString(entrada.getAsientoFuncion().getAsiento().getPosY()+1);
+	      case 1: return entrada.getCodAutenticacion();
+	      case 2: return entrada.getAsientoFuncion().getFuncion().getFecha().toString() + " " + entrada.getAsientoFuncion().getFuncion().getHora().toString();
+	      case 3: return entrada.getAsientoFuncion().getFuncion().getSala().getNombre();
+	      case 4: return entrada.getAsientoFuncion().getFuncion().getSala().getCine().getNombre();
 	      default: return "";
 	    }
 	}
