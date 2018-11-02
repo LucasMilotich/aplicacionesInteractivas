@@ -203,7 +203,7 @@ public class VentaBoleteria extends JFrame {
 			public void actionPerformed(ActionEvent e)
 		    {
 		        String formaPago = (String)comboFormaPago.getSelectedItem();
-		        if(!formaPago.equals("Efectivo")) {
+		        if(!formaPago.equals("EFECTIVO")) {
 		        	btnFormaPago.setVisible(true);
 		        }else{
 		        	btnFormaPago.setVisible(false);
