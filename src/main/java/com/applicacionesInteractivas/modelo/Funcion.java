@@ -91,6 +91,10 @@ public class Funcion {
 		return f;
 	}
 	
+	public static boolean esFuncionEliminable(int id) {
+		return FuncionDAO.getInstance().esFuncionEliminable(id);
+	}
+	
 	public LocalDate getFecha() {
 		return fecha;
 	}
@@ -122,5 +126,5 @@ public class Funcion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 }

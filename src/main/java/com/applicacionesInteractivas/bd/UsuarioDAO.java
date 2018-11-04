@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.applicacionesInteractivas.modelo.Usuario;
+import com.applicacionesInteractivas.modelo.rol.Administrador;
+import com.applicacionesInteractivas.modelo.rol.AgenteComercial;
+import com.applicacionesInteractivas.modelo.rol.Cliente;
 import com.applicacionesInteractivas.modelo.rol.IRol;
+import com.applicacionesInteractivas.modelo.rol.Operador;
+import com.applicacionesInteractivas.modelo.rol.Vendedor;
 import com.applicacionesInteractivas.vista.formularios.usuarios.Columns;
 
 public class UsuarioDAO implements ICRUD<Usuario> {
@@ -130,7 +135,33 @@ public class UsuarioDAO implements ICRUD<Usuario> {
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {
-                result.add(mapToEntity(rs));
+            	Usuario u = mapToEntity(rs);
+            	PreparedStatement ss = con.prepareStatement("select * from " + PoolConnection.dbName + ".rol_usuario"+
+            												" where nombre_usuario = ?");
+            	ss.setString(1, u.getNombreUsuario());
+            	ResultSet rs2 = ss.executeQuery();
+            	List<IRol> roles = new ArrayList<IRol>();
+            	while(rs2.next()) {
+            		switch(rs2.getString(2)) {
+            			case "ADMINISTRADOR":
+            				roles.add(new Administrador());
+            				break;
+            			case "AGENTE COMERCIAL":
+            				roles.add(new AgenteComercial());
+            				break;
+            			case "VENDEDOR":
+            				roles.add(new Vendedor());
+            				break;
+            			case "CLIENTE":
+            				roles.add(new Cliente());
+            				break;
+            			case "OPERADOR":
+            				roles.add(new Operador());
+            				break;
+            		}
+            	}
+            	u.setRoles(roles);
+                result.add(u);
             }
         } catch (Exception e) {
             e.printStackTrace();

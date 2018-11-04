@@ -40,6 +40,8 @@ public class EntradaDAO implements ICRUD<Entrada> {
             keys.next();
             int idEntrada = keys.getInt(1);
             entrada.setId(idEntrada);
+            
+            AsientoFuncionDAO.getInstance().update(entrada.getAsientoFuncion());
 
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {

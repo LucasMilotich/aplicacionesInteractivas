@@ -67,8 +67,6 @@ public class Usuario {
         this.deleted = deleted;
     }
 
-
-
     public String getNombreUsuario() {
         return nombreUsuario;
     }

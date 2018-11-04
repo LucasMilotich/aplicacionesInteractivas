@@ -2,7 +2,6 @@ package com.applicacionesInteractivas.vista.formularios;
 
 import java.awt.FlowLayout;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -183,6 +182,10 @@ public class JFormularioMenuPpal extends JFrame {
             CineController.getInstance().setFormularioElimSala(elimSalaForm);
             elimSalaForm.setVisible(true);
         });
+        
+        altaSalaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        modifSalaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        elimSalaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
     }
 
 
@@ -210,6 +213,10 @@ public class JFormularioMenuPpal extends JFrame {
             CineController.getInstance().setFormularioElimPelicula(elimPeliculaForm);
             elimPeliculaForm.setVisible(true);
         });
+        
+        altaPeliculaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
+        modifPeliculaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
+        elimPeliculaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
     }
 
     private void funcionesInit() {
@@ -236,6 +243,10 @@ public class JFormularioMenuPpal extends JFrame {
             CineController.getInstance().setFormularioElimFuncion(elimFuncionForm);
             elimFuncionForm.setVisible(true);
         });
+        
+        altaFuncionMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
+        modifFuncionMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
+        elimFuncionMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("OPERADOR")));
     }
 
     private void usuarioInit() {
@@ -271,6 +282,11 @@ public class JFormularioMenuPpal extends JFrame {
             usuarioController.setEliminarUsuario(eliminarUsuario);
             eliminarUsuario.setVisible(true);
         });
+        
+        crearUsuarioMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        abmUsuarioMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        abmRoles.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
+        eliminarUsuario.setVisible(esVisibleSegunRol(Collections.singletonList("ADMINISTRADOR")));
     }
 
     private void ventaInit() {
@@ -282,10 +298,10 @@ public class JFormularioMenuPpal extends JFrame {
 
         ventaBoleteriaMenuItem.addActionListener(e -> {
             VentaBoleteria ventaBoleteria = new VentaBoleteria();
-//        	ventaController.setVentaBoleteria(ventaBoleteria);
             ventaBoleteria.setVisible(true);
         });
-
+        
+        ventaBoleteriaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("VENDEDOR")));
     }
 
     private void descuentoInit() {
@@ -316,6 +332,9 @@ public class JFormularioMenuPpal extends JFrame {
             altaUsuarioForm.setVisible(true);
         });
 
+        menuAltaDescuento.setVisible(esVisibleSegunRol(Collections.singletonList("AGENTE COMERCIAL")));
+        menuModificarDescuento.setVisible(esVisibleSegunRol(Collections.singletonList("AGENTE COMERCIAL")));
+        menuBajaDescuento.setVisible(esVisibleSegunRol(Collections.singletonList("AGENTE COMERCIAL")));
     }
 
     private void terminalInit() {

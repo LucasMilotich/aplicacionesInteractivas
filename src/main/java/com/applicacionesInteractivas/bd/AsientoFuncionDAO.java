@@ -1,13 +1,13 @@
 package com.applicacionesInteractivas.bd;
 
-import com.applicacionesInteractivas.modelo.Asiento;
-import com.applicacionesInteractivas.modelo.AsientoFuncion;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
+
+import com.applicacionesInteractivas.modelo.Asiento;
+import com.applicacionesInteractivas.modelo.AsientoFuncion;
 
 public class AsientoFuncionDAO implements ICRUD<AsientoFuncion> {
     private static AsientoFuncionDAO instance;
@@ -21,7 +21,21 @@ public class AsientoFuncionDAO implements ICRUD<AsientoFuncion> {
 
     @Override
     public void insert(AsientoFuncion asientoFuncion) {
-
+    	try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".asiento_funcion(id_funcion, fila, columna, ocupado) "+
+            											"values(?,?,?,?)");
+            
+            s.setInt(1, asientoFuncion.getFuncion().getId());
+            s.setInt(2, asientoFuncion.getAsiento().getPosx());
+            s.setInt(3, asientoFuncion.getAsiento().getPosY());
+            s.setBoolean(4, asientoFuncion.isOcupado());
+            s.execute();
+            
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -31,7 +45,21 @@ public class AsientoFuncionDAO implements ICRUD<AsientoFuncion> {
 
     @Override
     public void update(AsientoFuncion asientoFuncion) {
-
+    	try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".asiento_funcion "+
+            											"set ocupado = ? where id_funcion = ? and fila = ? and columna = ?");
+            
+            s.setBoolean(1, asientoFuncion.isOcupado());
+            s.setInt(2, asientoFuncion.getFuncion().getId());
+            s.setInt(3, asientoFuncion.getAsiento().getPosx());
+            s.setInt(4, asientoFuncion.getAsiento().getPosY());
+            s.execute();
+            
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override

@@ -46,15 +46,8 @@ public class FuncionDAO implements ICRUD<Funcion> {
             funcion.setId(idFuncion);
             
             for(AsientoFuncion af : funcion.getAsientoFunciones()) {
-            	PreparedStatement ss = con.prepareStatement("insert into " + PoolConnection.dbName + ".asiento_funcion "+
-            												"values (?,?,?,?)");
-            	ss.setInt(1,  funcion.getId());
-                ss.setInt(2, af.getAsiento().getPosx());
-                ss.setInt(3, af.getAsiento().getPosY());
-                ss.setBoolean(4, false);
-                ss.execute();
+            	AsientoFuncionDAO.getInstance().insert(af);
             }
-            
             
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
@@ -163,4 +156,25 @@ public class FuncionDAO implements ICRUD<Funcion> {
                 rs.getTime(6).toLocalTime()
         );
     }
+
+	public boolean esFuncionEliminable(int id) {
+		Connection con = null;
+        boolean result = false;
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select IF(COUNT(1) > 0, 0, 1) from " + PoolConnection.dbName + ".entrada where " +
+            											"id_funcion = ?");
+            s.setInt(1, id);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getBoolean(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+	}
 }

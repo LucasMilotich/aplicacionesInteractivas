@@ -21,8 +21,21 @@ public class TarjetaDAO implements ICRUD<Tarjeta>{
     
 	@Override
 	public void insert(Tarjeta t) {
-		// TODO Auto-generated method stub
-		
+		try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".datos_tarjeta(id_venta,tipo_tarjeta,numero,vencimiento,codigo_seg)"
+            											+"values (?,?,?,?,?)");
+            s.setInt(1, t.getVenta().getId()); 
+            s.setInt(2, Integer.parseInt(t.getTipo()));
+            s.setString(3, t.getNumero());
+            s.setString(4,  t.getVencimiento());
+            s.setString(5, t.getCodigo());
+            s.execute();
+            
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 	}
 
 	@Override

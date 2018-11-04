@@ -311,6 +311,14 @@ public class CineController {
 
     }
 
+    public Sala getSala(int id) {
+        for (Sala s : getSalas()) {
+            if (s.getId() == id)
+                return s;
+        }
+        return null;
+    }
+
     public void crearPelicula(String nombre, String director, String genero, 
                               String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
     	
@@ -341,6 +349,10 @@ public class CineController {
         }
         return null;
     }
+    
+    public boolean esPeliculaEliminable(int id) {
+    	return Pelicula.esPeliculaEliminable(id);
+    }
 
     public void crearFuncion(Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora) {
         Funcion f = Funcion.crearFuncion(pelicula,sala,fecha,hora);
@@ -365,14 +377,9 @@ public class CineController {
         }
         return null;
     }
-
-    public Sala getSala(int id) {
-        for (Sala s : getSalas()) {
-            if (s.getId() == id)
-                return s;
-        }
-        return null;
+    
+    public boolean esFuncionEliminable(int id) {
+    	return Funcion.esFuncionEliminable(id);
     }
-
-
+    
 }

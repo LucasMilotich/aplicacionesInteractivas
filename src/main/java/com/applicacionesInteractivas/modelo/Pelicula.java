@@ -69,6 +69,10 @@ public class Pelicula {
 		PeliculaDAO.getInstance().delete(p);
 		return p;
     }
+    
+	public static boolean esPeliculaEliminable(int id) {
+		return PeliculaDAO.getInstance().esPeliculaEliminable(id);
+	}
 
     public String getNombre() {
         return nombre;
@@ -153,4 +157,5 @@ public class Pelicula {
 	public void setId(int id) {
 		this.id = id;
 	}
+
 }

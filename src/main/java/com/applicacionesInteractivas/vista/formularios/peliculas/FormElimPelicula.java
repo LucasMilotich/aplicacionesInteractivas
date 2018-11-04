@@ -34,6 +34,10 @@ public class FormElimPelicula extends JFrame{
 		btnEliminar = new JButton("Eliminar Pelicula");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
+			if(!cine.esPeliculaEliminable(idPelicula)) {
+				JOptionPane.showMessageDialog(null,"No se puede eliminar la pelicula ya que tiene funciones activas!");
+				return;
+			}
 			cine.eliminarPelicula(idPelicula);
 			JOptionPane.showMessageDialog(null,"Pelicula eliminada!");
 			this.setVisible(false);

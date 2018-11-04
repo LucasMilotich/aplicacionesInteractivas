@@ -16,7 +16,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -72,17 +71,18 @@ public class VentaBoleteria extends JFrame {
 	private JButton btnConfirmar;
 	private FormTarjeta datosTarjeta;
 	private FormAsientos asientos;
-	private JPanel mainPanel;
 	
 	public VentaBoleteria() {
 
-		this.setSize(600, 600);
+		this.setSize(550, 500);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("TPO API 2C2018");
 		
 		lblCine = new JLabel("Cine");
-		this.add(lblCine);
+		lblCine.setBounds(20, 30, 120, 28);
+		getContentPane().add(lblCine);
 		
 		listadoCines = CineController.getInstance().getListadoCines();
 		ComboBoxModel<String> cineModel = new DefaultComboBoxModel<String>(listadoCines);
@@ -98,38 +98,47 @@ public class VentaBoleteria extends JFrame {
 		        tablaDescuentos.fireTableDataChanged();
 		    }
 		});
-		this.add(comboCine);
+		comboCine.setBounds(130, 30, 200, 28);
+		getContentPane().add(comboCine);
 		
 		lblPelicula = new JLabel("Pelicula");
-		this.add(lblPelicula);
+		lblPelicula.setBounds(20, 70, 120, 28);
+		getContentPane().add(lblPelicula);
 		
 		listadoPeliculas = CineController.getInstance().getListadoPeliculas();
 		ComboBoxModel<String> peliculaModel = new DefaultComboBoxModel<String>(listadoPeliculas);
 		comboPelicula = new JComboBox<String>();
 		comboPelicula.setModel(peliculaModel);
 		comboPelicula.setSelectedItem(null);
-		this.add(comboPelicula);
+		comboPelicula.setBounds(130, 70, 200, 28);
+		getContentPane().add(comboPelicula);
 		
 		lblDia = new JLabel("Dia");
-		this.add(lblDia);
+		lblDia.setBounds(20, 110, 30, 28);
+		getContentPane().add(lblDia);
 		
 		comboDia = new JComboBox<String>(listaDias);
 		comboDia.setSelectedItem(null);
-		this.add(comboDia);
+		comboDia.setBounds(50, 110, 40, 28);
+		getContentPane().add(comboDia);
 		
 		lblMes = new JLabel("Mes");
-		this.add(lblMes);
+		lblMes.setBounds(100, 110, 30, 28);
+		getContentPane().add(lblMes);
 		
 		comboMes = new JComboBox<String>(listaMeses);
 		comboMes.setSelectedItem(null);
-		this.add(comboMes);
+		comboMes.setBounds(130, 110, 40, 28);
+		getContentPane().add(comboMes);
 		
 		lblAnio = new JLabel("Anio");
-		this.add(lblAnio);
+		lblAnio.setBounds(180, 110, 30, 28);
+		getContentPane().add(lblAnio);
 		
 		comboAnio = new JComboBox<String>(listaAnio);
 		comboAnio.setSelectedItem(null);
-		this.add(comboAnio);
+		comboAnio.setBounds(210, 110, 60, 28);
+		getContentPane().add(comboAnio);
 		
 		btnBuscarFunciones = new JButton("Buscar funciones");
 		btnBuscarFunciones.addActionListener(e -> {
@@ -150,16 +159,20 @@ public class VentaBoleteria extends JFrame {
 			}
 				
 		});
-		this.add(btnBuscarFunciones);
+		btnBuscarFunciones.setBounds(280, 110, 140, 28);
+		getContentPane().add(btnBuscarFunciones);
 		
 		lblFuncion = new JLabel("Funcion");
-		this.add(lblFuncion);
+		lblFuncion.setBounds(20, 150, 120, 28);
+		getContentPane().add(lblFuncion);
 		
 		comboFuncion = new JComboBox<String>();
-		this.add(comboFuncion);
+		comboFuncion.setBounds(130, 150, 110, 28);
+		getContentPane().add(comboFuncion);
 		
 		lblCantidad = new JLabel("Cantidad");
-		this.add(lblCantidad);
+		lblCantidad.setBounds(20, 190, 120, 28);
+		getContentPane().add(lblCantidad);
 		
 		comboCantidad = new JComboBox<String>(listaCantidad);
 		comboCantidad.addActionListener(new ActionListener() {
@@ -177,7 +190,8 @@ public class VentaBoleteria extends JFrame {
 				}
 		    }
 		});
-		this.add(comboCantidad);
+		comboCantidad.setBounds(130, 190, 110, 28);
+		getContentPane().add(comboCantidad);
 		
 		btnAsientos = new JButton("Seleccionar asientos");
 		btnAsientos.addActionListener(e -> {
@@ -192,10 +206,12 @@ public class VentaBoleteria extends JFrame {
 			}
 			asientos.setVisible(true);
 		});
-		this.add(btnAsientos);
+		btnAsientos.setBounds(250, 190, 160, 28);
+		getContentPane().add(btnAsientos);
 		
 		lblFormaPago = new JLabel("Forma de Pago");
-		this.add(lblFormaPago);
+		lblFormaPago.setBounds(20, 230, 120, 28);
+		getContentPane().add(lblFormaPago);
 		
 		comboFormaPago = new JComboBox<>(listaFormasPago);
 		comboFormaPago.setSelectedItem(null);
@@ -210,7 +226,8 @@ public class VentaBoleteria extends JFrame {
 		        }
 		    }
 		});
-		this.add(comboFormaPago);
+		comboFormaPago.setBounds(130, 230, 110, 28);
+		getContentPane().add(comboFormaPago);
 		
 		btnFormaPago = new JButton("Datos Tarjeta");
 		btnFormaPago.setVisible(false);
@@ -220,16 +237,19 @@ public class VentaBoleteria extends JFrame {
 			datosTarjeta.setAlwaysOnTop(true);
 			datosTarjeta.setVisible(true);
 		});
-		this.add(btnFormaPago);
+		btnFormaPago.setBounds(250, 230, 160, 28);
+		getContentPane().add(btnFormaPago);
 		
 		lblDescuento = new JLabel("Descuentos");
-		this.add(lblDescuento);
+		lblDescuento.setBounds(20, 270, 120, 28);
+		getContentPane().add(lblDescuento);
 		
 		tabDescuentos = new JTable();
 		tabDescuentos.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		
 		mibarra = new JScrollPane();
-		mibarra.setBounds(40, 300, 400, 130);
+		mibarra.setBounds(20, 300, 500, 130);
+		getContentPane().add(mibarra);
 		
 		tablaDescuentos = new TablaDescuentos();
 		
@@ -255,7 +275,6 @@ public class VentaBoleteria extends JFrame {
 				try {
 					asientosVenta.add(new AsientoFuncion(false, new Asiento(0, 0), FuncionDAO.getInstance().findBy(idFuncion)));
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				//asientosVenta = this.asientos.obtenerAsientosSeleccionados(idFuncion);
@@ -279,58 +298,7 @@ public class VentaBoleteria extends JFrame {
 			JOptionPane.showMessageDialog(null,"Venta realizada!");
 			this.setVisible(false);
 		});
-		this.add(btnConfirmar);
-		
-		this.mainPanel = new JPanel();
-		
-		JPanel cineContainer = new JPanel();
-		cineContainer.add(lblCine);
-		cineContainer.add(comboCine);
-		
-		JPanel peliculaContainer = new JPanel();
-		peliculaContainer.add(lblPelicula);
-		peliculaContainer.add(comboPelicula);
-		
-		JPanel fechaContainer = new JPanel();
-		fechaContainer.add(lblDia);
-		fechaContainer.add(comboDia);
-		fechaContainer.add(lblMes);
-		fechaContainer.add(comboMes);
-		fechaContainer.add(lblAnio);
-		fechaContainer.add(comboAnio);
-		fechaContainer.add(btnBuscarFunciones);
-		
-		JPanel funcionContainer = new JPanel();
-		funcionContainer.add(lblFuncion);
-		funcionContainer.add(comboFuncion);
-		
-		JPanel cantContainer = new JPanel();
-		cantContainer.add(lblCantidad);
-		cantContainer.add(comboCantidad);
-		cantContainer.add(btnAsientos);
-		
-		JPanel formaContainer = new JPanel();
-		formaContainer.add(lblFormaPago);
-		formaContainer.add(comboFormaPago);
-		formaContainer.add(btnFormaPago);
-		
-		JPanel descuentoContainer = new JPanel();
-		descuentoContainer.add(lblDescuento);
-		descuentoContainer.add(mibarra);
-		
-		JPanel btnContainer = new JPanel();
-		btnContainer.add(btnConfirmar);
-		
-		mainPanel.add(cineContainer);
-		mainPanel.add(peliculaContainer);
-		mainPanel.add(fechaContainer);
-		mainPanel.add(funcionContainer);
-		mainPanel.add(cantContainer);
-		mainPanel.add(formaContainer);
-		mainPanel.add(descuentoContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
-		
+		btnConfirmar.setBounds(230, 440, 120, 28);
+		getContentPane().add(btnConfirmar);
 	}
 }

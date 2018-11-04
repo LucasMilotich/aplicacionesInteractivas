@@ -5,11 +5,13 @@ import java.util.Collection;
 import java.util.List;
 
 import com.applicacionesInteractivas.bd.EntradaDAO;
+import com.applicacionesInteractivas.bd.TarjetaDAO;
 import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.backend.IObserver;
 import com.applicacionesInteractivas.modelo.backend.NovedadesObserver;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
+import com.applicacionesInteractivas.modelo.medioDePago.Tarjeta;
 
 public class Venta {
 
@@ -90,9 +92,16 @@ public class Venta {
         Entrada entrada;
 
         for (AsientoFuncion asiento : asientos) {
+        	asiento.setOcupado(true);
             entrada = new Entrada(asiento, venta);
             venta.entradas.add(entrada);
             EntradaDAO.getInstance().insert(entrada);
+        }
+        
+        if(medioDePago.toString() == "TARJETA CREDITO" || medioDePago.toString() == "TARJETA DEBITO") {
+        	Tarjeta t = (Tarjeta) medioDePago;
+        	t.setVenta(venta);
+        	TarjetaDAO.getInstance().insert(t);
         }
 
 

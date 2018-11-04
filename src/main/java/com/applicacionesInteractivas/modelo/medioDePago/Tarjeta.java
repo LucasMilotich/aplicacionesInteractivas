@@ -1,11 +1,14 @@
 package com.applicacionesInteractivas.modelo.medioDePago;
 
+import com.applicacionesInteractivas.modelo.Venta;
+
 public class Tarjeta extends MedioDePago {
     
 	private String tipo;
     private String numero;
     private String vencimiento;
     private String codigo;
+    private Venta venta;
 
     public Tarjeta(String tipo, String numero, String vencimiento, String codigo) {
 		super();
@@ -45,5 +48,13 @@ public class Tarjeta extends MedioDePago {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public Venta getVenta() {
+		return venta;
+	}
+
+	public void setVenta(Venta venta) {
+		this.venta = venta;
 	}
 }

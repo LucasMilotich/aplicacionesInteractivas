@@ -90,12 +90,10 @@ public class FormAltaFuncion extends JFrame{
 		getContentPane().add(comboCine);
 		
 		comboPelicula = new JComboBox<String>();
-		//comboPelicula.setSize(comboCine.getWidth(), comboCine.getHeight());
 		comboPelicula.setBounds(130, 80, 220, 28);
 		getContentPane().add(comboPelicula);
 		
 		comboSala = new JComboBox<String>();
-		//comboSala.setSize(comboCine.getWidth(), comboCine.getHeight());
 		comboSala.setBounds(130, 120, 220, 28);
 		getContentPane().add(comboSala);
 		

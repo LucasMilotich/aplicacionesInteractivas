@@ -132,4 +132,25 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
                 rs.getString(9)
         );
     }
+
+	public boolean esPeliculaEliminable(int id) {
+		Connection con = null;
+        boolean result = false;
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select IF(COUNT(1) > 0, 0, 1) from " + PoolConnection.dbName + ".funcion where " +
+            											"id_pelicula = ? and deleted = false");
+            s.setInt(1, id);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result = rs.getBoolean(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+	}
 }

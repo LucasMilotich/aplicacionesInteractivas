@@ -37,6 +37,11 @@ public class FormElimFuncion extends JFrame{
 		btnEliminar = new JButton("Eliminar");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
+			if(!cine.esFuncionEliminable(idFuncion)) {
+				JOptionPane.showMessageDialog(null,"No se puede eliminar la funcion ya que tiene entradas vendidas!");
+				return;
+			}
+			
 			cine.eliminarFuncion(idFuncion);
 			JOptionPane.showMessageDialog(null,"Funcion eliminada!");
 			this.setVisible(false);
