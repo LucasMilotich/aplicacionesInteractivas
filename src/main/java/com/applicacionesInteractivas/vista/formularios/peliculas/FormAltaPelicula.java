@@ -1,17 +1,18 @@
 package com.applicacionesInteractivas.vista.formularios.peliculas;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 
 public class FormAltaPelicula extends JFrame{
 
-	private JPanel mainPanel;
 	private static final long serialVersionUID = -1575972637826323094L;
 	private JLabel lblNombrePelicula;
 	private JTextField txtNombrePelicula;
@@ -33,74 +34,141 @@ public class FormAltaPelicula extends JFrame{
 
 	public FormAltaPelicula() {
 		
-		this.setSize(500, 500);
+		this.setSize(400, 450);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Crear Pelicula");
 		
 		lblNombrePelicula = new JLabel();
 		lblNombrePelicula.setText("Nombre");
-		this.add(lblNombrePelicula);
+		lblNombrePelicula.setBounds(21, 40, 120, 28);
+		getContentPane().add(lblNombrePelicula);
 		
 		txtNombrePelicula = new JTextField();
-		txtNombrePelicula.setColumns(12);
-		this.add(txtNombrePelicula);
+		txtNombrePelicula.setBounds(130, 40, 120, 28);
+		this.txtNombrePelicula.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtNombrePelicula.getText().length() > 49)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtNombrePelicula);
 		
 		lblDirector = new JLabel();
 		lblDirector.setText("Director");
-		this.add(lblDirector);
+		lblDirector.setBounds(21, 80, 120, 28);
+		getContentPane().add(lblDirector);
 		
 		txtDirector = new JTextField();
-		txtDirector.setColumns(12);
-		this.add(txtDirector);
+		txtDirector.setBounds(130, 80, 120, 28);
+		this.txtDirector.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtDirector.getText().length() > 49)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtDirector);
 		
 		lblGenero = new JLabel();
 		lblGenero.setText("Genero");
-		this.add(lblGenero);
+		lblGenero.setBounds(21, 120, 120, 28);
+		getContentPane().add(lblGenero);
 		
 		txtGenero = new JTextField();
-		txtGenero.setColumns(12);
-		this.add(txtGenero);
+		txtGenero.setBounds(130, 120, 120, 28);
+		this.txtGenero.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtGenero.getText().length() > 29)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtGenero);
 		
 		lblDuracion = new JLabel();
 		lblDuracion.setText("Duracion");
-		this.add(lblDuracion);
+		lblDuracion.setBounds(21, 160, 120, 28);
+		getContentPane().add(lblDuracion);
 		
 		txtDuracion = new JTextField();
-		txtDuracion.setColumns(12);
-		this.add(txtDuracion);
+		txtDuracion.setBounds(130, 160, 120, 28);
+		this.txtDuracion.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtDuracion.getText().length() > 2)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Duracion' solo permite numeros");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtDuracion);
 		
 		lblIdioma = new JLabel();
 		lblIdioma.setText("Idioma");
-		this.add(lblIdioma);
+		lblIdioma.setBounds(21, 200, 120, 28);
+		getContentPane().add(lblIdioma);
 		
 		txtIdioma = new JTextField();
-		txtIdioma.setColumns(12);
-		this.add(txtIdioma);
+		txtIdioma.setBounds(130, 200, 120, 28);
+		this.txtIdioma.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtIdioma.getText().length() > 29)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtIdioma);
 
 		lblSubtitulos = new JLabel();
 		lblSubtitulos.setText("Subtitulos");
-		this.add(lblSubtitulos);
+		lblSubtitulos.setBounds(21, 240, 120, 28);
+		getContentPane().add(lblSubtitulos);
 		
 		txtSubtitulos = new JTextField();
-		txtSubtitulos.setColumns(12);
-		this.add(txtSubtitulos);
+		txtSubtitulos.setBounds(130, 240, 120, 28);
+		this.txtSubtitulos.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtSubtitulos.getText().length() > 29)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtSubtitulos);
 		
 		lblCalificacion = new JLabel();
 		lblCalificacion.setText("Calificacion");
-		this.add(lblCalificacion);
+		lblCalificacion.setBounds(21, 280, 120, 28);
+		getContentPane().add(lblCalificacion);
 		
 		txtCalificacion = new JTextField();
-		txtCalificacion.setColumns(12);
-		this.add(txtCalificacion);
+		txtCalificacion.setBounds(130, 280, 120, 28);
+		this.txtCalificacion.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtCalificacion.getText().length() > 1)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Calificacion' solo permite numeros");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtCalificacion);
 		
 		lblObservacion = new JLabel();
 		lblObservacion.setText("Observacion");
-		this.add(lblObservacion);
+		lblObservacion.setBounds(21, 320, 120, 28);
+		getContentPane().add(lblObservacion);
 		
 		txtObservacion = new JTextField();
-		txtObservacion.setColumns(12);
-		this.add(txtObservacion);
+		txtObservacion.setBounds(130, 320, 120, 28);
+		this.txtObservacion.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtObservacion.getText().length() > 99)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtObservacion);
 		
 		btnConfirm = new JButton("Confirmar");
 		btnConfirm.addActionListener(e -> {
@@ -116,55 +184,8 @@ public class FormAltaPelicula extends JFrame{
 			JOptionPane.showMessageDialog(null,"Pelicula creada!");
 			this.setVisible(false);
 		});
-		this.add(btnConfirm);
+		btnConfirm.setBounds(130, 380, 120, 28);
+		getContentPane().add(btnConfirm);
 		
-		JPanel nombreContainer = new JPanel();
-		nombreContainer.add(lblNombrePelicula);
-		nombreContainer.add(txtNombrePelicula);
-		
-		JPanel directorContainer = new JPanel();
-		directorContainer.add(lblDirector);
-		directorContainer.add(txtDirector);
-		
-		JPanel generoContainer = new JPanel();
-		generoContainer.add(lblGenero);
-		generoContainer.add(txtGenero);
-		
-		JPanel duracionContainer = new JPanel();
-		duracionContainer.add(lblDuracion);
-		duracionContainer.add(txtDuracion);
-		
-		JPanel idiomaContainer = new JPanel();
-		idiomaContainer.add(lblIdioma);
-		idiomaContainer.add(txtIdioma);
-		
-		JPanel subtitulosContainer = new JPanel();
-		subtitulosContainer.add(lblSubtitulos);
-		subtitulosContainer.add(txtSubtitulos);
-		
-		JPanel calificacionContainer = new JPanel();
-		calificacionContainer.add(lblCalificacion);
-		calificacionContainer.add(txtCalificacion);
-		
-		JPanel observacionContainer = new JPanel();
-		observacionContainer.add(lblObservacion);
-		observacionContainer.add(txtObservacion);
-		
-		JPanel btnContainer = new JPanel();
-		btnContainer.add(btnConfirm);
-		
-		mainPanel = new JPanel();
-		
-		mainPanel.add(nombreContainer);
-		mainPanel.add(directorContainer);
-		mainPanel.add(generoContainer);
-		mainPanel.add(duracionContainer);
-		mainPanel.add(idiomaContainer);
-		mainPanel.add(subtitulosContainer);
-		mainPanel.add(calificacionContainer);
-		mainPanel.add(observacionContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
 	}
 }

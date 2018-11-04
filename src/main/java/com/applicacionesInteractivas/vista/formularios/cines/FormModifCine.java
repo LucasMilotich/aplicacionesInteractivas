@@ -2,6 +2,8 @@ package com.applicacionesInteractivas.vista.formularios.cines;
 
 import java.awt.Dimension;
 import java.awt.Point;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -9,7 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -19,9 +20,6 @@ import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
 
 public class FormModifCine extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -7611922162786588565L;
 	private JLabel lblCuit;
 	private JTextField txtCuit;
@@ -32,31 +30,53 @@ public class FormModifCine extends JFrame{
 	private JButton btnModificar;
 	private JTable tabCines;
 	private TablaCines tablaCines;
-	private JPanel mainPanel;
 	private JScrollPane mibarra;
 	
 	public FormModifCine() {
 		
-		this.setSize(500, 500);
+		this.setSize(480, 380);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Modificar Cine");
-		mainPanel = new JPanel();
 		
 		lblCuit = new JLabel("CUIT");
+		lblCuit.setBounds(21, 40, 120, 28);
+		getContentPane().add(lblCuit);
+		
 		lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(21, 80, 120, 28);
+		getContentPane().add(lblNombre);
+		
 		lblDomicilio = new JLabel("Domicilio");
+		lblDomicilio.setBounds(21, 120, 120, 28);
+		getContentPane().add(lblDomicilio);
 		
 		txtCuit = new JTextField();
-		txtCuit.setColumns(12);
+		txtCuit.setBounds(130, 40, 120, 28);
+		getContentPane().add(txtCuit);
 		txtCuit.setEnabled(false);
 		
 		txtNombre = new JTextField();
-		txtNombre.setColumns(12);
+		txtNombre.setBounds(130, 80, 120, 28);
+		this.txtNombre.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtNombre.getText().length() > 49)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtNombre);
 		txtNombre.setEnabled(false);
 		
 		txtDomicilio = new JTextField();
-		txtDomicilio.setColumns(12);
+		txtDomicilio.setBounds(130, 120, 120, 28);
+		this.txtDomicilio.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtDomicilio.getText().length() > 49)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtDomicilio);
 		txtDomicilio.setEnabled(false);
 		
 		btnModificar = new JButton("Modificar Cine");
@@ -68,22 +88,9 @@ public class FormModifCine extends JFrame{
 			JOptionPane.showMessageDialog(null,"Cine modificado!");
 			this.setVisible(false);
 		});
+		btnModificar.setBounds(180, 165, 123, 28);
+		getContentPane().add(btnModificar);
 		btnModificar.setEnabled(false);
-		
-		JPanel cuitContainer = new JPanel();
-		cuitContainer.add(lblCuit);
-		cuitContainer.add(txtCuit);
-		
-		JPanel nombreContainer = new JPanel();
-		nombreContainer.add(lblNombre);
-		nombreContainer.add(txtNombre);
-		
-		JPanel domContainer = new JPanel();
-		domContainer.add(lblDomicilio);
-		domContainer.add(txtDomicilio);
-		
-		JPanel btnContainer = new JPanel();
-		btnContainer.add(btnModificar);
 		
 		tabCines = new JTable();
 		tabCines.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -109,26 +116,15 @@ public class FormModifCine extends JFrame{
 		    }
 		});
 
-		JPanel tablaCinesContainer = new JPanel();
-		
 		mibarra = new JScrollPane();
-		mibarra.setBounds(40, 300, 400, 130);
+		mibarra.setBounds(20, 210, 440, 130);
+		getContentPane().add(mibarra);
 		
 		tablaCines = new TablaCines();
 		tablaCines.setCines(CineController.getInstance().getCines());
 		
 		tabCines.setModel(tablaCines);
 		mibarra.setViewportView(tabCines);
-		
-		tablaCinesContainer.add(mibarra);
-		
-		mainPanel.add(cuitContainer);
-		mainPanel.add(nombreContainer);
-		mainPanel.add(domContainer);
-		mainPanel.add(btnContainer);
-		mainPanel.add(tablaCinesContainer);
-		
-		getContentPane().add(mainPanel);
 		
 	}
 }

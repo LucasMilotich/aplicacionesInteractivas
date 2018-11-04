@@ -1,5 +1,7 @@
 package com.applicacionesInteractivas.vista.formularios.salas;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -9,7 +11,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
@@ -28,43 +29,78 @@ public class FormAltaSala extends JFrame{
 	private JTextField txtFilas;
 	private JTextField txtColumnas;
 	private JButton btnConfirmar;
-	private JPanel mainPanel;
-	private JPanel panel0, panel1, panel2, panel3, panel4;
 
 	public FormAltaSala() {
 		
-		this.setSize(320, 360);
+		this.setSize(380, 360);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Crear Sala");
+		
+		lblCine = new JLabel("Cine");
+		lblCine.setBounds(20, 40, 120, 28);
+		getContentPane().add(lblCine);
+		
+		lblNombre = new JLabel("Nombre");
+		lblNombre.setBounds(20, 80, 120, 28);
+		getContentPane().add(lblNombre);
+		
+		lblFilas = new JLabel("Filas");
+		lblFilas.setBounds(20, 120, 120, 28);
+		getContentPane().add(lblFilas);
+		
+		lblColumnas = new JLabel("Columnas");
+		lblColumnas.setBounds(20, 160, 120, 28);
+		getContentPane().add(lblColumnas);
 		
 		listadoCines = CineController.getInstance().getListadoCines();
 		ComboBoxModel<String> cineModel = new DefaultComboBoxModel<String>(listadoCines);
 		comboCine = new JComboBox<String>();
+		comboCine.setBounds(130, 40, 200, 28);
 		comboCine.setModel(cineModel);
 		comboCine.setSelectedItem(null);
-		this.add(comboCine);
-		
-		lblCine = new JLabel("Cine");
-		this.add(lblCine);
-		lblNombre = new JLabel("Nombre");
-		this.add(lblNombre);
-		lblFilas = new JLabel("Filas");
-		this.add(lblFilas);
-		lblColumnas = new JLabel("Columnas");
-		this.add(lblColumnas);
+		getContentPane().add(comboCine);
 		
 		txtNombre = new JTextField();
-		txtNombre.setColumns(12);
-		this.add(txtNombre);
+		txtNombre.setBounds(130, 80, 120, 28);
+		this.txtNombre.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				if(txtNombre	.getText().length() > 49)
+					e.consume();
+			}
+		});
+		getContentPane().add(txtNombre);
 		
 		txtFilas = new JTextField();
-		txtFilas.setColumns(12);
-		this.add(txtFilas);
+		txtFilas.setBounds(130, 120, 120, 28);
+		this.txtFilas.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtFilas.getText().length() > 1)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Filas' solo permite numeros");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtFilas);
 		
 		txtColumnas = new JTextField();
-		txtColumnas.setColumns(12);
-		this.add(txtColumnas);
+		txtColumnas.setBounds(130, 160, 120, 28);
+		this.txtColumnas.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtColumnas.getText().length() > 1)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Columnas' solo permite numeros");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtColumnas);
 		
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
@@ -77,34 +113,8 @@ public class FormAltaSala extends JFrame{
 			JOptionPane.showMessageDialog(null,"Sala creada!");
 			this.setVisible(false);
 		});
-		
-		mainPanel = new JPanel();
-		
-		panel0 = new JPanel();
-		panel0.add(lblCine);
-		panel0.add(comboCine);
-		
-		panel1 = new JPanel();
-		panel1.add(lblNombre);
-		panel1.add(txtNombre);
-		
-		panel2 = new JPanel();
-		panel2.add(lblFilas);
-		panel2.add(txtFilas);
-		
-		panel3 = new JPanel();
-		panel3.add(lblColumnas);
-		panel3.add(txtColumnas);
-		
-		panel4 = new JPanel();
-		panel4.add(btnConfirmar);
+		btnConfirmar.setBounds(120, 210, 120, 28);
+		getContentPane().add(btnConfirmar);
 
-		mainPanel.add(panel0);
-		mainPanel.add(panel1);
-		mainPanel.add(panel2);
-		mainPanel.add(panel3);
-		mainPanel.add(panel4);
-		
-		getContentPane().add(mainPanel);
 	}
 }

@@ -6,7 +6,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
@@ -14,118 +13,90 @@ import com.applicacionesInteractivas.controllers.UsuarioController;
 
 public class AltaUsuario extends JFrame {
 
-    /**
-     *
-     */
-    private JPanel mainPanel;
     private static final long serialVersionUID = -4928365317491320581L;
 
     public AltaUsuario() {
 
-        this.setSize(320, 360);
+        this.setSize(320, 420);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
+        this.getContentPane().setLayout(null);
         this.setTitle("Crear Usuario");
 
         JLabel lblNombreUser = new JLabel();
         lblNombreUser.setText("Nombre Usuario");
-        this.add(lblNombreUser);
+        lblNombreUser.setBounds(20, 40, 120, 28);
+        getContentPane().add(lblNombreUser);
 
         JTextField txtNombreUser = new JTextField();
-        txtNombreUser.setColumns(12);
-        this.add(txtNombreUser);
+        txtNombreUser.setBounds(130, 40, 120, 28);
+        getContentPane().add(txtNombreUser);
 
         JLabel lblEmail = new JLabel();
         lblEmail.setText("Email");
-        this.add(lblEmail);
+        lblEmail.setBounds(20, 80, 120, 28);
+        getContentPane().add(lblEmail);
 
         JTextField txtEmail = new JTextField();
-        txtEmail.setColumns(12);
-        this.add(txtEmail);
+        txtEmail.setBounds(130, 80, 120, 28);
+        getContentPane().add(txtEmail);
 
         JLabel lblContrasena = new JLabel();
-        lblContrasena.setText("Contrasena Usuario");
-        this.add(lblContrasena);
+        lblContrasena.setText("Contrasena");
+        lblContrasena.setBounds(20, 120, 120, 28);
+        getContentPane().add(lblContrasena);
 
         JPasswordField txtContrasena = new JPasswordField();
-        txtContrasena.setColumns(12);
-        this.add(txtContrasena);
+        txtContrasena.setBounds(130, 120, 120, 28);
+        getContentPane().add(txtContrasena);
 
         JLabel lblNombre = new JLabel();
         lblNombre.setText("Nombre Completo");
-        this.add(lblNombre);
+        lblNombre.setBounds(20, 160, 120, 28);
+        getContentPane().add(lblNombre);
 
         JTextField txtNombre = new JTextField();
-        txtNombre.setColumns(12);
-        this.add(txtNombre);
+        txtNombre.setBounds(130, 160, 120, 28);
+        getContentPane().add(txtNombre);
 
         JLabel lblDomicilio = new JLabel();
         lblDomicilio.setText("Domicilio");
-        this.add(lblDomicilio);
+        lblDomicilio.setBounds(20, 200, 120, 28);
+        getContentPane().add(lblDomicilio);
 
         JTextField txtDomicilio = new JTextField();
-        txtDomicilio.setColumns(12);
-        this.add(txtDomicilio);
+        txtDomicilio.setBounds(130, 200, 120, 28);
+        getContentPane().add(txtDomicilio);
 
         JLabel lblDni = new JLabel();
         lblDni.setText("DNI");
-        this.add(lblDni);
+        lblDni.setBounds(20, 240, 120, 28);
+        getContentPane().add(lblDni);
 
         JTextField txtDni = new JTextField();
-        txtDni.setColumns(12);
-        this.add(txtDni);
+        txtDni.setBounds(130, 240, 120, 28);
+        getContentPane().add(txtDni);
 
         JLabel lblFechaNac = new JLabel();
         lblFechaNac.setText("Fecha Nacimiento");
-        this.add(lblFechaNac);
+        lblFechaNac.setBounds(20, 280, 120, 28);
+        getContentPane().add(lblFechaNac);
 
         JTextField txtFechaNac = new JTextField();
-        txtFechaNac.setColumns(12);
-        this.add(txtFechaNac);
+        txtFechaNac.setBounds(130, 280, 120, 28);
+        getContentPane().add(txtFechaNac);
 
         JButton btnConfirm = new JButton("Confirmar");
-        this.add(btnConfirm);
-
-        JPanel panel1 = new JPanel();
-        panel1.add(lblNombreUser);
-        panel1.add(txtNombreUser);
-
-        JPanel panel2 = new JPanel();
-        panel2.add(lblEmail);
-        panel2.add(txtEmail);
-
-        JPanel panel3 = new JPanel();
-        panel3.add(lblContrasena);
-        panel3.add(txtContrasena);
-
-        JPanel panel4 = new JPanel();
-        panel4.add(lblNombre);
-        panel4.add(txtNombre);
-
-        JPanel panel5 = new JPanel();
-        panel5.add(lblDomicilio);
-        panel5.add(txtDomicilio);
-
-        JPanel panel6 = new JPanel();
-        panel6.add(lblDni);
-        panel6.add(txtDni);
-
-        JPanel panel7 = new JPanel();
-        panel7.add(lblFechaNac);
-        panel7.add(txtFechaNac);
-
-        JPanel panel8 = new JPanel();
-        panel8.add(btnConfirm);
-
+        getContentPane().add(btnConfirm);
+        btnConfirm.setBounds(100, 340, 120, 28);
         btnConfirm.addActionListener(e -> {
-
             try {
                 UsuarioController
                     .getInstance()
                     .crearUsuario(
                         txtNombreUser.getText(),
                         txtEmail.getText(),
-                        txtContrasena.getText(),
+                        String.copyValueOf(txtContrasena.getPassword()),
                         txtNombre.getText(),
                         txtDomicilio.getText(),
                         txtDni.getText(),
@@ -136,22 +107,7 @@ public class AltaUsuario extends JFrame {
             } catch (Exception exception) {
                 JOptionPane.showMessageDialog(null, "Error creando usuario " + exception.getMessage());
             }
-
             this.setVisible(false);
-
-
         });
-        mainPanel = new JPanel();
-
-        mainPanel.add(panel1);
-        mainPanel.add(panel2);
-        mainPanel.add(panel3);
-        mainPanel.add(panel4);
-        mainPanel.add(panel5);
-        mainPanel.add(panel6);
-        mainPanel.add(panel7);
-        mainPanel.add(panel8);
-
-        getContentPane().add(mainPanel);
     }
 }

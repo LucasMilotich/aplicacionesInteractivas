@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -23,20 +22,16 @@ public class FormElimPelicula extends JFrame{
 	private TablaPeliculas tablaPeliculasModel;
 	private JScrollPane miBarra;
 	private int idPelicula;
-	private JPanel mainPanel;
-	private JPanel tableContainer;
-	private JPanel btnContainer;
 	
 	public FormElimPelicula() {
 		
-		this.setSize(500, 500);
+		this.setSize(500, 280);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Eliminar Pelicula");
-		mainPanel = new JPanel();
 		
-		
-		btnEliminar = new JButton("Eliminar");
+		btnEliminar = new JButton("Eliminar Pelicula");
 		btnEliminar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
 			cine.eliminarPelicula(idPelicula);
@@ -44,7 +39,8 @@ public class FormElimPelicula extends JFrame{
 			this.setVisible(false);
 		});
 		btnEliminar.setEnabled(false);
-		this.add(btnEliminar);
+		btnEliminar.setBounds(170, 15, 123, 28);
+		getContentPane().add(btnEliminar);
 		
 		tablaPeliculas = new JTable();
 		tablaPeliculas.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -66,7 +62,8 @@ public class FormElimPelicula extends JFrame{
 		});
 		
 		miBarra = new JScrollPane();
-		miBarra.setBounds(40, 300, 400, 130);
+		getContentPane().add(miBarra);
+		miBarra.setBounds(20, 60, 450, 130);
 		
 		tablaPeliculasModel = new TablaPeliculas();
 		tablaPeliculasModel.setPeliculas(CineController.getInstance().getPeliculas());
@@ -74,16 +71,5 @@ public class FormElimPelicula extends JFrame{
 		tablaPeliculas.setModel(tablaPeliculasModel);
 		tablaPeliculas.setDragEnabled(false);
 		miBarra.setViewportView(tablaPeliculas);
-		
-		btnContainer = new JPanel();
-		btnContainer.add(btnEliminar);
-		
-		tableContainer = new JPanel();
-		tableContainer.add(miBarra);
-		
-		mainPanel.add(btnContainer);
-		mainPanel.add(tableContainer);
-		
-		getContentPane().add(mainPanel);
 	}
 }

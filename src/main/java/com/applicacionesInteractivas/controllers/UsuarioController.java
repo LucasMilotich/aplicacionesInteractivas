@@ -108,7 +108,7 @@ public class UsuarioController {
     }
 
     public Usuario getUsuario(String nombreUsuario) {
-        for (Usuario u : usuarios) {
+        for (Usuario u : getUsuarios()) {
             if (u.getNombreUsuario().equals(nombreUsuario))
                 return u;
         }

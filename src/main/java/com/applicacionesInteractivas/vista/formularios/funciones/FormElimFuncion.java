@@ -28,7 +28,7 @@ public class FormElimFuncion extends JFrame{
 
 	public FormElimFuncion() {
 		
-		this.setSize(600, 360);
+		this.setSize(600, 260);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("Eliminar Funcion");

@@ -1,14 +1,12 @@
 package com.applicacionesInteractivas.vista.formularios.cines;
 
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -17,11 +15,7 @@ import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
 
 public class FormElimCine extends JFrame{
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = -4718031332588416051L;
-	private JPanel mainPanel;
 	private JButton btnEliminar;
 	private JTable tabCines;
 	private JScrollPane mibarra;
@@ -29,11 +23,11 @@ public class FormElimCine extends JFrame{
 	
 	public FormElimCine() {
 		
-		this.setSize(500, 500);
+		this.setSize(440, 300);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Eliminar Cine");
-		mainPanel = new JPanel();
 		
 		btnEliminar = new JButton("Eliminar Cine");
 		btnEliminar.addActionListener(e -> {
@@ -42,18 +36,15 @@ public class FormElimCine extends JFrame{
 			JOptionPane.showMessageDialog(null,"Cine eliminado!");
 			this.setVisible(false);
 		});
+		btnEliminar.setBounds(170, 15, 123, 28);
 		btnEliminar.setEnabled(false);
-		
-		JPanel btnContainer = new JPanel();
-		btnContainer.add(btnEliminar);
+		getContentPane().add(btnEliminar);
 		
 		tabCines = new JTable();
 		tabCines.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tabCines.addMouseListener(new MouseAdapter() {
 		    public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
-		        Point point = mouseEvent.getPoint();
-		        int row = table.rowAtPoint(point);
 		        if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
 		            try{
 			            btnEliminar.setEnabled(true);
@@ -66,7 +57,8 @@ public class FormElimCine extends JFrame{
 		});
 		
 		mibarra = new JScrollPane();
-		mibarra.setBounds(40, 300, 400, 130);
+		getContentPane().add(mibarra);
+		mibarra.setBounds(20, 60, 400, 130);
 		
 		tablaCines = new TablaCines();
 		tablaCines.setCines(CineController.getInstance().getCines());
@@ -74,12 +66,5 @@ public class FormElimCine extends JFrame{
 		tabCines.setModel(tablaCines);
 		mibarra.setViewportView(tabCines);
 
-		JPanel tablaCinesContainer = new JPanel();
-		tablaCinesContainer.add(mibarra);
-		
-		mainPanel.add(tablaCinesContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
 	}
 }

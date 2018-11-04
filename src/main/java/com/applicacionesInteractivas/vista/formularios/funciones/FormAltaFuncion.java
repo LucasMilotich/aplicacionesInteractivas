@@ -13,7 +13,6 @@ import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
@@ -45,20 +44,26 @@ public class FormAltaFuncion extends JFrame{
 	private JLabel lblHora;
 	private JTextField txtHora;
 	private JButton btnConfirmar;
-	private JPanel cineContainer, peliculaContainer, salaContainer, horarioContainer, btnContainer;
-	private JPanel mainPanel;
 	
 	public FormAltaFuncion() {
 		
-		this.setSize(400, 450);
+		this.setSize(400, 300);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Crear Funcion");
-		mainPanel = new JPanel();
 		
 		lblCine = new JLabel("Cine");
+		lblCine.setBounds(20, 40, 120, 28);
+		getContentPane().add(lblCine);
+		
 		lblPelicula = new JLabel("Pelicula");
+		lblPelicula.setBounds(20, 80, 120, 28);
+		getContentPane().add(lblPelicula);
+		
 		lblSala = new JLabel("Sala");
+		lblSala.setBounds(20, 120, 120, 28);
+		getContentPane().add(lblSala);
 		
 		listadoCines = CineController.getInstance().getListadoCines();
 		ComboBoxModel<String> cineModel = new DefaultComboBoxModel<String>(listadoCines);
@@ -81,40 +86,50 @@ public class FormAltaFuncion extends JFrame{
 				comboSala.setSelectedItem(null);
 		    }
 		});
-		this.add(comboCine);
+		comboCine.setBounds(130, 40, 220, 28);
+		getContentPane().add(comboCine);
 		
 		comboPelicula = new JComboBox<String>();
-		comboPelicula.setSize(comboCine.getWidth(), comboCine.getHeight());
-		this.add(comboPelicula);
+		//comboPelicula.setSize(comboCine.getWidth(), comboCine.getHeight());
+		comboPelicula.setBounds(130, 80, 220, 28);
+		getContentPane().add(comboPelicula);
 		
 		comboSala = new JComboBox<String>();
-		comboSala.setSize(comboCine.getWidth(), comboCine.getHeight());
-		this.add(comboSala);
+		//comboSala.setSize(comboCine.getWidth(), comboCine.getHeight());
+		comboSala.setBounds(130, 120, 220, 28);
+		getContentPane().add(comboSala);
 		
 		lblDia = new JLabel("Dia");
-		this.add(lblDia);
+		lblDia.setBounds(20, 160, 30, 30);
+		getContentPane().add(lblDia);
 		
 		comboDia = new JComboBox<String>(listaDias);
-		this.add(comboDia);
+		comboDia.setBounds(50, 160, 40, 30);
+		getContentPane().add(comboDia);
 		
 		lblMes = new JLabel("Mes");
-		this.add(lblMes);
+		lblMes.setBounds(100, 160, 30, 30);
+		getContentPane().add(lblMes);
 		
 		comboMes = new JComboBox<String>(listaMeses);
-		this.add(comboMes);
+		comboMes.setBounds(130, 160, 40, 30);
+		getContentPane().add(comboMes);
 		
 		lblAnio = new JLabel("Anio");
-		this.add(lblAnio);
+		lblAnio.setBounds(180, 160, 30, 30);
+		getContentPane().add(lblAnio);
 		
 		comboAnio = new JComboBox<String>(listaAnio);
-		this.add(comboAnio);
+		comboAnio.setBounds(210, 160, 60, 30);
+		getContentPane().add(comboAnio);
 		
 		lblHora = new JLabel("Hora");
-		this.add(lblHora);
+		lblHora.setBounds(280, 160, 30, 30);
+		getContentPane().add(lblHora);
 		
 		txtHora = new JTextField();
-		txtHora.setColumns(12);
-		this.add(txtHora);
+		txtHora.setBounds(310, 160, 50, 30);
+		getContentPane().add(txtHora);
 		
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
@@ -133,40 +148,8 @@ public class FormAltaFuncion extends JFrame{
 			JOptionPane.showMessageDialog(null,"Funcion creada!");
 			this.setVisible(false);
 		});
-		this.add(btnConfirmar);
-		
-		cineContainer = new JPanel();
-		cineContainer.add(lblCine);
-		cineContainer.add(comboCine);
-		
-		peliculaContainer = new JPanel();
-		peliculaContainer.add(lblPelicula);
-		peliculaContainer.add(comboPelicula);
-		
-		salaContainer = new JPanel();
-		salaContainer.add(lblSala);
-		salaContainer.add(comboSala);
-		
-		horarioContainer = new JPanel();
-		horarioContainer.add(lblDia);
-		horarioContainer.add(comboDia);
-		horarioContainer.add(lblMes);
-		horarioContainer.add(comboMes);
-		horarioContainer.add(lblAnio);
-		horarioContainer.add(comboAnio);
-		horarioContainer.add(lblHora);
-		horarioContainer.add(txtHora);
-		
-		btnContainer = new JPanel();
-		btnContainer.add(btnConfirmar);
-		
-		mainPanel.add(cineContainer);
-		mainPanel.add(peliculaContainer);
-		mainPanel.add(salaContainer);
-		mainPanel.add(horarioContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
+		btnConfirmar.setBounds(120, 220, 120, 28);
+		getContentPane().add(btnConfirmar);
 		
 	}
 }

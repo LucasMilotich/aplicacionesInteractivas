@@ -23,7 +23,9 @@ import com.applicacionesInteractivas.vista.formularios.usuarios.ABMTableModel;
 import com.applicacionesInteractivas.vista.formularios.usuarios.Columns;
 
 public class ABMRoles extends JFrame {
-    private JPanel mainPanel;
+    
+	private static final long serialVersionUID = -865814400459900570L;
+	private JPanel mainPanel;
     private JButton btnModificar;
     private JScrollPane mibarra;
     private ArrayList<JCheckBox> boxList = new ArrayList<JCheckBox>();

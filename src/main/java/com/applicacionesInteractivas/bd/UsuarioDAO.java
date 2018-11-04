@@ -150,7 +150,7 @@ public class UsuarioDAO implements ICRUD<Usuario> {
             rs.getString(Columns.DOMICILIO + 1),
             rs.getString(Columns.DNI + 1),
             rs.getDate(Columns.FECHANACIMIENTO + 1).toLocalDate(),
-            rs.getBoolean(Columns.DELETED));
+            rs.getBoolean(Columns.DELETED + 1));
     }
 
     public void modificarRoles(Usuario usuario) {

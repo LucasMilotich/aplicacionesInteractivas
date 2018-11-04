@@ -8,7 +8,6 @@ import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -23,14 +22,13 @@ public class FormElimSala extends JFrame{
 	private TablaSalas tablaSalasModel;
 	private JScrollPane mibarra;
 	private int idSala;
-	private JPanel mainPanel;
 
 	public FormElimSala() {
-		this.setSize(500, 500);
+		this.setSize(440, 290);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
+		this.getContentPane().setLayout(null);
 		this.setTitle("Eliminar Sala");
-		mainPanel = new JPanel();
 		
 		btnEliminar = new JButton("Eliminar Sala");
 		btnEliminar.addActionListener(e -> {
@@ -40,9 +38,8 @@ public class FormElimSala extends JFrame{
 			this.setVisible(false);
 		});
 		btnEliminar.setEnabled(false);
-		
-		JPanel btnContainer = new JPanel();
-		btnContainer.add(btnEliminar);
+		btnEliminar.setBounds(170, 15, 123, 28);
+		getContentPane().add(btnEliminar);
 		
 		tablaSalas = new JTable();
 		tablaSalas.setPreferredScrollableViewportSize(new Dimension(500, 70));
@@ -64,20 +61,13 @@ public class FormElimSala extends JFrame{
 		});
 		
 		mibarra = new JScrollPane();
-		mibarra.setBounds(40, 300, 400, 130);
+		getContentPane().add(mibarra);
+		mibarra.setBounds(20, 60, 400, 150);
 		
 		tablaSalasModel = new TablaSalas();
 		tablaSalasModel.setSalas(CineController.getInstance().getSalas());
 		
 		tablaSalas.setModel(tablaSalasModel);
 		mibarra.setViewportView(tablaSalas);
-
-		JPanel tablaSalasContainer = new JPanel();
-		tablaSalasContainer.add(mibarra);
-		
-		mainPanel.add(tablaSalasContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
 	}
 }
