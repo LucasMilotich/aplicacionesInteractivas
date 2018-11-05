@@ -26,6 +26,7 @@ import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.modelo.Asiento;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
+import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.medioDePago.Contado;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
@@ -262,7 +263,8 @@ public class VentaBoleteria extends JFrame {
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
 			List<Descuento> descuentos = DescuentoController.getInstance().getDescuentosPorCine(cuitCine);
-			
+
+
 			double totalVenta = ventaController.calcularPrecioFinal(cantidad, descuentos);
 			
 			int respuesta = JOptionPane.showConfirmDialog(null, "El total a pagar es de $"+totalVenta+". Desea continuar?",

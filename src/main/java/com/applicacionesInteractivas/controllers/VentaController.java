@@ -18,7 +18,7 @@ public class VentaController {
 
     private static VentaController instance;
     private VentaBoleteria ventaBoleteria;
-    private double precioUnitario = 10D;
+    public static double precioUnitario = 10D;
 
     public static VentaController getInstance() {
         if (instance == null) {
@@ -62,13 +62,17 @@ public class VentaController {
 
 
     }
-    
+
     public double calcularPrecioFinal(int cantidad, List<Descuento> descuentos) {
     	double result = 0d;
     	Descuento descuentoComposite = this.buildCompositeDescuento(descuentos);
-    	
-    	
-    	return result;
+
+        Venta ventaTemporal = new Venta();
+
+        ventaTemporal.setTotal(precioUnitario * cantidad);
+        result = precioUnitario * cantidad - descuentoComposite.aplicar(cantidad,ventaTemporal);
+
+    	return ventaTemporal.getTotal();
     }
 
 

@@ -4,6 +4,7 @@ import java.time.LocalDate;
 
 import com.applicacionesInteractivas.bd.DescuentoDAO;
 import com.applicacionesInteractivas.modelo.Cine;
+import com.applicacionesInteractivas.modelo.Venta;
 
 public abstract class Descuento {
 
@@ -81,4 +82,6 @@ public abstract class Descuento {
 
         return d;
     }
+
+    public abstract double aplicar(int cantidad, Venta venta);
 }

@@ -3,9 +3,12 @@ package com.applicacionesInteractivas.modelo.descuento;
 import java.time.LocalDate;
 
 import com.applicacionesInteractivas.bd.DescuentoDAO;
+import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.modelo.Cine;
+import com.applicacionesInteractivas.modelo.Venta;
 
 public class DosPorUno extends Descuento {
+
 
     private int cantidadProductosRequeridos =0;
     private int cantidadProductosAPagar =0;
@@ -57,5 +60,19 @@ public class DosPorUno extends Descuento {
     @Override
     public double aplicarDescuento() {
         return 0;
+    }
+
+    @Override
+    public double aplicar(int cantidad, Venta venta) {
+        int cantidadProductosAAplicarPromocion = 0;
+        cantidadProductosAAplicarPromocion = cantidad / getCantidadProductosRequeridos();
+        double resultado = 0.0;
+
+        for (int i = 0; i < cantidadProductosAAplicarPromocion ; ++ i ) {
+            resultado = resultado +  (getCantidadProductosRequeridos() - getCantidadProductosAPagar()) * VentaController.precioUnitario;
+        }
+
+        venta.setTotal(venta.getTotal() - resultado);
+        return resultado;
     }
 }
