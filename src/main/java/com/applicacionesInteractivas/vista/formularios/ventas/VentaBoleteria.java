@@ -259,6 +259,7 @@ public class VentaBoleteria extends JFrame {
 		btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
 		btnConfirmar.addActionListener(e -> {
+			Venta venta = null ;
 			int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
@@ -292,12 +293,12 @@ public class VentaBoleteria extends JFrame {
 						medioDePago = (TarjetaDebito) tarjeta;
 				}
 				
-				ventaController.venderBoleteria(cuitCine, idFuncion, totalVenta, medioDePago, asientosVenta);
+				venta = ventaController.venderBoleteria(cuitCine, idFuncion, totalVenta, medioDePago, asientosVenta);
 			}else {
 				return;
 			}
-			
-			JOptionPane.showMessageDialog(null,"Venta realizada!");
+
+			JOptionPane.showMessageDialog(null,"Venta realizada! Su id de venta es " + Integer.toString(venta.getId()) );
 			this.setVisible(false);
 		});
 		btnConfirmar.setBounds(230, 440, 120, 28);

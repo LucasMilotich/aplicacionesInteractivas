@@ -1,6 +1,5 @@
 package com.applicacionesInteractivas.controllers;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +7,7 @@ import com.applicacionesInteractivas.bd.VentaDAO;
 import com.applicacionesInteractivas.excepciones.AsientoFuncionNoDefinido;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Cine;
+import com.applicacionesInteractivas.modelo.Terminal;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.descuento.Descuento;
 import com.applicacionesInteractivas.modelo.descuento.DescuentoComposite;
@@ -50,29 +50,30 @@ public class VentaController {
         this.ventaBoleteria = ventaBoleteria;
     }
 
-    public void venderBoleteria(String cineCuit, int idFuncion, double total, MedioDePago medioDePago, List<AsientoFuncion> asientos) {
+    public Venta venderBoleteria(String cineCuit, int idFuncion, double total, MedioDePago medioDePago, List<AsientoFuncion> asientos) {
 
         Cine cine = CineController.getInstance().getCine(cineCuit);
 
         try {
-            Venta.venderEntrada(cine, asientos, total, medioDePago);
+            return Venta.venderEntrada(cine, asientos, total, medioDePago);
         } catch (AsientoFuncionNoDefinido asientoFuncionNoDefinido) {
             asientoFuncionNoDefinido.printStackTrace();
         }
 
 
+        return null;
     }
 
     public double calcularPrecioFinal(int cantidad, List<Descuento> descuentos) {
-    	double result = 0d;
-    	Descuento descuentoComposite = this.buildCompositeDescuento(descuentos);
+        double result = 0d;
+        Descuento descuentoComposite = this.buildCompositeDescuento(descuentos);
 
         Venta ventaTemporal = new Venta();
 
         ventaTemporal.setTotal(precioUnitario * cantidad);
-        result = precioUnitario * cantidad - descuentoComposite.aplicar(cantidad,ventaTemporal);
+        result = precioUnitario * cantidad - descuentoComposite.aplicar(cantidad, ventaTemporal);
 
-    	return ventaTemporal.getTotal();
+        return ventaTemporal.getTotal();
     }
 
 
@@ -87,11 +88,7 @@ public class VentaController {
 
     public Venta retirarVentaPorTerminal(int idVenta) {
         Venta venta = null;
-        try {
-            venta = VentaDAO.getInstance().findBy(idVenta);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        venta = Terminal.getVentas().stream().filter(venta1 -> venta1.getId() == idVenta).findFirst().get();
         return venta;
     }
 
