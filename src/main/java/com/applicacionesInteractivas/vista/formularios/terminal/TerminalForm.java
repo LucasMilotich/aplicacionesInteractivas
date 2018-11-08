@@ -42,7 +42,7 @@ public class TerminalForm extends JFrame {
         this.setTitle("Terminal");
 
         lblIdentificadorEntrada = new JLabel();
-        lblIdentificadorEntrada.setText("Id Venta");
+        lblIdentificadorEntrada.setText("Código autenticación");
         this.add(lblIdentificadorEntrada);
 
         txtIdentificadorentrada = new JTextField();

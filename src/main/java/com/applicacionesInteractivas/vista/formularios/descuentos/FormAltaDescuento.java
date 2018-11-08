@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.controllers.DescuentoController;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormAltaDescuento extends JFrame{
 	
@@ -99,6 +100,7 @@ public class FormAltaDescuento extends JFrame{
 		txtVigenciaHasta = new JTextField();
 		txtVigenciaHasta.setColumns(12);
 		txtVigenciaHasta.setToolTipText("La fecha es de formato dd/mm/aaaa");
+
 		this.add(txtVigenciaHasta);
 
 		lblTipoDescuento = new JLabel();
@@ -115,6 +117,9 @@ public class FormAltaDescuento extends JFrame{
 
 		btnConfirm = new JButton("Confirmar");
 		this.add(btnConfirm);
+
+		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha());
+		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha());
 		
 		panel1 = new JPanel();
 		panel1.add(lblNombreDescuento);

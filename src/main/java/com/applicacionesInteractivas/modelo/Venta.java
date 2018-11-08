@@ -3,6 +3,7 @@ package com.applicacionesInteractivas.modelo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Random;
 
 import com.applicacionesInteractivas.bd.EntradaDAO;
 import com.applicacionesInteractivas.bd.TarjetaDAO;
@@ -19,6 +20,7 @@ public class Venta {
     private int cantidad;
     private double precioUnitario = 10;
     private double total;
+
     private List<Entrada> entradas;
     private MedioDePago medioDePago;
     private Cine cine;

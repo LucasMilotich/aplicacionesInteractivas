@@ -78,6 +78,7 @@ public class JFormularioMenuPpal extends JFrame {
     //Ventas
     private JMenu menuVentas = new JMenu("Ventas");
     private JMenuItem ventaBoleteriaMenuItem = new JMenuItem("Venta boleteria");
+    private JMenuItem retiroBoleteriaMenuItem = new JMenuItem("Retiro entrada boleteria");
 
     //Descuentos
     private JMenu menuDescuentos = new JMenu("Descuentos");
@@ -302,6 +303,15 @@ public class JFormularioMenuPpal extends JFrame {
         });
         
         ventaBoleteriaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("VENDEDOR")));
+
+        menuVentas.add(retiroBoleteriaMenuItem);
+
+        retiroBoleteriaMenuItem.addActionListener(e -> {
+            TerminalForm ventaBoleteria = new TerminalForm();
+            ventaBoleteria.setVisible(true);
+        });
+
+        retiroBoleteriaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("VENDEDOR")));
     }
 
     private void descuentoInit() {

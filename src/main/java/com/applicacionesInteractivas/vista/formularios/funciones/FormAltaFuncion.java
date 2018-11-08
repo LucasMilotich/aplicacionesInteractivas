@@ -18,6 +18,7 @@ import javax.swing.JTextField;
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.modelo.Pelicula;
 import com.applicacionesInteractivas.modelo.Sala;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormAltaFuncion extends JFrame{
 
@@ -126,6 +127,7 @@ public class FormAltaFuncion extends JFrame{
 		getContentPane().add(lblHora);
 		
 		txtHora = new JTextField();
+		txtHora.addKeyListener(ValidadorCampo.validadorHora());
 		txtHora.setBounds(310, 160, 50, 30);
 		getContentPane().add(txtHora);
 		

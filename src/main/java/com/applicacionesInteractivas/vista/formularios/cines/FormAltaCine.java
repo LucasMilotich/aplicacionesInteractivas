@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormAltaCine extends JFrame{
 	
@@ -38,18 +39,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtCuit = new JTextField();
 		txtCuit.setBounds(130, 40, 120, 28);
-		this.txtCuit.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtCuit.getText().length() > 10)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)
-						|| (c == KeyEvent.VK_SLASH || c == KeyEvent.VK_COMMA || c == KeyEvent.VK_PERIOD))) {
-					JOptionPane.showMessageDialog(null, "El campo 'CUIT' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+		this.txtCuit.addKeyListener(ValidadorCampo.numberValidator(10));
 		getContentPane().add(txtCuit);
 		
 		lblNombre = new JLabel();
@@ -59,12 +49,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(130, 80, 120, 28);
-		this.txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombre.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49));
 		getContentPane().add(txtNombre);
 
 		lblDomicilio = new JLabel();
@@ -74,12 +59,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setBounds(130, 120, 120, 28);
-		this.txtDomicilio.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtDomicilio.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49));
 		getContentPane().add(txtDomicilio);
 		
 		btnConfirm = new JButton("Confirmar");

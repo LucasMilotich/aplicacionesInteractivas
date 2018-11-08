@@ -7,7 +7,6 @@ public class Entrada {
     private int id;
     private AsientoFuncion asiento;
     private String  estado;
-    private String  codAutenticacion  = Integer.toString((new Random()).nextInt());
     private Venta venta;
 
     public Entrada() {
@@ -18,7 +17,6 @@ public class Entrada {
     	this.venta = venta;
         this.asiento = asiento;
         this.estado = "VENDIDO";
-        this.codAutenticacion = Double.toString(Math.random());
     }
 
     public int getId() {
@@ -53,11 +51,4 @@ public class Entrada {
         this.estado = estado;
     }
 
-    public String getCodAutenticacion() {
-        return codAutenticacion;
-    }
-
-    public void setCodAutenticacion(String codAutenticacion) {
-        this.codAutenticacion = codAutenticacion;
-    }
 }
