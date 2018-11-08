@@ -19,11 +19,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-import com.applicacionesInteractivas.bd.FuncionDAO;
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.controllers.VentaController;
-import com.applicacionesInteractivas.modelo.Asiento;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
 import com.applicacionesInteractivas.modelo.Venta;
@@ -235,7 +233,6 @@ public class VentaBoleteria extends JFrame {
 		btnFormaPago.addActionListener(e -> {
 			if(datosTarjeta == null)
 				datosTarjeta = new FormTarjeta();
-			datosTarjeta.setAlwaysOnTop(true);
 			datosTarjeta.setVisible(true);
 		});
 		btnFormaPago.setBounds(250, 230, 160, 28);
@@ -275,12 +272,7 @@ public class VentaBoleteria extends JFrame {
 				int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
 				String formaPago = (String)comboFormaPago.getSelectedItem();
 				List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
-				try {
-					asientosVenta.add(new AsientoFuncion(false, new Asiento(0, 0), FuncionDAO.getInstance().findBy(idFuncion)));
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-				//asientosVenta = this.asientos.obtenerAsientosSeleccionados(idFuncion);
+				asientosVenta = this.asientos.obtenerAsientosSeleccionados();
 				MedioDePago medioDePago;
 				if(formaPago.equals("EFECTIVO"))
 					medioDePago = new Contado();

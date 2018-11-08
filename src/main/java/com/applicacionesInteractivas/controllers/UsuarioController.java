@@ -143,4 +143,8 @@ public class UsuarioController {
     public boolean validarAcceso(String username, String password) {
     	return Usuario.validarAcceso(username, password);
     }
+    
+    public List<IRol> getRoles(String username){
+    	return Usuario.getRoles(username);
+    }
 }

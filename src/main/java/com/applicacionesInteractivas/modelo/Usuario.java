@@ -58,6 +58,10 @@ public class Usuario {
     public static boolean validarAcceso(String nombreUsuario, String password) {
     	return UsuarioDAO.getInstance().validarAcceso(nombreUsuario, password);
     }
+    
+    public static List<IRol> getRoles(String username){
+    	return UsuarioDAO.getInstance().getRoles(username);
+    }
 
     public boolean isDeleted() {
         return deleted;

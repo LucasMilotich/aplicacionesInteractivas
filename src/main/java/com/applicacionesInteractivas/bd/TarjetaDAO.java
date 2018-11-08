@@ -26,7 +26,7 @@ public class TarjetaDAO implements ICRUD<Tarjeta>{
             PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".datos_tarjeta(id_venta,tipo_tarjeta,numero,vencimiento,codigo_seg)"
             											+"values (?,?,?,?,?)");
             s.setInt(1, t.getVenta().getId()); 
-            s.setInt(2, Integer.parseInt(t.getTipo()));
+            s.setInt(2, this.getTipoTarjetaParaDB(t.getTipo()));
             s.setString(3, t.getNumero());
             s.setString(4,  t.getVencimiento());
             s.setString(5, t.getCodigo());
@@ -90,5 +90,12 @@ public class TarjetaDAO implements ICRUD<Tarjeta>{
 						   rs.getString(4), 
 						   rs.getString(5));
 	}
+	
+	private int getTipoTarjetaParaDB(String tipoTarjeta){
+        if (tipoTarjeta.equals("AMEX")) return 1;
+        if (tipoTarjeta.equals("MasterCard")) return 2;
+        if (tipoTarjeta.equals("Visa")) return 3;
+        return 1;
+    }
 
 }

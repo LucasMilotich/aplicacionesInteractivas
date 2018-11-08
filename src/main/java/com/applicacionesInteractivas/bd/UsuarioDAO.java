@@ -213,4 +213,40 @@ public class UsuarioDAO implements ICRUD<Usuario> {
 
 
     }
+
+	public List<IRol> getRoles(String username) {
+		Connection con = null;
+        ArrayList<IRol> result = new ArrayList<IRol>();
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select rol from " + PoolConnection.dbName + ".rol_usuario where nombre_usuario = ?");
+            s.setString(1, username);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+            	switch(rs.getString(1)) {
+        			case "ADMINISTRADOR":
+        				result.add(new Administrador());
+        				break;
+        			case "AGENTE COMERCIAL":
+        				result.add(new AgenteComercial());
+        				break;
+        			case "VENDEDOR":
+        				result.add(new Vendedor());
+        				break;
+        			case "CLIENTE":
+        				result.add(new Cliente());
+        				break;
+        			case "OPERADOR":
+        				result.add(new Operador());
+        				break;
+        		}
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+	}
 }

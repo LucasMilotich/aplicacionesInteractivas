@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.vista.formularios.ventas;
 
+import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,8 +16,6 @@ import javax.swing.JPanel;
 import javax.swing.JToggleButton;
 
 import com.applicacionesInteractivas.bd.AsientoFuncionDAO;
-import com.applicacionesInteractivas.bd.FuncionDAO;
-import com.applicacionesInteractivas.modelo.Asiento;
 import com.applicacionesInteractivas.modelo.AsientoFuncion;
 import com.applicacionesInteractivas.modelo.Funcion;
 
@@ -25,10 +24,12 @@ public class FormAsientos extends JFrame{
 	private static final long serialVersionUID = 2438572568138476459L;
 	private JButton btnGuardar;
 	private JPanel panel, mainPanel;
+	private JToggleButton[][] botones;
+	private AsientoFuncion[][] asientos;
 	private int cant;
 	
 	public FormAsientos(Funcion f, int cantidad) throws SQLException {
-		this.setSize(500, 500);
+		//this.setSize(500, 500);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setTitle("Seleccion asientos");
@@ -37,6 +38,9 @@ public class FormAsientos extends JFrame{
         cant = cantidad;
         int filas = f.getSala().getFilas();
         int columnas = f.getSala().getColumnas();
+        this.setSize((columnas * 70) + 150, (filas* 50));
+        botones = new JToggleButton[filas][columnas];
+        asientos = new AsientoFuncion[filas][columnas];
         panel = new JPanel(new GridLayout(filas, columnas));
         for (int row = 0; row < filas; row++) {
         	JLabel lblFila = new JLabel("Fila "+ Integer.toString(row+1));
@@ -47,6 +51,9 @@ public class FormAsientos extends JFrame{
                 if(af.isOcupado()) {
                 	button.setSelected(true);
                 	button.setEnabled(false);
+                	button.setOpaque(true);
+                	button.setBackground(Color.red);
+                	button.setText("Ocup.");
                 }
                 button.setSize(5, 5);
                 button.addActionListener(new ActionListener() {
@@ -66,11 +73,13 @@ public class FormAsientos extends JFrame{
                         }
                     }
                 });
+                botones[row][column] = button;
+                asientos[row][column] = af;
                 panel.add(button);
             }
         }
         
-        btnGuardar = new JButton("Guardar");
+        btnGuardar = new JButton("Guardar y volver");
         btnGuardar.addActionListener(e -> {
         	this.setVisible(false);
         });
@@ -83,10 +92,16 @@ public class FormAsientos extends JFrame{
 		getContentPane().add(mainPanel);
 	}
 
-	/*public List<AsientoFuncion> obtenerAsientosSeleccionados(int idFuncion) throws SQLException {
-//		asientos.add(new AsientoFuncion(false, new Asiento(0, 0), FuncionDAO.getInstance().findBy(idFuncion)));
+	public List<AsientoFuncion> obtenerAsientosSeleccionados() {
+		List<AsientoFuncion> asientos = new ArrayList<AsientoFuncion>();
 		//Recorrer la lista de ToggleButton y fijarse cuales estan selected, si es que estan enabled primero.
-		
+		for(int i = 0; i< this.botones.length;i++) {
+			for(int j = 0; j < this.botones[i].length;j++) {
+				if(botones[i][j].isEnabled() && botones[i][j].isSelected()) {
+					asientos.add(this.asientos[i][j]);
+				}
+			}
+		}
 		return asientos;
-	}*/
+	}
 }

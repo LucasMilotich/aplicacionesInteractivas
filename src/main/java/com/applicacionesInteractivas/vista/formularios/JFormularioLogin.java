@@ -1,5 +1,7 @@
 package com.applicacionesInteractivas.vista.formularios;
 
+import java.util.List;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -9,13 +11,10 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.UsuarioController;
+import com.applicacionesInteractivas.modelo.rol.IRol;
 
 public class JFormularioLogin extends JFrame {
 
-	/**
-	 * 
-	 */
-	private JPanel mainPanel;
 	private static final long serialVersionUID = -5455094967026569026L;
 	
 	public JFormularioLogin() {
@@ -25,22 +24,26 @@ public class JFormularioLogin extends JFrame {
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		JLabel lblUsuario = new JLabel();
 		lblUsuario.setText("Usuario");
-		this.add(lblUsuario);
+		lblUsuario.setBounds(40, 30, 120, 28);
+		getContentPane().add(lblUsuario);
 		
 		JTextField txtUsuario = new JTextField();
 		txtUsuario.setColumns(12);
-		this.add(txtUsuario);
+		txtUsuario.setBounds(130, 30, 120, 28);
+		getContentPane().add(txtUsuario);
 		
 		JLabel lblContrasena = new JLabel();
 		lblContrasena.setText("Contrasena");
-		this.add(lblContrasena);
+		lblContrasena.setBounds(40, 70, 120, 28);
+		getContentPane().add(lblContrasena);
 		
 		JPasswordField txtContrasena = new JPasswordField();
-		txtContrasena.setColumns(12);
-		this.add(txtContrasena);
+		txtContrasena.setBounds(130, 70, 120, 28);
+		getContentPane().add(txtContrasena);
 		
 		JButton btnConfirmar = new JButton();
 		btnConfirmar.setText("Confirmar");
@@ -50,33 +53,16 @@ public class JFormularioLogin extends JFrame {
 			String password = String.copyValueOf(txtContrasena.getPassword());
 			boolean acceso = usuarioController.validarAcceso(username, password);
 			if (acceso) {
-				JFormularioMenuPpal form2 = new JFormularioMenuPpal(null);
+				List<IRol> rolesUsuario = usuarioController.getRoles(username);
+				JFormularioMenuPpal form2 = new JFormularioMenuPpal(rolesUsuario);
 				this.setVisible(false);
 				form2.setVisible(true);
 			}else {
 				JOptionPane.showMessageDialog(null, "El usuario y contrasenia ingresados son incorrectos. Por favor verifiquelos.");
 			}
 		});
-		this.add(btnConfirmar);
-		
-		this.mainPanel = new JPanel();
-		
-		JPanel usuarioContainer = new JPanel();
-		usuarioContainer.add(lblUsuario);
-		usuarioContainer.add(txtUsuario);
-		
-		JPanel ContrasenaContainer = new JPanel();
-		ContrasenaContainer.add(lblContrasena);
-		ContrasenaContainer.add(txtContrasena);
-		
-		JPanel botonContainer = new JPanel();
-		botonContainer.add(btnConfirmar);
-		
-		this.mainPanel.add(usuarioContainer);		
-		this.mainPanel.add(ContrasenaContainer);
-		this.mainPanel.add(botonContainer);
-		
-		getContentPane().add(mainPanel);
+		btnConfirmar.setBounds(100, 130, 120, 28);
+		getContentPane().add(btnConfirmar);
 		
 	}
 

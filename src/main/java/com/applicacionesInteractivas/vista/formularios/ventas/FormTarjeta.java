@@ -1,10 +1,13 @@
 package com.applicacionesInteractivas.vista.formularios.ventas;
 
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.modelo.medioDePago.Tarjeta;
@@ -24,77 +27,92 @@ public class FormTarjeta extends JFrame{
 	private JTextField txtCodigo;
 	private String[] listaTipos = {"AMEX", "MasterCard", "Visa"};
 	private JButton btnGuardar;
-	private JPanel mainPanel;
-	private JPanel tipoContainer, numContainer, vencContainer, codContainer, btnContainer;
 	
 	public FormTarjeta() {
-		this.setSize(400, 500);
+		this.setSize(400, 300);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.setTitle("TPO API 2C2018");
 		this.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		this.getContentPane().setLayout(null);
 		
 		lblTipoTarjeta = new JLabel("Tipo Tarjeta");
-		this.add(lblTipoTarjeta);
+		lblTipoTarjeta.setBounds(20, 40, 120, 28);
+		getContentPane().add(lblTipoTarjeta);
 		
 		lblNumero = new JLabel("Numero Tarjeta");
-		this.add(lblNumero);
+		lblNumero.setBounds(20, 80, 120, 28);
+		getContentPane().add(lblNumero);
 		
 		lblVencimiento = new JLabel("Vencimiento");
-		this.add(lblVencimiento);
+		lblVencimiento.setBounds(20, 120, 120, 28);
+		getContentPane().add(lblVencimiento);
 		
 		lblCodigo = new JLabel("Codigo Seguridad");
-		this.add(lblCodigo);
+		lblCodigo.setBounds(20, 160, 120, 28);
+		getContentPane().add(lblCodigo);
 		
 		cmbTipoTarjeta = new JComboBox<String>(listaTipos);
-		this.add(cmbTipoTarjeta);
+		cmbTipoTarjeta.setBounds(130, 40, 120, 28);
+		getContentPane().add(cmbTipoTarjeta);
 		
 		txtNumero = new JTextField();
-		txtNumero.setColumns(20);
-		this.add(txtNumero);
+		txtNumero.setBounds(130, 80, 120, 28);
+		this.txtNumero.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtNumero.getText().length() > 15)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Numero Tarjeta' solo permite numeros.");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtNumero);
 		
 		txtVencimiento = new JTextField();
-		txtVencimiento.setColumns(12);
-		this.add(txtVencimiento);
+		txtVencimiento.setBounds(130, 120, 120, 28);
+		this.txtVencimiento.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				if(txtVencimiento.getText().length() > 3)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Codigo Seguridad' solo permite numeros, en el formato MMAA(M:mes,A:anio).");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtVencimiento);
 		
 		txtCodigo = new JTextField();
-		txtCodigo.setColumns(12);
-		this.add(txtCodigo);
+		txtCodigo.setBounds(130, 160, 120, 28);
+		this.txtCodigo.addKeyListener(new KeyAdapter() {
+			public void keyTyped(KeyEvent e) {
+				char c = e.getKeyChar();
+				int cant;
+				String tipo = (String)cmbTipoTarjeta.getSelectedItem();
+				if(tipo.equals("AMEX"))
+					cant = 4;
+				else
+					cant = 3;
+				if(txtCodigo.getText().length() > cant - 1)
+					e.consume();
+				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
+					JOptionPane.showMessageDialog(null, "El campo 'Numero Tarjeta' solo permite numeros");
+					e.consume();
+				}
+			}
+		});
+		getContentPane().add(txtCodigo);
 		
 		btnGuardar = new JButton("Guardar y volver");
 		btnGuardar.addActionListener(e -> {
 			this.setVisible(false);
 		});
-		this.add(btnGuardar);
-		
-		mainPanel = new JPanel();
-		
-		tipoContainer = new JPanel();
-		tipoContainer.add(lblTipoTarjeta);
-		tipoContainer.add(cmbTipoTarjeta);
-		
-		numContainer = new JPanel();
-		numContainer.add(lblNumero);
-		numContainer.add(txtNumero);
-		
-		vencContainer = new JPanel();
-		vencContainer.add(lblVencimiento);
-		vencContainer.add(txtVencimiento);
-		
-		codContainer = new JPanel();
-		codContainer.add(lblCodigo);
-		codContainer.add(txtCodigo);
-		
-		btnContainer = new JPanel();
-		btnContainer.add(btnGuardar);
-		
-		mainPanel.add(tipoContainer);
-		mainPanel.add(numContainer);
-		mainPanel.add(vencContainer);
-		mainPanel.add(codContainer);
-		mainPanel.add(btnContainer);
-		
-		getContentPane().add(mainPanel);
+		btnGuardar.setBounds(120, 200, 140, 28);
+		getContentPane().add(btnGuardar);
 	}
 
 	public Tarjeta getDatosTarjeta(String formaPago) {
