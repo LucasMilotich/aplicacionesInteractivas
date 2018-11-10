@@ -50,6 +50,13 @@ public class Cine {
         this.domicilio = domicilio;
         this.salas = new ArrayList<Sala>();
     }
+    public Cine(String cuit, String nombre, String domicilio, List salas) {
+        this.cuit = cuit;
+        this.nombre = nombre;
+        this.domicilio = domicilio;
+        this.salas = salas;
+    }
+
 
     public Entrada retirarEntrada(String codAutenticacion) {
         return null;

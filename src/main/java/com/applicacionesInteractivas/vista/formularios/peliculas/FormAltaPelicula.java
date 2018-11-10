@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormAltaPelicula extends JFrame{
 
@@ -92,17 +93,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtDuracion = new JTextField();
 		txtDuracion.setBounds(130, 160, 120, 28);
-		this.txtDuracion.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtDuracion.getText().length() > 2)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Duracion' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+		this.txtDuracion.addKeyListener(ValidadorCampo.numberValidator(10));
 		getContentPane().add(txtDuracion);
 		
 		lblIdioma = new JLabel();
@@ -142,17 +133,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtCalificacion = new JTextField();
 		txtCalificacion.setBounds(130, 280, 120, 28);
-		this.txtCalificacion.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtCalificacion.getText().length() > 1)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Calificacion' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+		this.txtCalificacion.addKeyListener(ValidadorCampo.numberValidator(29));
 		getContentPane().add(txtCalificacion);
 		
 		lblObservacion = new JLabel();

@@ -17,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.UsuarioController;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class ABMUsuario extends JFrame {
   
@@ -153,6 +154,8 @@ public class ABMUsuario extends JFrame {
         
         fechaNacimientoLabel = new JLabel("Fec. nacimiento ");
         fechaNacimientoLabel.setBounds(20, 280, 120, 28);
+
+        fechaNacimientoTxtField.addKeyListener(ValidadorCampo.validadorFecha());
         
         usuarios.setAutoCreateColumnsFromModel(true);
 

@@ -41,16 +41,16 @@ public class DescuentoController {
     }
     
     /**
-	 * getDescuentosPorCine
+	 * getDescuentosPorCineVigentes
 	 * 
 	 * Retorna una lista de descuentos correspondientes a un cine especifico.
 	 * 
 	 * @param cuit
 	 * @return List<Descuento>
 	 */
-    public List<Descuento> getDescuentosPorCine(String cuit) {
+    public List<Descuento> getDescuentosPorCineVigentes(String cuit) {
     	
-        return DescuentoDAO.getInstance().findAllByCuit(cuit);
+        return DescuentoDAO.getInstance().findAllByCuitAndDate(cuit);
     
     }
 

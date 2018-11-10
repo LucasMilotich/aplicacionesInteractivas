@@ -19,6 +19,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaFunciones;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormModifFuncion extends JFrame{
 
@@ -87,6 +88,7 @@ public class FormModifFuncion extends JFrame{
 		txtHora = new JTextField();
 		txtHora.setColumns(12);
 		txtHora.setEnabled(false);
+		txtHora.addKeyListener(ValidadorCampo.validadorHora());
 		this.add(txtHora);
 		
 		lblCine = new JLabel("Cine");

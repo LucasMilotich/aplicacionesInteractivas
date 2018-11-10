@@ -19,11 +19,14 @@ public class ValidadorCampo {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (((JTextField) e.getComponent()).getText().length() > 10)
+                if (((JTextField) e.getComponent()).getText().length() > length){
                     e.consume();
+                    JOptionPane.showMessageDialog(null, "El campo solo permite " + Integer.toString(length) + " digitos");
+                }
+
                 if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)
                     || (c == KeyEvent.VK_SLASH || c == KeyEvent.VK_COMMA || c == KeyEvent.VK_PERIOD))) {
-                    JOptionPane.showMessageDialog(null, "El campo 'CUIT' solo permite numeros");
+                    JOptionPane.showMessageDialog(null, "El campo solo permite numeros");
                     e.consume();
                 }
             }

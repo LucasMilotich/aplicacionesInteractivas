@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,13 +123,15 @@ public class DescuentoDAO implements ICRUD<Descuento> {
         return result;
     }
     
-    public List<Descuento> findAllByCuit(String cuit){
+    public List<Descuento> findAllByCuitAndDate(String cuit){
     	Connection con = null;
         ArrayList<Descuento> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".descuento where deleted = false and cuit = ?");
-            s.setString(1, cuit);
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".descuento where vigencia_desde <= ? and vigencia_hasta >= ? and  cuit = ? and  deleted = false");
+            s.setString(3, cuit);
+            s.setDate(1, Date.valueOf(LocalDate.now()));
+            s.setDate(2, Date.valueOf(LocalDate.now()));
             ResultSet rs = s.executeQuery();
 
             while (rs.next()) {

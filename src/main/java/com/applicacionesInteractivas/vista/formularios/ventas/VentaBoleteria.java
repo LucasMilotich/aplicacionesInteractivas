@@ -92,7 +92,7 @@ public class VentaBoleteria extends JFrame {
 			public void actionPerformed(ActionEvent e)
 		    {
 				String cuit = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-				tablaDescuentos.setDescuentos(DescuentoController.getInstance().getDescuentosPorCine(cuit));
+				tablaDescuentos.setDescuentos(DescuentoController.getInstance().getDescuentosPorCineVigentes(cuit));
 		        tabDescuentos.setModel(tablaDescuentos);
 		        tablaDescuentos.fireTableDataChanged();
 		    }
@@ -260,7 +260,7 @@ public class VentaBoleteria extends JFrame {
 			int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			List<Descuento> descuentos = DescuentoController.getInstance().getDescuentosPorCine(cuitCine);
+			List<Descuento> descuentos = DescuentoController.getInstance().getDescuentosPorCineVigentes(cuitCine);
 
 
 			double totalVenta = ventaController.calcularPrecioFinal(cantidad, descuentos);

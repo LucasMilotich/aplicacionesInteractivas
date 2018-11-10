@@ -10,6 +10,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.UsuarioController;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class AltaUsuario extends JFrame {
 
@@ -75,6 +76,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtDni = new JTextField();
         txtDni.setBounds(130, 240, 120, 28);
+        txtDni.addKeyListener(ValidadorCampo.numberValidator(8));
         getContentPane().add(txtDni);
 
         JLabel lblFechaNac = new JLabel();
@@ -84,6 +86,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtFechaNac = new JTextField();
         txtFechaNac.setBounds(130, 280, 120, 28);
+        txtFechaNac.addKeyListener(ValidadorCampo.validadorFecha());
         getContentPane().add(txtFechaNac);
 
         JButton btnConfirm = new JButton("Confirmar");
