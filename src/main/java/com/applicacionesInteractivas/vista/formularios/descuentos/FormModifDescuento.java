@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.DescuentoController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaDescuentos;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormModifDescuento extends JFrame{
 
@@ -164,6 +165,9 @@ public class FormModifDescuento extends JFrame{
 		        }
 		    }
 		});
+
+		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
+		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
 
 		JPanel tablaCinesContainer = new JPanel();
 		

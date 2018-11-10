@@ -130,7 +130,8 @@ public class CineDAO implements ICRUD<Cine> {
         return new Cine(
                 rs.getString(1),
                 rs.getString(2),
-                rs.getString(3)
+                rs.getString(3),
+                SalaDAO.getInstance().findAllbyCine(rs.getString(1))
         );
     }
 }

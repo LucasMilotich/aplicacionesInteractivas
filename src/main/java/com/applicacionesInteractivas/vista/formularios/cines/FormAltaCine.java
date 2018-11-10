@@ -36,7 +36,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtCuit = new JTextField();
 		txtCuit.setBounds(130, 40, 120, 28);
-		this.txtCuit.addKeyListener(ValidadorCampo.numberValidator(10));
+		this.txtCuit.addKeyListener(ValidadorCampo.numberValidator(10, "CUIT"));
 		getContentPane().add(txtCuit);
 		
 		lblNombre = new JLabel();
@@ -46,7 +46,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(130, 80, 120, 28);
-		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49));
+		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
 		getContentPane().add(txtNombre);
 
 		lblDomicilio = new JLabel();
@@ -56,7 +56,7 @@ public class FormAltaCine extends JFrame{
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setBounds(130, 120, 120, 28);
-		this.txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49));
+		this.txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49, "DOMICILIO"));
 		getContentPane().add(txtDomicilio);
 		
 		btnConfirm = new JButton("Confirmar");

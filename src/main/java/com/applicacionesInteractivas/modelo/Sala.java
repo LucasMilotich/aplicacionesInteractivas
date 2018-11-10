@@ -35,6 +35,13 @@ public class Sala {
         this.cine = cine;
         this.deleted = false;
     }
+    public Sala(String nombre, int filas, int columnas) {
+        super();
+        this.nombre = nombre;
+        this.filas = filas;
+        this.columnas = columnas;
+        this.deleted = false;
+    }
 
     public Sala(int id, String nombre, int filas, int columnas, Cine cine) {
         super();

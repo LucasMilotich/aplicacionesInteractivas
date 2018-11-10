@@ -118,8 +118,8 @@ public class FormAltaDescuento extends JFrame{
 		btnConfirm = new JButton("Confirmar");
 		this.add(btnConfirm);
 
-		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha());
-		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha());
+		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
+		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
 		
 		panel1 = new JPanel();
 		panel1.add(lblNombreDescuento);

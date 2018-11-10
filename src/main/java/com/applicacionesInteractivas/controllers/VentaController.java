@@ -97,13 +97,12 @@ public class VentaController {
 	 * @return double
 	 */
     public double calcularPrecioFinal(int cantidad, List<Descuento> descuentos) {
-        double result = 0d;
         Descuento descuentoComposite = this.buildCompositeDescuento(descuentos);
 
         Venta ventaTemporal = new Venta();
 
         ventaTemporal.setTotal(precioUnitario * cantidad);
-        result = precioUnitario * cantidad - descuentoComposite.aplicar(cantidad, ventaTemporal);
+        descuentoComposite.aplicar(cantidad, ventaTemporal);
 
         return ventaTemporal.getTotal();
     }

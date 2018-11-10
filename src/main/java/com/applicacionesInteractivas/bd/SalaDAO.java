@@ -25,20 +25,20 @@ public class SalaDAO implements ICRUD<Sala> {
     public void insert(Sala sala) {
         try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".sala(nombre, filas, columnas, cuit, deleted)"+
-            											"values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement s = con.prepareStatement("insert into " + PoolConnection.dbName + ".sala(nombre, filas, columnas, cuit, deleted)" +
+                    "values (?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS);
             s.setString(1, sala.getNombre());
             s.setInt(2, sala.getFilas());
             s.setInt(3, sala.getColumnas());
             s.setString(4, sala.getCine().getCuit());
             s.setBoolean(5, false);
             s.execute();
-            
+
             ResultSet keys = s.getGeneratedKeys();
             keys.next();
             int idSala = keys.getInt(1);
             sala.setId(idSala);
-            
+
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -47,13 +47,13 @@ public class SalaDAO implements ICRUD<Sala> {
 
     @Override
     public void delete(Sala sala) {
-    	try {
+        try {
             Connection con = PoolConnection.getPoolConnection().getConnection();
             PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".sala set deleted = ? where id_sala = ?");
             s.setBoolean(1, sala.isDeleted());
             s.setInt(2, sala.getId());
             s.execute();
-            
+
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -70,7 +70,7 @@ public class SalaDAO implements ICRUD<Sala> {
             s.setInt(3, sala.getColumnas());
             s.setInt(4, sala.getId());
             s.execute();
-            
+
             PoolConnection.getPoolConnection().releaseConnection(con);
         } catch (Exception e) {
             e.printStackTrace();
@@ -93,6 +93,7 @@ public class SalaDAO implements ICRUD<Sala> {
         ArrayList<Sala> result = new ArrayList<>();
         try {
             con = PoolConnection.getPoolConnection().getConnection();
+
             PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".sala where deleted = false");
             ResultSet rs = s.executeQuery();
 
@@ -107,10 +108,34 @@ public class SalaDAO implements ICRUD<Sala> {
         return result;
     }
 
+    public List<Sala> findAllbyCine(String cuit) {
+        Connection con = null;
+        ArrayList<Sala> result = new ArrayList<>();
+        try {
+            con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".sala where cuit = ? and deleted = false");
+            s.setString(1, cuit);
+            ResultSet rs = s.executeQuery();
+
+            while (rs.next()) {
+                result.add(new Sala(
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getInt(4)
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (con != null) PoolConnection.getPoolConnection().releaseConnection(con);
+        }
+        return result;
+    }
+
     @Override
     public Sala mapToEntity(ResultSet rs) throws SQLException {
         return new Sala(
-        		rs.getInt(1),
+                rs.getInt(1),
                 rs.getString(2),
                 rs.getInt(3),
                 rs.getInt(4),
