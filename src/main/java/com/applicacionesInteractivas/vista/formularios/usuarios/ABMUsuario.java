@@ -155,8 +155,8 @@ public class ABMUsuario extends JFrame {
         fechaNacimientoLabel = new JLabel("Fec. nacimiento ");
         fechaNacimientoLabel.setBounds(20, 280, 120, 28);
 
-        fechaNacimientoTxtField.addKeyListener(ValidadorCampo.validadorFecha());
-        
+        fechaNacimientoTxtField.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
+
         usuarios.setAutoCreateColumnsFromModel(true);
 
         getContentPane().add(nombreUsuarioLabel);

@@ -15,13 +15,13 @@ public class ValidadorCampo {
      * @param length of field
      * @return keyadapter
      */
-    public static KeyAdapter numberValidator(int length) {
+    public static KeyAdapter numberValidator(int length, String nombreCampo) {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (((JTextField) e.getComponent()).getText().length() > length){
                     e.consume();
-                    JOptionPane.showMessageDialog(null, "El campo solo permite " + Integer.toString(length) + " digitos");
+                    JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+"solo permite " + Integer.toString(length) + " digitos");
                 }
 
                 if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)
@@ -33,7 +33,7 @@ public class ValidadorCampo {
         };
     }
 
-    public static KeyAdapter lengthValidador(int length) {
+    public static KeyAdapter lengthValidador(int length, String nombreCampo) {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -44,7 +44,7 @@ public class ValidadorCampo {
         };
     }
 
-    public static KeyAdapter validadorHora() {
+    public static KeyAdapter validadorHora(String nombreCampo) {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -52,7 +52,7 @@ public class ValidadorCampo {
                     try {
                         LocalTime.parse(((JTextField) e.getComponent()).getText().concat(String.valueOf(c)), DateTimeFormatter.ofPattern("HH:mm"));
                     }catch (Exception ex){
-                        JOptionPane.showMessageDialog(null, "El campo 'HORA' solo permite el formato HH:mm");
+                        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+ " solo permite el formato HH:mm");
                         e.consume();
                     }
 
@@ -64,7 +64,7 @@ public class ValidadorCampo {
         };
     }
 
-    public static KeyAdapter validadorFecha() {
+    public static KeyAdapter validadorFecha(String nombreCampo) {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -72,7 +72,7 @@ public class ValidadorCampo {
                     try {
                         LocalDate.parse(((JTextField) e.getComponent()).getText().concat(String.valueOf(c)), DateTimeFormatter.ofPattern("dd/MM/yyyy"));
                     }catch (Exception ex){
-                        JOptionPane.showMessageDialog(null, "El campo 'FECHA' solo permite el formato dd/MM/yyyy");
+                        JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+ " solo permite el formato dd/MM/yyyy");
                         e.consume();
                     }
 

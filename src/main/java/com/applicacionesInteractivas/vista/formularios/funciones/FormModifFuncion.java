@@ -88,7 +88,7 @@ public class FormModifFuncion extends JFrame{
 		txtHora = new JTextField();
 		txtHora.setColumns(12);
 		txtHora.setEnabled(false);
-		txtHora.addKeyListener(ValidadorCampo.validadorHora());
+		txtHora.addKeyListener(ValidadorCampo.validadorHora("HORA"));
 		this.add(txtHora);
 		
 		lblCine = new JLabel("Cine");

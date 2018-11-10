@@ -93,7 +93,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtDuracion = new JTextField();
 		txtDuracion.setBounds(130, 160, 120, 28);
-		this.txtDuracion.addKeyListener(ValidadorCampo.numberValidator(10));
+		this.txtDuracion.addKeyListener(ValidadorCampo.numberValidator(10, "DURACION"));
 		getContentPane().add(txtDuracion);
 		
 		lblIdioma = new JLabel();
@@ -133,7 +133,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtCalificacion = new JTextField();
 		txtCalificacion.setBounds(130, 280, 120, 28);
-		this.txtCalificacion.addKeyListener(ValidadorCampo.numberValidator(29));
+		this.txtCalificacion.addKeyListener(ValidadorCampo.numberValidator(29, "CALIFICACION"));
 		getContentPane().add(txtCalificacion);
 		
 		lblObservacion = new JLabel();

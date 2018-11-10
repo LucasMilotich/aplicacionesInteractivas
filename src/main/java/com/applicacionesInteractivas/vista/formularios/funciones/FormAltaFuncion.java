@@ -127,7 +127,7 @@ public class FormAltaFuncion extends JFrame{
 		getContentPane().add(lblHora);
 		
 		txtHora = new JTextField();
-		txtHora.addKeyListener(ValidadorCampo.validadorHora());
+		txtHora.addKeyListener(ValidadorCampo.validadorHora("HORA"));
 		txtHora.setBounds(310, 160, 50, 30);
 		getContentPane().add(txtHora);
 		

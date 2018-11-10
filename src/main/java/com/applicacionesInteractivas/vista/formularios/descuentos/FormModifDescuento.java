@@ -166,8 +166,8 @@ public class FormModifDescuento extends JFrame{
 		    }
 		});
 
-		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha());
-		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha());
+		txtVigenciaDesde.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
+		txtVigenciaHasta.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
 
 		JPanel tablaCinesContainer = new JPanel();
 		
