@@ -1,7 +1,5 @@
 package com.applicacionesInteractivas.vista.formularios.salas;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.util.Vector;
 
 import javax.swing.ComboBoxModel;
@@ -15,6 +13,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.modelo.Cine;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormAltaSala extends JFrame{
 
@@ -64,52 +63,32 @@ public class FormAltaSala extends JFrame{
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(130, 80, 120, 28);
-		this.txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombre	.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
 		getContentPane().add(txtNombre);
 		
 		txtFilas = new JTextField();
 		txtFilas.setBounds(130, 120, 120, 28);
-		this.txtFilas.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtFilas.getText().length() > 1)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Filas' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+		this.txtFilas.addKeyListener(ValidadorCampo.numberValidator(1, "FILAS"));
 		getContentPane().add(txtFilas);
 		
 		txtColumnas = new JTextField();
 		txtColumnas.setBounds(130, 160, 120, 28);
-		this.txtColumnas.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtColumnas.getText().length() > 1)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Columnas' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+		this.txtColumnas.addKeyListener(ValidadorCampo.numberValidator(1, "COLUMNAS"));
 		getContentPane().add(txtColumnas);
 		
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			Cine c = cineController.getCine(String.valueOf(comboCine.getSelectedItem()).split(" - ")[0]);
-			cineController.crearSala(txtNombre.getText(),
-						   Integer.parseInt(txtFilas.getText()),
-						   Integer.parseInt(txtColumnas.getText()),
-						   c);
+			String cuit = String.valueOf(comboCine.getSelectedItem()).split(" - ")[0];
+			String nombre = txtNombre.getText();
+			String filas = txtFilas.getText();
+			String columnas = txtColumnas.getText();
+			if(cuit.equals("") || nombre.equals("") || filas.equals("") || columnas.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			Cine c = cineController.getCine(cuit);
+			cineController.crearSala(nombre,Integer.parseInt(filas),Integer.parseInt(columnas),c);
 			JOptionPane.showMessageDialog(null,"Sala creada!");
 			this.setVisible(false);
 		});

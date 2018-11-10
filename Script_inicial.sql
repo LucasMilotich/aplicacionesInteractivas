@@ -47,7 +47,7 @@ genero			VARCHAR(30),
 duracion		SMALLINT(3),
 idioma			VARCHAR(30),
 subtitulos		VARCHAR(30),
-calificacion	SMALLINT(2),
+calificacion	DOUBLE,
 observaciones	VARCHAR(100),
 deleted			TINYINT(1) DEFAULT '0' NULL
 );

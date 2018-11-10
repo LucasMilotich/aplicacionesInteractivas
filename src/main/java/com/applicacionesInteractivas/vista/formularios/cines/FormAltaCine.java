@@ -1,8 +1,5 @@
 package com.applicacionesInteractivas.vista.formularios.cines;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -68,9 +65,14 @@ public class FormAltaCine extends JFrame{
 
 		btnConfirm.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.crearCine(txtCuit.getText(),
-					txtNombre.getText(),
-					txtDomicilio.getText());
+			String cuit = txtCuit.getText();
+			String nombre = txtNombre.getText();
+			String domicilio = txtDomicilio.getText();
+			if(cuit.equals("") || nombre.equals("") || domicilio.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			cine.crearCine(cuit,nombre,domicilio);
 			JOptionPane.showMessageDialog(null,"Cine creado!");
 			this.setVisible(false);
 		});

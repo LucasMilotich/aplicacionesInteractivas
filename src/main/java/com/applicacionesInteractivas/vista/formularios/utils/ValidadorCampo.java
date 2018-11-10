@@ -1,11 +1,13 @@
 package com.applicacionesInteractivas.vista.formularios.utils;
 
-import javax.swing.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
+
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 public class ValidadorCampo {
 
@@ -21,7 +23,7 @@ public class ValidadorCampo {
                 char c = e.getKeyChar();
                 if (((JTextField) e.getComponent()).getText().length() > length){
                     e.consume();
-                    JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+"solo permite " + Integer.toString(length) + " digitos");
+                    JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+" solo permite " + Integer.toString(length) + " digitos");
                 }
 
                 if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE)
@@ -36,9 +38,10 @@ public class ValidadorCampo {
     public static KeyAdapter lengthValidador(int length, String nombreCampo) {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
-                char c = e.getKeyChar();
-                if (((JTextField) e.getComponent()).getText().length() > 10)
+                if (((JTextField) e.getComponent()).getText().length() + 1 > length) {
                     e.consume();
+                    JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+" solo permite " + Integer.toString(length) + " caracteres.");
+                }
 
             }
         };
@@ -48,7 +51,7 @@ public class ValidadorCampo {
         return new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (((JTextField) e.getComponent()).getText().length() + 1 > 4 ){
+                if (((JTextField) e.getComponent()).getText().length() > 4 ){
                     try {
                         LocalTime.parse(((JTextField) e.getComponent()).getText().concat(String.valueOf(c)), DateTimeFormatter.ofPattern("HH:mm"));
                     }catch (Exception ex){

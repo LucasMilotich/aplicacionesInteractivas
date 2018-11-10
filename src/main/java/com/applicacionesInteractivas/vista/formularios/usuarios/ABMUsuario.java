@@ -53,16 +53,19 @@ public class ABMUsuario extends JFrame {
         btnModificar = new JButton("Modificar Usuario");
         btnModificar.addActionListener(e -> {
             UsuarioController usuarioController = UsuarioController.getInstance();
-            usuarioController.modificarUsuario(
-                    nombreUsuarioTxtField.getText(),
-                    emailTxtField.getText(),
-                    passwordTxtField.getText(),
-                    nombreTxtField.getText(),
-                    domicilioTxtField.getText(),
-                    dniTxtField.getText(),
-                    LocalDate.parse(fechaNacimientoTxtField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd")),
-                    false
-            );
+            String nombreUsuario = nombreUsuarioTxtField.getText();
+			String email = emailTxtField.getText();
+			String password = passwordTxtField.getText();
+			String nombre = nombreTxtField.getText();
+			String domicilio = domicilioTxtField.getText();
+			String dni = dniTxtField.getText();
+			LocalDate fechaNacimiento = LocalDate.parse(fechaNacimientoTxtField.getText(), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+			if(nombreUsuario.equals("") || password.equals("")) {
+				JOptionPane.showMessageDialog(null, "Los campos NOMBRE USUARIO y CONTRASENA no pueden estar vacios!",
+											"Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			usuarioController.modificarUsuario(nombreUsuario,email,password,nombre,domicilio,dni,fechaNacimiento,false);
 
             JOptionPane.showMessageDialog(null, "Usuario modificado!");
             this.setVisible(false);
@@ -114,24 +117,31 @@ public class ABMUsuario extends JFrame {
         mibarra.setViewportView(usuarios);
 
         nombreUsuarioTxtField = new JTextField();
+        this.nombreUsuarioTxtField.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE USUARIO"));
         nombreUsuarioTxtField.setBounds(130, 40, 120, 28);
         
         emailTxtField = new JTextField();
+        this.emailTxtField.addKeyListener(ValidadorCampo.lengthValidador(49, "EMAIL"));
         emailTxtField.setBounds(130, 80, 120, 28);
         
         passwordTxtField = new JTextField();
+        this.passwordTxtField.addKeyListener(ValidadorCampo.lengthValidador(49, "PASSWORD"));
         passwordTxtField.setBounds(130, 120, 120, 28);
         
         nombreTxtField = new JTextField();
+        this.nombreTxtField.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
         nombreTxtField.setBounds(130, 160, 120, 28);
         
         domicilioTxtField = new JTextField();
+        this.domicilioTxtField.addKeyListener(ValidadorCampo.lengthValidador(49, "DOMICILIO"));
         domicilioTxtField.setBounds(130, 200, 120, 28);
         
         dniTxtField = new JTextField();
+        this.dniTxtField.addKeyListener(ValidadorCampo.numberValidator(8, "DNI"));
         dniTxtField.setBounds(130, 240, 120, 28);
         
         fechaNacimientoTxtField = new JTextField();
+        this.fechaNacimientoTxtField.addKeyListener(ValidadorCampo.validadorFecha("FECHA NACIMIENTO"));
         fechaNacimientoTxtField.setBounds(130, 280, 120, 28);
         
         nombreUsuarioLabel = new JLabel("Nombre usuario");

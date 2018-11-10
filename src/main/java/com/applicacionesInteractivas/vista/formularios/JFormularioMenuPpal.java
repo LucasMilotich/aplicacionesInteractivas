@@ -38,6 +38,7 @@ import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.EliminarUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.roles.ABMRoles;
 import com.applicacionesInteractivas.vista.formularios.ventas.VentaBoleteria;
+import com.applicacionesInteractivas.vista.formularios.ventas.VentaOnline;
 
 public class JFormularioMenuPpal extends JFrame {
 
@@ -79,6 +80,7 @@ public class JFormularioMenuPpal extends JFrame {
     //Ventas
     private JMenu menuVentas = new JMenu("Ventas");
     private JMenuItem ventaBoleteriaMenuItem = new JMenuItem("Venta boleteria");
+    private JMenuItem ventaOnlineMenuItem = new JMenuItem("Venta Online");
     private JMenuItem retiroBoleteriaMenuItem = new JMenuItem("Retiro entrada boleteria");
 
     //Descuentos
@@ -306,13 +308,24 @@ public class JFormularioMenuPpal extends JFrame {
         ventaBoleteriaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("VENDEDOR")));
 
         menuVentas.add(retiroBoleteriaMenuItem);
+        
+        ventaOnlineMenuItem.addActionListener(e -> {
+            VentaOnline ventaOnline = new VentaOnline();
+            ventaOnline.setVisible(true);
+        });
+        
+        ventaOnlineMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("CLIENTE")));
+        
+        menuVentas.add(ventaOnlineMenuItem);
 
         retiroBoleteriaMenuItem.addActionListener(e -> {
             RetiroVentaBoleteria ventaBoleteria = new RetiroVentaBoleteria();
             ventaBoleteria.setVisible(true);
         });
-
+        
         retiroBoleteriaMenuItem.setVisible(esVisibleSegunRol(Collections.singletonList("VENDEDOR")));
+        
+        menuVentas.add(retiroBoleteriaMenuItem);
     }
 
     private void descuentoInit() {

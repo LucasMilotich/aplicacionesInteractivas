@@ -503,7 +503,7 @@ public class CineController {
 	 * @return -
 	 */
     public void crearPelicula(String nombre, String director, String genero, 
-                              String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
+                              String duracion, String idioma, String subtitulos,double calificacion, String observacion) {
     	
     	this.peliculas.add(Pelicula.crearPelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion));
     
@@ -518,7 +518,7 @@ public class CineController {
 	 * @return -
 	 */
     public void modificarPelicula(int id, String nombre, String director, String genero,
-                                  String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+                                  String duracion, String idioma, String subtitulos, double calificacion, String observacion) {
         
     	Pelicula p = this.getPelicula(id);
         Pelicula.modificarPelicula(p, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion, p.isDeleted());

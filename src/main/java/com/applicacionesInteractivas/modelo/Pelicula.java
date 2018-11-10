@@ -11,11 +11,11 @@ public class Pelicula {
     private String duracion;
     private String idioma;
     private String subtitulos;
-    private int calificacion;
+    private double calificacion;
     private String observacion;
     private boolean deleted;
 
-    public Pelicula(String nombre, String director, String genero, String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+    public Pelicula(String nombre, String director, String genero, String duracion, String idioma, String subtitulos, double calificacion, String observacion) {
         this.nombre = nombre;
         this.director = director;
         this.genero = genero;
@@ -26,7 +26,7 @@ public class Pelicula {
         this.observacion = observacion;
     }
     
-    public Pelicula(int id, String nombre, String director, String genero, String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+    public Pelicula(int id, String nombre, String director, String genero, String duracion, String idioma, String subtitulos, double calificacion, String observacion) {
         this.id = id;
     	this.nombre = nombre;
         this.director = director;
@@ -38,14 +38,14 @@ public class Pelicula {
         this.observacion = observacion;
     }
     
-    public static Pelicula crearPelicula(String nombre, String director, String genero, String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
+    public static Pelicula crearPelicula(String nombre, String director, String genero, String duracion, String idioma, String subtitulos, double calificacion, String observacion) {
     	Pelicula pelicula = new Pelicula(nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion);
     	PeliculaDAO.getInstance().insert(pelicula);
     	return pelicula;
     }
     
     public static Pelicula modificarPelicula(Pelicula p, String nombre, String director, String genero,
-    										String duracion, String idioma, String subtitulos, int calificacion,
+    										String duracion, String idioma, String subtitulos, double calificacion,
     										String observacion, boolean deleted) {
     	if(p != null) {
     		p.setNombre(nombre);
@@ -114,11 +114,11 @@ public class Pelicula {
         this.subtitulos = subtitulos;
     }
 
-    public int getCalificacion() {
+    public double getCalificacion() {
         return calificacion;
     }
 
-    public void setCalificacion(int calificacion) {
+    public void setCalificacion(double calificacion) {
         this.calificacion = calificacion;
     }
 

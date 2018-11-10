@@ -79,7 +79,7 @@ public class FormTarjeta extends JFrame{
 				if(txtVencimiento.getText().length() > 3)
 					e.consume();
 				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Codigo Seguridad' solo permite numeros, en el formato MMAA(M:mes,A:anio).");
+					JOptionPane.showMessageDialog(null, "El campo 'Vencimiento' solo permite numeros, en el formato MMAA(M:mes,A:anio).");
 					e.consume();
 				}
 			}
@@ -100,7 +100,7 @@ public class FormTarjeta extends JFrame{
 				if(txtCodigo.getText().length() > cant - 1)
 					e.consume();
 				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Numero Tarjeta' solo permite numeros");
+					JOptionPane.showMessageDialog(null, "El campo 'Codigo Seguridad' solo permite numeros");
 					e.consume();
 				}
 			}

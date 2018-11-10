@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormModifCine extends JFrame{
 
@@ -59,32 +60,27 @@ public class FormModifCine extends JFrame{
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(130, 80, 120, 28);
-		this.txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombre.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
 		getContentPane().add(txtNombre);
 		txtNombre.setEnabled(false);
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setBounds(130, 120, 120, 28);
-		this.txtDomicilio.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtDomicilio.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49, "DOMICILIO"));
 		getContentPane().add(txtDomicilio);
 		txtDomicilio.setEnabled(false);
 		
 		btnModificar = new JButton("Modificar Cine");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.modificarCine(txtCuit.getText(),
-					txtNombre.getText(),
-					txtDomicilio.getText());
+			String cuit = txtCuit.getText();
+			String nombre = txtNombre.getText();
+			String domicilio = txtDomicilio.getText();
+			if(cuit.equals("") || nombre.equals("") || domicilio.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			cine.modificarCine(cuit,nombre,domicilio);
 			JOptionPane.showMessageDialog(null,"Cine modificado!");
 			this.setVisible(false);
 		});
