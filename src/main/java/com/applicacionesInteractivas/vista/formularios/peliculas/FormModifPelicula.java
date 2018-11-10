@@ -184,15 +184,27 @@ public class FormModifPelicula extends JFrame{
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
+			String nombre = txtNombrePelicula.getText();
+			String director = txtDirector.getText();
+			String genero = txtGenero.getText();
+			String duracion = txtDuracion.getText();
+			String idioma = txtIdioma.getText();
+			String subtitulos = txtSubtitulos.getText();
+			String calificacion = txtCalificacion.getText();
+			String observacion = txtObservacion.getText();
+			if(nombre.equals("")) {
+				JOptionPane.showMessageDialog(null, "El campo 'Nombre Pelicula' no puede estar vacio!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			cine.modificarPelicula(idPelicula,
-							   txtNombrePelicula.getText(),
-							   txtDirector.getText(),
-							   txtGenero.getText(),
-							   txtDuracion.getText(), 
-							   txtIdioma.getText(),
-							   txtSubtitulos.getText(),
-							   Integer.parseInt(txtCalificacion.getText()),
-							   txtObservacion.getText());
+							   nombre,
+							   director,
+							   genero,
+							   duracion, 
+							   idioma,
+							   subtitulos,
+							   Double.parseDouble(calificacion),
+							   observacion);
 			JOptionPane.showMessageDialog(null,"Pelicula modificada!");
 			this.setVisible(false);
 		});

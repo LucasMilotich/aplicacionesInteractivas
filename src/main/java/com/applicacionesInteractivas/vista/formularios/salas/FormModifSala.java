@@ -35,7 +35,6 @@ public class FormModifSala extends JFrame {
     private JScrollPane mibarra;
     private int idSala;
 
-
     public FormModifSala() {
 
         this.setSize(500, 460);
@@ -112,10 +111,17 @@ public class FormModifSala extends JFrame {
         btnModificar.setEnabled(false);
         btnModificar.addActionListener(e -> {
             CineController cine = CineController.getInstance();
-            cine.modificarSala( idSala,
-            		txtNombre.getText(),
-                    Integer.parseInt(txtFilas.getText()),
-                    Integer.parseInt(txtColumnas.getText()));
+            String nombre = txtNombre.getText();
+			String filas = txtFilas.getText();
+			String columnas = txtColumnas.getText();
+			if(nombre.equals("") || filas.equals("") || columnas.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			cine.modificarSala( idSala,
+            		nombre,
+                    Integer.parseInt(filas),
+                    Integer.parseInt(columnas));
             JOptionPane.showMessageDialog(null, "Sala modificada!");
             this.setVisible(false);
         });

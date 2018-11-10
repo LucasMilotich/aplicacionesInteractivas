@@ -173,14 +173,26 @@ public class FormAltaPelicula extends JFrame{
 		btnConfirm = new JButton("Confirmar");
 		btnConfirm.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.crearPelicula(txtNombrePelicula.getText(),
-							   txtDirector.getText(),
-							   txtGenero.getText(),
-							   txtDuracion.getText(), 
-							   txtIdioma.getText(), 
-							   txtSubtitulos.getText(),
-							   Integer.parseInt(txtCalificacion.getText()),
-							   txtObservacion.getText());
+			String nombrePelicula = txtNombrePelicula.getText();
+			String director = txtDirector.getText();
+			String genero = txtGenero.getText();
+			String duracion = txtDuracion.getText();
+			String idioma = txtIdioma.getText();
+			String subtitulos = txtSubtitulos.getText();
+			String calificacion = txtCalificacion.getText();
+			String observacion = txtObservacion.getText();
+			if(nombrePelicula.equals("")) {
+				JOptionPane.showMessageDialog(null, "El campo 'Nombre Pelicula' no puede estar vacio!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			cine.crearPelicula(nombrePelicula,
+							   director,
+							   genero,
+							   duracion, 
+							   idioma, 
+							   subtitulos,
+							   Double.parseDouble(calificacion),
+							   observacion);
 			JOptionPane.showMessageDialog(null,"Pelicula creada!");
 			this.setVisible(false);
 		});

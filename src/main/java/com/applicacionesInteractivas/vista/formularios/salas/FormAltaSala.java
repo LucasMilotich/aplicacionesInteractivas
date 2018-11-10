@@ -105,11 +105,16 @@ public class FormAltaSala extends JFrame{
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			Cine c = cineController.getCine(String.valueOf(comboCine.getSelectedItem()).split(" - ")[0]);
-			cineController.crearSala(txtNombre.getText(),
-						   Integer.parseInt(txtFilas.getText()),
-						   Integer.parseInt(txtColumnas.getText()),
-						   c);
+			String cuit = String.valueOf(comboCine.getSelectedItem()).split(" - ")[0];
+			String nombre = txtNombre.getText();
+			String filas = txtFilas.getText();
+			String columnas = txtColumnas.getText();
+			if(cuit.equals("") || nombre.equals("") || filas.equals("") || columnas.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			Cine c = cineController.getCine(cuit);
+			cineController.crearSala(nombre,Integer.parseInt(filas),Integer.parseInt(columnas),c);
 			JOptionPane.showMessageDialog(null,"Sala creada!");
 			this.setVisible(false);
 		});

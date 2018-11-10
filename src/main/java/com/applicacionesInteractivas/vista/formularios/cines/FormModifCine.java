@@ -82,9 +82,14 @@ public class FormModifCine extends JFrame{
 		btnModificar = new JButton("Modificar Cine");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			cine.modificarCine(txtCuit.getText(),
-					txtNombre.getText(),
-					txtDomicilio.getText());
+			String cuit = txtCuit.getText();
+			String nombre = txtNombre.getText();
+			String domicilio = txtDomicilio.getText();
+			if(cuit.equals("") || nombre.equals("") || domicilio.equals("")) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			cine.modificarCine(cuit,nombre,domicilio);
 			JOptionPane.showMessageDialog(null,"Cine modificado!");
 			this.setVisible(false);
 		});
