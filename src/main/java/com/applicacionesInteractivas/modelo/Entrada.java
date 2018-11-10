@@ -1,7 +1,5 @@
 package com.applicacionesInteractivas.modelo;
 
-import java.util.Random;
-
 public class Entrada {
 
     private int id;

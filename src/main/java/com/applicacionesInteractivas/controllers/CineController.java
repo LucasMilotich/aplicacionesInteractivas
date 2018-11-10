@@ -66,6 +66,15 @@ public class CineController {
     private FormModifFuncion formularioModifFuncion;
     private FormElimFuncion formularioElimFuncion;
 
+    /**
+	 * getCines
+	 * 
+	 * Retorna la lista de cines que posee el Cine Controller.
+	 * De ser la cantidad igual a 0, se van a buscar a la BD.
+	 * 
+	 * @param -
+	 * @return List<Cine>
+	 */
     public List<Cine> getCines() {
         if (cines.size() == 0) {
             return cines = CineDAO.getInstance().findAll();
@@ -74,7 +83,15 @@ public class CineController {
         }
 
     }
-
+    
+    /**
+	 * getListadoCines
+	 * 
+	 * Retorna un arreglo con String's formados por el CUIT del cine y su nombre.
+	 * 
+	 * @param -
+	 * @return Vector<String>
+	 */
     public Vector<String> getListadoCines() {
         Vector<String> listado = new Vector<String>();
         for (Cine c : getCines()) {
@@ -84,10 +101,27 @@ public class CineController {
         return listado;
     }
 
+    /**
+	 * setCines
+	 * 
+	 * Setea en el atributo cines, una lista de cines pasada por parametro
+	 * 
+	 * @param cines
+	 * @return -
+	 */
     public void setCines(List<Cine> cines) {
         this.cines = cines;
     }
-
+    
+    /**
+	 * getPeliculas
+	 * 
+	 * Retorna la lista de peliculas que posee el Cine Controller.
+	 * De ser la cantidad igual a 0, se van a buscar a la BD.
+	 * 
+	 * @param -
+	 * @return List<Pelicula>
+	 */
     public List<Pelicula> getPeliculas() {
     	if (peliculas.size() == 0) {
             return peliculas = PeliculaDAO.getInstance().findAll();
@@ -96,6 +130,14 @@ public class CineController {
         }
     }
 
+    /**
+	 * getListadoPeliculas
+	 * 
+	 * Retorna un arreglo con String's formados por el id de la pelicula y su nombre.
+	 * 
+	 * @param -
+	 * @return Vector<String>
+	 */
     public Vector<String> getListadoPeliculas() {
     	
         Vector<String> listado = new Vector<String>();
@@ -106,10 +148,27 @@ public class CineController {
         return listado;
     }
 
+    /**
+	 * setPeliculas
+	 * 
+	 * Setea en el atributo peliculas, una lista de peliculas pasada por parametro
+	 * 
+	 * @param peliculas
+	 * @return -
+	 */
     public void setPeliculas(List<Pelicula> peliculas) {
         this.peliculas = peliculas;
     }
 
+    /**
+	 * getSalas
+	 * 
+	 * Retorna la lista de salas que posee el Cine Controller.
+	 * De ser la cantidad igual a 0, se van a buscar a la BD.
+	 * 
+	 * @param -
+	 * @return List<Sala>
+	 */
     public List<Sala> getSalas() {
         if (salas.size() == 0) {
             return salas = SalaDAO.getInstance().findAll();
@@ -118,6 +177,14 @@ public class CineController {
         }
     }
 
+    /**
+	 * getListadoSalas
+	 * 
+	 * Retorna un arreglo con String's formados por el id de la sala(correspondiente a un cuit) y su nombre.
+	 * 
+	 * @param cuit
+	 * @return Vector<String>
+	 */
     public Vector<String> getListadoSalas(String cuit) {
         Vector<String> listado = new Vector<String>();
         for (Sala s : this.getSalas()) {
@@ -127,10 +194,27 @@ public class CineController {
         return listado;
     }
 
+    /**
+	 * setSalas
+	 * 
+	 * Setea en el atributo salas, una lista de salas pasada por parametro
+	 * 
+	 * @param salas
+	 * @return -
+	 */
     public void setSalas(List<Sala> salas) {
         this.salas = salas;
     }
 
+    /**
+	 * getFunciones
+	 * 
+	 * Retorna la lista de funciones que posee el Cine Controller.
+	 * De ser la cantidad igual a 0, se van a buscar a la BD.
+	 * 
+	 * @param -
+	 * @return List<Funcion>
+	 */
     public List<Funcion> getFunciones() {
         if (funciones.size() == 0) {
             return funciones = FuncionDAO.getInstance().findAll();
@@ -139,6 +223,15 @@ public class CineController {
         }
     }
 
+    /**
+	 * getListadoFunciones
+	 * 
+	 * Retorna un arreglo con String's formados por el id de la funcion
+	 * (correspondiente a un cuit, pelicula y fecha) y la hora.
+	 * 
+	 * @param cuitCine, idPeli, fecha
+	 * @return Vector<String>
+	 */
     public Vector<String> getListadoFunciones(String cuitCine, int idPeli, LocalDate fecha) {
         Vector<String> listado = new Vector<String>();
         for (Funcion f : getFunciones()) {
@@ -149,6 +242,14 @@ public class CineController {
         return listado;
     }
 
+    /**
+	 * setFunciones
+	 * 
+	 * Setea en el atributo funciones, una lista de funciones pasada por parametro
+	 * 
+	 * @param funciones
+	 * @return -
+	 */
     public void setFunciones(List<Funcion> funciones) {
         this.funciones = funciones;
     }
@@ -249,6 +350,14 @@ public class CineController {
         this.formularioElimFuncion = formularioElimFuncion;
     }
 
+    /**
+	 * buildModel
+	 * 
+	 * Inicializa todas las listas que posee el Controller.
+	 * 
+	 * @param -
+	 * @return -
+	 */
     private void buildModel() {
 
         this.cines = CineDAO.getInstance().findAll();
@@ -258,12 +367,28 @@ public class CineController {
 
     }
 
+    /**
+	 * crearCine
+	 * 
+	 * Da de alta un Cine y lo agrega en la coleccion cines.
+	 * 
+	 * @param cuit, nombre, domicilio
+	 * @return -
+	 */
     public void crearCine(String cuit, String nombre, String domicilio) {
 
         this.cines.add(Cine.crearCine(cuit, nombre, domicilio));
     
     }
 
+    /**
+	 * modificarCine
+	 * 
+	 * Modifica un Cine.
+	 * 
+	 * @param cuit, nombre, domicilio
+	 * @return -
+	 */
     public void modificarCine(String cuit, String nombre, String domicilio) {
         
     	Cine c = this.getCine(cuit);
@@ -271,6 +396,14 @@ public class CineController {
     
     }
 
+    /**
+	 * eliminarCine
+	 * 
+	 * Elimina un Cine y lo remueve de la coleccion cines.
+	 * 
+	 * @param cuit
+	 * @return -
+	 */
     public void eliminarCine(String cuit) {
 
         Cine c = this.getCine(cuit);
@@ -279,6 +412,15 @@ public class CineController {
 
     }
 
+    /**
+	 * getCine
+	 * 
+	 * Retorna un objeto Cine, si es que el mismo se encuentra en la coleccion de cines.
+	 * De lo contrario retorna null.
+	 * 
+	 * @param cuit
+	 * @return Cine
+	 */
     public Cine getCine(String cuit) {
 
         for (Cine c : getCines()) {
@@ -289,12 +431,28 @@ public class CineController {
         return null;
     }
 
+    /**
+	 * crearSala
+	 * 
+	 * Da de alta una Sala y la agrega en la coleccion salas.
+	 * 
+	 * @param nombre, files, columnas, cine
+	 * @return -
+	 */
     public void crearSala(String nombre, int filas, int columnas, Cine cine) {
     	Sala s = Sala.crearSala(nombre, filas, columnas, cine);
         this.salas.add(s);
         cine.agregarSala(s);
     }
 
+    /**
+	 * modificarSala
+	 * 
+	 * Modifica una Sala.
+	 * 
+	 * @param id, nombre, filas, columnas
+	 * @return -
+	 */
     public void modificarSala(int id, String nombre, int filas, int columnas) {
 
         Sala s = this.getSala(id);
@@ -302,6 +460,14 @@ public class CineController {
 
     }
 
+    /**
+	 * eliminarSala
+	 * 
+	 * Elimina una Sala y lo remueve de la coleccion salas.
+	 * 
+	 * @param id
+	 * @return -
+	 */
     public void eliminarSala(int id) {
 
         Sala s = this.getSala(id);
@@ -311,6 +477,15 @@ public class CineController {
 
     }
 
+    /**
+	 * getSala
+	 * 
+	 * Retorna un objeto Sala, si es que el mismo se encuentra en la coleccion de salas.
+	 * De lo contrario retorna null.
+	 * 
+	 * @param id
+	 * @return Sala
+	 */
     public Sala getSala(int id) {
         for (Sala s : getSalas()) {
             if (s.getId() == id)
@@ -319,6 +494,14 @@ public class CineController {
         return null;
     }
 
+    /**
+	 * crearPelicula
+	 * 
+	 * Da de alta una Pelicula y la agrega en la coleccion peliculas.
+	 * 
+	 * @param nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion
+	 * @return -
+	 */
     public void crearPelicula(String nombre, String director, String genero, 
                               String duracion, String idioma, String subtitulos,int calificacion, String observacion) {
     	
@@ -326,6 +509,14 @@ public class CineController {
     
     }
 
+    /**
+	 * modificarPelicula
+	 * 
+	 * Modifica una Pelicula.
+	 * 
+	 * @param id, nombre, director, genero, duracion, idioma, subtitulos, calificacion, observacion
+	 * @return -
+	 */
     public void modificarPelicula(int id, String nombre, String director, String genero,
                                   String duracion, String idioma, String subtitulos, int calificacion, String observacion) {
         
@@ -334,6 +525,14 @@ public class CineController {
     
     }
 
+    /**
+	 * eliminarPelicula
+	 * 
+	 * Elimina una Pelicula, a traves de su id, y luego lo remueve de la coleccion peliculas.
+	 * 
+	 * @param id
+	 * @return -
+	 */
     public void eliminarPelicula(int id) {
         
     	Pelicula p = this.getPelicula(id);
@@ -342,6 +541,15 @@ public class CineController {
     
     }
 
+    /**
+	 * getPelicula
+	 * 
+	 * Retorna un objeto Pelicula, si es que el mismo se encuentra en la coleccion de peliculas.
+	 * De lo contrario retorna null.
+	 * 
+	 * @param id
+	 * @return Pelicula
+	 */
     public Pelicula getPelicula(int id) {
         for (Pelicula p : getPeliculas()) {
             if (p.esPelicula(id))
@@ -350,26 +558,68 @@ public class CineController {
         return null;
     }
     
+    /**
+	 * esPeliculaEliminable
+	 * 
+	 * A traves del id de una pelicula, verificamos si la misma tiene funciones activas.
+	 * De tener, retorna false.
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
     public boolean esPeliculaEliminable(int id) {
     	return Pelicula.esPeliculaEliminable(id);
     }
 
+    /**
+	 * crearFuncion
+	 * 
+	 * Da de alta una Funcion y la agrega en la coleccion funciones.
+	 * 
+	 * @param pelicula, sala, fecha, hora
+	 * @return -
+	 */
     public void crearFuncion(Pelicula pelicula, Sala sala, LocalDate fecha, LocalTime hora) {
         Funcion f = Funcion.crearFuncion(pelicula,sala,fecha,hora);
         this.funciones.add(f);
     }
 
+    /**
+	 * modificarFuncion
+	 * 
+	 * Modifica una Funcion, obteniendola primero a traves del id.
+	 * 
+	 * @param idFuncion, fecha, hora
+	 * @return -
+	 */
     public void modificarFuncion(int idFuncion,LocalDate fecha, LocalTime hora) {
     	Funcion f = this.getFuncion(idFuncion);
     	Funcion.modificarFuncion(f, fecha, hora);
     }
 
+    /**
+	 * eliminarFuncion
+	 * 
+	 * Elimina una Funcion a traves de su id, y luego la remueve de la coleccion funciones.
+	 * 
+	 * @param idFuncion
+	 * @return -
+	 */
     public void eliminarFuncion(int idFuncion) {
     	Funcion f = this.getFuncion(idFuncion);
     	funciones.remove(f);
     	Funcion.eliminarFuncion(f);
     }
 
+    /**
+	 * getFuncion
+	 * 
+	 * Retorna un objeto Funcion, si es que el mismo se encuentra en la coleccion de funciones.
+	 * De lo contrario retorna null.
+	 *  
+	 * @param id
+	 * @return Funcion
+	 */
     public Funcion getFuncion(int id) {
         for (Funcion f : funciones) {
             if (f.getId() == id)
@@ -378,6 +628,15 @@ public class CineController {
         return null;
     }
     
+    /**
+	 * esFuncionEliminable
+	 * 
+	 * A traves del id de una funcion, verificamos si la misma tiene entradas vendidas.
+	 * De tener, retorna false.
+	 * 
+	 * @param id
+	 * @return boolean
+	 */
     public boolean esFuncionEliminable(int id) {
     	return Funcion.esFuncionEliminable(id);
     }

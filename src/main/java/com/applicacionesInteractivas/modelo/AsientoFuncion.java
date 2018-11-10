@@ -5,7 +5,6 @@ public class AsientoFuncion {
     private boolean ocupado;
     private Asiento asiento;
     private Funcion funcion;
-    //private int id;
 
     public Asiento getAsiento() {
         return asiento;
@@ -14,8 +13,6 @@ public class AsientoFuncion {
     public AsientoFuncion() {
         super();
     }
-
-    ;
 
     public AsientoFuncion(boolean ocupado, Asiento asiento, Funcion funcion) {
         super();
@@ -27,14 +24,6 @@ public class AsientoFuncion {
     public void setAsiento(Asiento asiento) {
         this.asiento = asiento;
     }
-
-    /*public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }*/
 
     public boolean isOcupado() {
         return ocupado;

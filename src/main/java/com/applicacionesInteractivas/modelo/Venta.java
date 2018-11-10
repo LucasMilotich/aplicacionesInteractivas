@@ -3,7 +3,6 @@ package com.applicacionesInteractivas.modelo;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Random;
 
 import com.applicacionesInteractivas.bd.EntradaDAO;
 import com.applicacionesInteractivas.bd.TarjetaDAO;

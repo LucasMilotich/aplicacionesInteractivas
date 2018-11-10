@@ -16,6 +16,22 @@ public class DescuentoController {
     private static DescuentoController instance;
     private List<Descuento> descuentos = new ArrayList<>();
 
+    public static DescuentoController getInstance() {
+        if (instance == null) {
+            instance = new DescuentoController();
+        }
+        return instance;
+    }
+    
+    /**
+	 * getDescuentos
+	 * 
+	 * Retorna la lista de descuentos que posee el Descuento Controller.
+	 * De ser la cantidad igual a 0, se van a buscar a la BD.
+	 * 
+	 * @param -
+	 * @return List<Descuento>
+	 */
     public List<Descuento> getDescuentos() {
         if (descuentos.size() == 0) {
             return descuentos = DescuentoDAO.getInstance().findAll();
@@ -24,12 +40,28 @@ public class DescuentoController {
         }
     }
     
+    /**
+	 * getDescuentosPorCine
+	 * 
+	 * Retorna una lista de descuentos correspondientes a un cine especifico.
+	 * 
+	 * @param cuit
+	 * @return List<Descuento>
+	 */
     public List<Descuento> getDescuentosPorCine(String cuit) {
     	
         return DescuentoDAO.getInstance().findAllByCuit(cuit);
     
     }
 
+    /**
+	 * getDescuento
+	 * 
+	 * Retorna un objeto Descuento correspondiente a un cine y nombre especifico.
+	 * 
+	 * @param cuil, nombre
+	 * @return Descuento
+	 */
     public Descuento getDescuento(String cuil, String nombre) {
         for (Descuento c : getDescuentos()) {
             if (c.getCine().getCuit().equals(cuil) && c.getNombre().equals(nombre))
@@ -39,13 +71,15 @@ public class DescuentoController {
         return null;
     }
 
-    public static DescuentoController getInstance() {
-        if (instance == null) {
-            instance = new DescuentoController();
-        }
-        return instance;
-    }
-
+    /**
+	 * eliminarDescuento
+	 * 
+	 * Elimina un descuento, obteniendolo primero a traves del cuit del cine y nombre del descuento.
+	 * Luego lo remueve de la coleccion de descuentos.
+	 * 
+	 * @param cineCuil, nombre
+	 * @return -
+	 */
     public void eliminarDescuento(String cineCuil, String nombre) {
         Descuento d = getDescuento(cineCuil, nombre);
         if (d.isPorcentaje()) {
@@ -56,12 +90,31 @@ public class DescuentoController {
         descuentos.remove(d);
     }
 
+    /**
+	 * modificarDescuento
+	 * 
+	 * Modifica un Descuento, obteniendolo primero a traves del cuit del cine y el nombre del descuento.
+	 * 
+	 * @param cineCuil, nombre, vigenciaDesde, vigenciaHasta, cantProdAComprar, cantProdAPagar, porcentaje
+	 * @return -
+	 */
     public void modificarDescuento(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, int cantProdAComprar, int cantProdAPagar, int porcentaje) {
         Descuento d = getDescuento(cineCuil, nombre);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         Descuento.modificarDescuento(d, LocalDate.parse(vigenciaDesde, dtf), LocalDate.parse(vigenciaHasta, dtf), cantProdAComprar, cantProdAPagar, porcentaje, false);
     }
 
+    /**
+	 * crearDescuento
+	 * 
+	 * Verifica si el tipoDescuento pasado por parametro contiene un %.
+	 * De ser asi, da de alta un Descuento por porcentaje.
+	 * De lo contrario, crea un Descuento DosPorUno.
+	 * Luego lo agrega en la coleccion de descuentos.
+	 * 
+	 * @param cineCuil, nombre, vigenciaDesde, vigenciaHasta, tipoDescuento
+	 * @return -
+	 */
     public void crearDescuento(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, String tipoDescuento) {
 
         if (tipoDescuento.contains("%")) {
@@ -78,6 +131,14 @@ public class DescuentoController {
 
     }
 
+    /**
+	 * crearDosPorUno
+	 * 
+	 * Da de alta un Descuento del tipo 2x1, y lo agrega en la coleccion de descuentos.
+	 * 
+	 * @param cineCuil, nombre, vigenciaDesde, vigenciaHasta, cantidadRequeridosDeProductos, cantidadACobrar
+	 * @return -
+	 */
     private void crearDosPorUno(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, int cantidadRequeridosDeProductos, int cantidadACobrar) {
         Cine cine = CineController.getInstance().getCine(cineCuil);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -85,6 +146,14 @@ public class DescuentoController {
         descuentos.add(dosPorUno);
     }
 
+    /**
+	 * crearPorcentaje
+	 * 
+	 * Da de alta un Descuento del tipo porcentaje de venta, y lo agrega en la coleccion de descuentos.
+	 * 
+	 * @param cineCuil, nombre, vigenciaDesde, vigenciaHasta, porcentaje
+	 * @return -
+	 */
     private void crearPorcentaje(String cineCuil, String nombre, String vigenciaDesde, String vigenciaHasta, int porcentaje) {
         Cine cine = CineController.getInstance().getCine(cineCuil);
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
