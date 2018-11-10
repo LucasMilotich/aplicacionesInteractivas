@@ -116,7 +116,7 @@ public class EntradaDAO implements ICRUD<Entrada> {
         Entrada entrada = new Entrada();
         
         entrada.setId(rs.getInt(1));
-        entrada.setVenta(VentaDAO.getInstance().findBy(rs.getInt(2)));
+        //entrada.setVenta(VentaDAO.getInstance().findBy(rs.getInt(2)));
         entrada.setEstado(rs.getString(3));
         entrada.setAsiento(AsientoFuncionDAO.getInstance().findBy(rs.getInt(6), rs.getInt(4), rs.getInt(5)));
         

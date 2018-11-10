@@ -1,5 +1,6 @@
 package com.applicacionesInteractivas.controllers;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -136,7 +137,25 @@ public class VentaController {
 	 */
     public Venta retirarVentaPorTerminal(int idVenta) {
         Venta venta = null;
-        venta = Terminal.getVentas().stream().filter(venta1 -> venta1.getId() == idVenta).findFirst().get();
+        try {
+            venta = Terminal.getVentas().stream().filter(venta1 -> venta1.getId() == idVenta).findFirst().get();
+            Terminal.getVentas().remove(venta);
+            venta.retirar();
+        }catch (Exception e){
+
+        }
+
+        return venta;
+    }
+
+    public Venta retirarVentaPorBoleteria(int idVenta) {
+        Venta venta = null;
+        try {
+            venta = VentaDAO.getInstance().findBy(idVenta);
+            venta.retirar();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return venta;
     }
 

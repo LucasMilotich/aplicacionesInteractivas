@@ -91,7 +91,8 @@ cuit			VARCHAR(12),
 cantidad		INTEGER(5),
 metodo_pago		INTEGER(1),
 precio_unitario	DOUBLE,
-total			DOUBLE
+total			DOUBLE,
+estado varchar(255) default 'DISPONIBLE'
 );
 
 #Entradas

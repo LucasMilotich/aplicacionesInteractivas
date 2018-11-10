@@ -142,4 +142,8 @@ public class Venta {
             io.notificarVenta(this);
         }
     }
+
+    public void retirar(){
+        VentaDAO.getInstance().retirar(this.id);
+    }
 }

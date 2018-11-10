@@ -31,6 +31,7 @@ import com.applicacionesInteractivas.vista.formularios.peliculas.FormModifPelicu
 import com.applicacionesInteractivas.vista.formularios.salas.FormAltaSala;
 import com.applicacionesInteractivas.vista.formularios.salas.FormElimSala;
 import com.applicacionesInteractivas.vista.formularios.salas.FormModifSala;
+import com.applicacionesInteractivas.vista.formularios.terminal.RetiroVentaBoleteria;
 import com.applicacionesInteractivas.vista.formularios.terminal.TerminalForm;
 import com.applicacionesInteractivas.vista.formularios.usuarios.ABMUsuario;
 import com.applicacionesInteractivas.vista.formularios.usuarios.AltaUsuario;
@@ -307,7 +308,7 @@ public class JFormularioMenuPpal extends JFrame {
         menuVentas.add(retiroBoleteriaMenuItem);
 
         retiroBoleteriaMenuItem.addActionListener(e -> {
-            TerminalForm ventaBoleteria = new TerminalForm();
+            RetiroVentaBoleteria ventaBoleteria = new RetiroVentaBoleteria();
             ventaBoleteria.setVisible(true);
         });
 

@@ -8,7 +8,7 @@ import com.applicacionesInteractivas.vista.formularios.tabla.TablaEntradas;
 
 import java.awt.*;
 
-public class TerminalForm extends JFrame {
+public class RetiroVentaBoleteria extends JFrame {
 
     /**
      *
@@ -34,7 +34,7 @@ public class TerminalForm extends JFrame {
 
     private static final long serialVersionUID = -7869162737881219117L;
 
-    public TerminalForm() {
+    public RetiroVentaBoleteria() {
 
         this.setSize(520, 560);
         this.setResizable(false);
@@ -101,7 +101,7 @@ public class TerminalForm extends JFrame {
 
         btnConfirm.addActionListener(e -> {
             VentaController cine = VentaController.getInstance();
-            Venta venta = cine.retirarVentaPorTerminal(Integer.parseInt(txtIdentificadorentrada.getText()));
+            Venta venta = cine.retirarVentaPorBoleteria(Integer.parseInt(txtIdentificadorentrada.getText()));
             if (venta == null){
                 JOptionPane.showMessageDialog(null,"No existe una venta con ese codigo" );
             }else {
@@ -120,8 +120,6 @@ public class TerminalForm extends JFrame {
                 panel4.setVisible(true);
                 panel6.setVisible(true);
             }
-
-
 
         });
 
