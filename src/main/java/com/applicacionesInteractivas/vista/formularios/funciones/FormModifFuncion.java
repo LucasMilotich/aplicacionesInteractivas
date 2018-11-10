@@ -118,10 +118,17 @@ public class FormModifFuncion extends JFrame{
 		btnModificar = new JButton("Modificar");
 		btnModificar.addActionListener(e -> {
 			CineController cine = CineController.getInstance();
-			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
-								Integer.valueOf((String)comboMes.getSelectedItem()),
-								Integer.valueOf((String)comboDia.getSelectedItem()));
+			String anio = (String)comboAnio.getSelectedItem();
+			String mes = (String)comboMes.getSelectedItem();
+			String dia = (String)comboDia.getSelectedItem();
 			String[] horario = txtHora.getText().split(":");
+			if(horario.length != 2 ||(horario[0].equals("") || horario[1].equals(""))) {
+				JOptionPane.showMessageDialog(null, "El formato del campo Hora es incorrecto.", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			LocalDate fecha = LocalDate.of(Integer.valueOf(anio), 
+								Integer.valueOf(mes),
+								Integer.valueOf(dia));
 			LocalTime hora = LocalTime.of(Integer.parseInt(horario[0]),Integer.parseInt(horario[1]));
 			cine.modificarFuncion(idFuncion, fecha, hora);;
 			JOptionPane.showMessageDialog(null,"Funcion modificada!");

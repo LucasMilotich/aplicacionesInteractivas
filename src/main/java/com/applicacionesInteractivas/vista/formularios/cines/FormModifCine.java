@@ -17,6 +17,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaCines;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormModifCine extends JFrame{
 
@@ -59,23 +60,13 @@ public class FormModifCine extends JFrame{
 		
 		txtNombre = new JTextField();
 		txtNombre.setBounds(130, 80, 120, 28);
-		this.txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombre.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
 		getContentPane().add(txtNombre);
 		txtNombre.setEnabled(false);
 		
 		txtDomicilio = new JTextField();
 		txtDomicilio.setBounds(130, 120, 120, 28);
-		this.txtDomicilio.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtDomicilio.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49, "DOMICILIO"));
 		getContentPane().add(txtDomicilio);
 		txtDomicilio.setEnabled(false);
 		

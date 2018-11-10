@@ -48,12 +48,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtNombrePelicula = new JTextField();
 		txtNombrePelicula.setBounds(130, 40, 120, 28);
-		this.txtNombrePelicula.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombrePelicula.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtNombrePelicula.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
 		getContentPane().add(txtNombrePelicula);
 		
 		lblDirector = new JLabel();
@@ -63,12 +58,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtDirector = new JTextField();
 		txtDirector.setBounds(130, 80, 120, 28);
-		this.txtDirector.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtDirector.getText().length() > 49)
-					e.consume();
-			}
-		});
+		this.txtDirector.addKeyListener(ValidadorCampo.lengthValidador(49, "DIRECTOR"));
 		getContentPane().add(txtDirector);
 		
 		lblGenero = new JLabel();
@@ -78,12 +68,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtGenero = new JTextField();
 		txtGenero.setBounds(130, 120, 120, 28);
-		this.txtGenero.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtGenero.getText().length() > 29)
-					e.consume();
-			}
-		});
+		this.txtGenero.addKeyListener(ValidadorCampo.lengthValidador(29, "GENERO"));
 		getContentPane().add(txtGenero);
 		
 		lblDuracion = new JLabel();
@@ -93,7 +78,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtDuracion = new JTextField();
 		txtDuracion.setBounds(130, 160, 120, 28);
-		this.txtDuracion.addKeyListener(ValidadorCampo.numberValidator(10, "DURACION"));
+		this.txtDuracion.addKeyListener(ValidadorCampo.numberValidator(2, "DURACION"));
 		getContentPane().add(txtDuracion);
 		
 		lblIdioma = new JLabel();
@@ -103,12 +88,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtIdioma = new JTextField();
 		txtIdioma.setBounds(130, 200, 120, 28);
-		this.txtIdioma.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtIdioma.getText().length() > 29)
-					e.consume();
-			}
-		});
+		this.txtIdioma.addKeyListener(ValidadorCampo.lengthValidador(29, "IDIOMA"));
 		getContentPane().add(txtIdioma);
 
 		lblSubtitulos = new JLabel();
@@ -118,12 +98,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtSubtitulos = new JTextField();
 		txtSubtitulos.setBounds(130, 240, 120, 28);
-		this.txtSubtitulos.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtSubtitulos.getText().length() > 29)
-					e.consume();
-			}
-		});
+		this.txtSubtitulos.addKeyListener(ValidadorCampo.lengthValidador(29, "SUBTITULOS"));
 		getContentPane().add(txtSubtitulos);
 		
 		lblCalificacion = new JLabel();
@@ -133,7 +108,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtCalificacion = new JTextField();
 		txtCalificacion.setBounds(130, 280, 120, 28);
-		this.txtCalificacion.addKeyListener(ValidadorCampo.numberValidator(29, "CALIFICACION"));
+		this.txtCalificacion.addKeyListener(ValidadorCampo.numberValidator(4, "CALIFICACION"));
 		getContentPane().add(txtCalificacion);
 		
 		lblObservacion = new JLabel();
@@ -143,12 +118,7 @@ public class FormAltaPelicula extends JFrame{
 		
 		txtObservacion = new JTextField();
 		txtObservacion.setBounds(130, 320, 120, 28);
-		this.txtObservacion.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtObservacion.getText().length() > 99)
-					e.consume();
-			}
-		});
+		this.txtObservacion.addKeyListener(ValidadorCampo.lengthValidador(99, "OBSERVACION"));
 		getContentPane().add(txtObservacion);
 		
 		btnConfirm = new JButton("Confirmar");

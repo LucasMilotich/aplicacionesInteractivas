@@ -104,6 +104,7 @@ public class FormAltaFuncion extends JFrame{
 		
 		comboDia = new JComboBox<String>(listaDias);
 		comboDia.setBounds(50, 160, 40, 30);
+		comboDia.setSelectedItem(null);
 		getContentPane().add(comboDia);
 		
 		lblMes = new JLabel("Mes");
@@ -112,6 +113,7 @@ public class FormAltaFuncion extends JFrame{
 		
 		comboMes = new JComboBox<String>(listaMeses);
 		comboMes.setBounds(130, 160, 40, 30);
+		comboMes.setSelectedItem(null);
 		getContentPane().add(comboMes);
 		
 		lblAnio = new JLabel("Anio");
@@ -120,6 +122,7 @@ public class FormAltaFuncion extends JFrame{
 		
 		comboAnio = new JComboBox<String>(listaAnio);
 		comboAnio.setBounds(210, 160, 60, 30);
+		comboAnio.setSelectedItem(null);
 		getContentPane().add(comboAnio);
 		
 		lblHora = new JLabel("Hora");
@@ -134,12 +137,22 @@ public class FormAltaFuncion extends JFrame{
 		btnConfirmar = new JButton("Confirmar");
 		btnConfirmar.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			Sala s = cineController.getSala(Integer.parseInt(String.valueOf(comboSala.getSelectedItem()).split(" - ")[0]));
-			Pelicula p = cineController.getPelicula(Integer.parseInt(String.valueOf(comboPelicula.getSelectedItem()).split(" - ")[0]));
-			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
-											Integer.valueOf((String)comboMes.getSelectedItem()),
-											Integer.valueOf((String)comboDia.getSelectedItem()));
+			String sala = String.valueOf(comboSala.getSelectedItem()).split(" - ")[0];
+			String pelicula = String.valueOf(comboPelicula.getSelectedItem()).split(" - ")[0];
+			String anio = (String)comboAnio.getSelectedItem();
+			String mes = (String)comboMes.getSelectedItem();
+			String dia = (String)comboDia.getSelectedItem();
 			String[] horario = txtHora.getText().split(":");
+			if(sala.equals("") || pelicula.equals("") || anio.equals("") || mes.equals("") ||
+				dia.equals("") || horario.length == 0	) {
+				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
+			Sala s = cineController.getSala(Integer.parseInt(sala));
+			Pelicula p = cineController.getPelicula(Integer.parseInt(pelicula));
+			LocalDate fecha = LocalDate.of(Integer.valueOf(anio), 
+											Integer.valueOf(mes),
+											Integer.valueOf(dia));
 			LocalTime hora = LocalTime.of(Integer.parseInt(horario[0]),Integer.parseInt(horario[1]));
 			cineController.crearFuncion(p,
 										s,

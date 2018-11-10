@@ -31,6 +31,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtNombreUser = new JTextField();
         txtNombreUser.setBounds(130, 40, 120, 28);
+        txtNombreUser.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE USUARIO"));
         getContentPane().add(txtNombreUser);
 
         JLabel lblEmail = new JLabel();
@@ -40,6 +41,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtEmail = new JTextField();
         txtEmail.setBounds(130, 80, 120, 28);
+        txtEmail.addKeyListener(ValidadorCampo.lengthValidador(49, "EMAIL"));
         getContentPane().add(txtEmail);
 
         JLabel lblContrasena = new JLabel();
@@ -49,6 +51,7 @@ public class AltaUsuario extends JFrame {
 
         JPasswordField txtContrasena = new JPasswordField();
         txtContrasena.setBounds(130, 120, 120, 28);
+        txtContrasena.addKeyListener(ValidadorCampo.lengthValidador(49, "CONTRASENA"));
         getContentPane().add(txtContrasena);
 
         JLabel lblNombre = new JLabel();
@@ -58,6 +61,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtNombre = new JTextField();
         txtNombre.setBounds(130, 160, 120, 28);
+        txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
         getContentPane().add(txtNombre);
 
         JLabel lblDomicilio = new JLabel();
@@ -67,6 +71,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtDomicilio = new JTextField();
         txtDomicilio.setBounds(130, 200, 120, 28);
+        txtDomicilio.addKeyListener(ValidadorCampo.lengthValidador(49, "DOMICILIO"));
         getContentPane().add(txtDomicilio);
 
         JLabel lblDni = new JLabel();
@@ -86,7 +91,7 @@ public class AltaUsuario extends JFrame {
 
         JTextField txtFechaNac = new JTextField();
         txtFechaNac.setBounds(130, 280, 120, 28);
-        txtFechaNac.addKeyListener(ValidadorCampo.validadorFecha("FECHA"));
+        txtFechaNac.addKeyListener(ValidadorCampo.validadorFecha("FECHA NACIMIENTO"));
         getContentPane().add(txtFechaNac);
 
         JButton btnConfirm = new JButton("Confirmar");
@@ -94,17 +99,19 @@ public class AltaUsuario extends JFrame {
         btnConfirm.setBounds(100, 340, 120, 28);
         btnConfirm.addActionListener(e -> {
             try {
-                UsuarioController
-                    .getInstance()
-                    .crearUsuario(
-                        txtNombreUser.getText(),
-                        txtEmail.getText(),
-                        String.copyValueOf(txtContrasena.getPassword()),
-                        txtNombre.getText(),
-                        txtDomicilio.getText(),
-                        txtDni.getText(),
-                        LocalDate.now(),
-                            false);
+                String nombreUsuario = txtNombreUser.getText();
+				String email = txtEmail.getText();
+				String contrasena = String.copyValueOf(txtContrasena.getPassword());
+				String nombre = txtNombre.getText();
+				String domicilio = txtDomicilio.getText();
+				String dni = txtDni.getText();
+				if(nombreUsuario.equals("") || contrasena.equals("")) {
+					JOptionPane.showMessageDialog(null, "Los campos NOMBRE USUARIO y CONTRASENA no pueden estar vacios!",
+													"Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
+				UsuarioController.getInstance().crearUsuario(nombreUsuario,email,contrasena,
+                        									nombre,domicilio,dni,LocalDate.now(),false);
 
                 JOptionPane.showMessageDialog(null, "Usuario creado!");
             } catch (Exception exception) {

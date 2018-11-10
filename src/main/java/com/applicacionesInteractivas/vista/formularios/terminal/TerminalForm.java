@@ -10,9 +10,6 @@ import java.awt.*;
 
 public class TerminalForm extends JFrame {
 
-    /**
-     *
-     */
     private JPanel mainPanel;
 
     private JLabel lblIdentificadorEntrada;
@@ -42,7 +39,7 @@ public class TerminalForm extends JFrame {
         this.setTitle("Terminal");
 
         lblIdentificadorEntrada = new JLabel();
-        lblIdentificadorEntrada.setText("Código autenticación");
+        lblIdentificadorEntrada.setText("Codigo autenticacion");
         this.add(lblIdentificadorEntrada);
 
         txtIdentificadorentrada = new JTextField();

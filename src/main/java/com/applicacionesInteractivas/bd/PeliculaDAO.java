@@ -34,7 +34,7 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             s.setString(4, p.getDuracion());
             s.setString(5, p.getIdioma());
             s.setString(6, p.getSubtitulos());
-            s.setInt(7, p.getCalificacion());
+            s.setDouble(7, p.getCalificacion());
             s.setString(8, p.getObservacion());
             s.setBoolean(9, false);
             s.execute();
@@ -77,7 +77,7 @@ public class PeliculaDAO implements ICRUD<Pelicula> {
             s.setString(4, p.getDuracion());
             s.setString(5, p.getIdioma());
             s.setString(6, p.getSubtitulos());
-            s.setInt(7, p.getCalificacion());
+            s.setDouble(7, p.getCalificacion());
             s.setString(8, p.getObservacion());
             s.setInt(9, p.getId());
             s.execute();

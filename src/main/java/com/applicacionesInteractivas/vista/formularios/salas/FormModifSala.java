@@ -2,8 +2,6 @@ package com.applicacionesInteractivas.vista.formularios.salas;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -17,6 +15,7 @@ import javax.swing.JTextField;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaSalas;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 public class FormModifSala extends JFrame {
 
@@ -49,12 +48,7 @@ public class FormModifSala extends JFrame {
 
         txtNombre = new JTextField();
         txtNombre.setBounds(130, 40, 120, 28);
-        this.txtNombre.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				if(txtNombre	.getText().length() > 49)
-					e.consume();
-			}
-		});
+        this.txtNombre.addKeyListener(ValidadorCampo.lengthValidador(49, "NOMBRE"));
         txtNombre.setEditable(false);
         getContentPane().add(txtNombre);
         
@@ -64,17 +58,7 @@ public class FormModifSala extends JFrame {
         
         txtFilas = new JTextField();
         txtFilas.setBounds(130, 80, 120, 28);
-        this.txtFilas.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtFilas.getText().length() > 1)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Filas' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+        this.txtFilas.addKeyListener(ValidadorCampo.numberValidator(1, "FILAS"));
         txtFilas.setEditable(false);
         getContentPane().add(txtFilas);
 
@@ -84,17 +68,7 @@ public class FormModifSala extends JFrame {
         
         txtColumnas = new JTextField();
         txtColumnas.setBounds(130, 120, 120, 28);
-        this.txtColumnas.addKeyListener(new KeyAdapter() {
-			public void keyTyped(KeyEvent e) {
-				char c = e.getKeyChar();
-				if(txtColumnas.getText().length() > 1)
-					e.consume();
-				if (!((c >= '0') && (c <= '9') || (c == KeyEvent.VK_BACK_SPACE) || (c == KeyEvent.VK_DELETE))) {
-					JOptionPane.showMessageDialog(null, "El campo 'Columnas' solo permite numeros");
-					e.consume();
-				}
-			}
-		});
+        this.txtColumnas.addKeyListener(ValidadorCampo.numberValidator(1, "COLUMNAS"));
         txtColumnas.setEditable(false);
         getContentPane().add(txtColumnas);
 
