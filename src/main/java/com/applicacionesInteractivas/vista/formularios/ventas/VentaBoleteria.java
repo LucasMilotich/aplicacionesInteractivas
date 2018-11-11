@@ -143,10 +143,17 @@ public class VentaBoleteria extends JFrame {
 		btnBuscarFunciones.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			int idPeli = Integer.parseInt(((String)comboPelicula.getSelectedItem()).split(" - ")[0]);
-			LocalDate fecha = LocalDate.of(Integer.valueOf((String)comboAnio.getSelectedItem()), 
-					Integer.valueOf((String)comboMes.getSelectedItem()),
-					Integer.valueOf((String)comboDia.getSelectedItem()));
+			String pelicula = ((String)comboPelicula.getSelectedItem()).split(" - ")[0];
+			int idPeli = Integer.parseInt(pelicula);
+			Integer anio = Integer.valueOf((String)comboAnio.getSelectedItem());
+			Integer mes = Integer.valueOf((String)comboMes.getSelectedItem());
+			Integer dia = Integer.valueOf((String)comboDia.getSelectedItem());
+			LocalDate fecha = LocalDate.of(anio, mes, dia);
+			if(cuitCine.equals("") || pelicula.equals("") || anio == 0 || mes == 0 || dia == 0) {
+				JOptionPane.showMessageDialog(null, "Debe completar los campos Cine, Pelicula y Fecha para buscar funciones!", 
+											"Error", JOptionPane.WARNING_MESSAGE);
+				return;
+			}
 			Vector<String> funciones = cineController.getListadoFunciones(cuitCine, idPeli, fecha);
 			if(funciones.size() == 0) {
 				JOptionPane.showMessageDialog(null,"No se han encontrado funciones para los datos ingresados!");
@@ -178,7 +185,12 @@ public class VentaBoleteria extends JFrame {
 			public void actionPerformed(ActionEvent e)
 		    {
 				int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
-				int id = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+				String funcion = ((String)comboFuncion.getSelectedItem()).split(" - ")[0];
+				int id = Integer.parseInt(funcion);
+				if(funcion.equals("") ) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una funcion.", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				Funcion f = CineController.getInstance().getFuncion(id);
 				if(asientos != null && asientos.isVisible())
 					asientos.setVisible(false);
@@ -189,13 +201,19 @@ public class VentaBoleteria extends JFrame {
 				}
 		    }
 		});
+		comboCantidad.setSelectedItem(null);
 		comboCantidad.setBounds(130, 190, 110, 28);
 		getContentPane().add(comboCantidad);
 		
 		btnAsientos = new JButton("Seleccionar asientos");
 		btnAsientos.addActionListener(e -> {
 			if(asientos == null) {
-				int id = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+				String funcion = ((String)comboFuncion.getSelectedItem()).split(" - ")[0];
+				int id = Integer.parseInt(funcion);
+				if(funcion.equals("") ) {
+					JOptionPane.showMessageDialog(null, "Debe seleccionar una funcion.", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				}
 				Funcion f = CineController.getInstance().getFuncion(id);
 				try {
 					asientos = new FormAsientos(f, Integer.parseInt((String)comboCantidad.getSelectedItem()));
@@ -222,6 +240,8 @@ public class VentaBoleteria extends JFrame {
 		        	btnFormaPago.setVisible(true);
 		        }else{
 		        	btnFormaPago.setVisible(false);
+		        	if(datosTarjeta != null)
+		        		datosTarjeta.setVisible(false);
 		        }
 		    }
 		});
@@ -261,30 +281,32 @@ public class VentaBoleteria extends JFrame {
 			VentaController ventaController = VentaController.getInstance();
 			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
 			List<Descuento> descuentos = DescuentoController.getInstance().getDescuentosPorCineVigentes(cuitCine);
+			int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
+			String formaPago = (String)comboFormaPago.getSelectedItem();
+			List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
+			asientosVenta = this.asientos.obtenerAsientosSeleccionados();
+			MedioDePago medioDePago;
+			if(formaPago.equals("EFECTIVO"))
+				medioDePago = new Contado();
+			else {
+				Tarjeta tarjeta = datosTarjeta.getDatosTarjeta(formaPago);
+				
+				if(formaPago.equals("TARJETA CREDITO"))
+					medioDePago = (TarjetaCredito) tarjeta;
+				else
+					medioDePago = (TarjetaDebito) tarjeta;
+			}
 
-
+//			if(cuitCine.equals("") || idFuncion == 0 || asientosVenta.size() == 0) {
+//				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
+//				return;
+//			}
 			double totalVenta = ventaController.calcularPrecioFinal(cantidad, descuentos);
 			
 			int respuesta = JOptionPane.showConfirmDialog(null, "El total a pagar es de $"+totalVenta+". Desea continuar?",
 														"Question",JOptionPane.YES_NO_OPTION);
 			
 			if(respuesta == JOptionPane.YES_OPTION) {
-				int idFuncion = Integer.parseInt(((String)comboFuncion.getSelectedItem()).split(" - ")[0]);
-				String formaPago = (String)comboFormaPago.getSelectedItem();
-				List<AsientoFuncion> asientosVenta = new ArrayList<AsientoFuncion>();
-				asientosVenta = this.asientos.obtenerAsientosSeleccionados();
-				MedioDePago medioDePago;
-				if(formaPago.equals("EFECTIVO"))
-					medioDePago = new Contado();
-				else {
-					Tarjeta tarjeta = datosTarjeta.getDatosTarjeta(formaPago);
-					
-					if(formaPago.equals("TARJETA CREDITO"))
-						medioDePago = (TarjetaCredito) tarjeta;
-					else
-						medioDePago = (TarjetaDebito) tarjeta;
-				}
-				
 				venta = ventaController.venderBoleteria(cuitCine, idFuncion, totalVenta, medioDePago, asientosVenta);
 			}else {
 				return;
@@ -295,5 +317,12 @@ public class VentaBoleteria extends JFrame {
 		});
 		btnConfirmar.setBounds(230, 440, 120, 28);
 		getContentPane().add(btnConfirmar);
+	}
+	
+	private boolean validaDatosVenta() {
+		
+		
+		
+		return false;
 	}
 }
