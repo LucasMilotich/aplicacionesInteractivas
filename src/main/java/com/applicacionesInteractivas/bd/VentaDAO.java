@@ -71,7 +71,7 @@ public class VentaDAO implements ICRUD<Venta> {
         ResultSet rs = null;
         try {
             con = PoolConnection.getPoolConnection().getConnection();
-            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".venta where id_venta = ?");
+            PreparedStatement s = con.prepareStatement("select * from " + PoolConnection.dbName + ".venta where id_venta = ? and estado not like 'RETIRADA'");
             s.setInt(1, id);
             rs = s.executeQuery();
             rs.next();
@@ -138,5 +138,18 @@ public class VentaDAO implements ICRUD<Venta> {
         if (medioDePago.equals("TARJETA DE CREDITO")) return 2;
         if (medioDePago.equals("TARJETA DE DEBITO")) return 3;
         return 1;
+    }
+
+    public void retirar(int id){
+        try {
+            Connection con = PoolConnection.getPoolConnection().getConnection();
+            PreparedStatement s = con.prepareStatement("update " + PoolConnection.dbName + ".venta set estado = 'RETIRADA' where id_venta  = ? ");
+            s.setInt(1, id);
+            s.execute();
+
+            PoolConnection.getPoolConnection().releaseConnection(con);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
