@@ -128,5 +128,20 @@ public class FormTarjeta extends JFrame{
 		
 		return tarjeta;
 	}
+
+	public int validarDatosTarjeta() {
+		String tipo = (String)cmbTipoTarjeta.getSelectedItem();
+		String numero = (String)txtNumero.getText();
+		String vencimiento = (String)txtVencimiento.getText();
+		String codigo = (String)txtCodigo.getText();
+		
+		if(tipo.equals("") || numero.equals("") || vencimiento.equals("") || codigo.equals(""))
+			return -2;
+		else if(numero.length() != 16 || vencimiento.length() != 4 || 
+				((tipo.equals("AMEX") && codigo.length() != 4) || (!tipo.equals("AMEX") && codigo.length() != 3)))
+			return -3;
+		
+		return 0;
+	}
 	
 }

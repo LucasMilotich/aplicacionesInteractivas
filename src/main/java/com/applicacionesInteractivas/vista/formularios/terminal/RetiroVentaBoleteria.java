@@ -5,14 +5,12 @@ import javax.swing.*;
 import com.applicacionesInteractivas.controllers.VentaController;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.vista.formularios.tabla.TablaEntradas;
+import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
 
 import java.awt.*;
 
 public class RetiroVentaBoleteria extends JFrame {
 
-    /**
-     *
-     */
     private JPanel mainPanel;
 
     private JLabel lblIdentificadorEntrada;
@@ -42,11 +40,12 @@ public class RetiroVentaBoleteria extends JFrame {
         this.setTitle("Terminal");
 
         lblIdentificadorEntrada = new JLabel();
-        lblIdentificadorEntrada.setText("Código autenticación");
+        lblIdentificadorEntrada.setText("Codigo autenticacion");
         this.add(lblIdentificadorEntrada);
 
         txtIdentificadorentrada = new JTextField();
         txtIdentificadorentrada.setColumns(12);
+        txtIdentificadorentrada.addKeyListener(ValidadorCampo.numberValidator(10, "CODIGO AUTENTICACION"));
         this.add(txtIdentificadorentrada);
 
         lblCantEntradas = new JLabel();
@@ -55,6 +54,7 @@ public class RetiroVentaBoleteria extends JFrame {
 
         txtCantEntradas = new JTextField();
         txtCantEntradas.setColumns(12);
+        txtCantEntradas.setEditable(false);
         this.add(txtCantEntradas);
 
         lblTotal = new JLabel();
@@ -63,6 +63,7 @@ public class RetiroVentaBoleteria extends JFrame {
 
         txtTotal = new JTextField();
         txtTotal.setColumns(12);
+        txtTotal.setEditable(false);
         this.add(txtTotal);
 
         lblMedioDePago = new JLabel();
@@ -71,6 +72,7 @@ public class RetiroVentaBoleteria extends JFrame {
 
         txtMedioDePago = new JTextField();
         txtMedioDePago.setColumns(12);
+        txtMedioDePago.setEditable(false);
         this.add(txtTotal);
 
         btnConfirm = new JButton("Confirmar");

@@ -79,7 +79,7 @@ public class JFormularioMenuPpal extends JFrame {
 
     //Ventas
     private JMenu menuVentas = new JMenu("Ventas");
-    private JMenuItem ventaBoleteriaMenuItem = new JMenuItem("Venta boleteria");
+    private JMenuItem ventaBoleteriaMenuItem = new JMenuItem("Venta Boleteria");
     private JMenuItem ventaOnlineMenuItem = new JMenuItem("Venta Online");
     private JMenuItem retiroBoleteriaMenuItem = new JMenuItem("Retiro entrada boleteria");
 

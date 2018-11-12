@@ -77,7 +77,7 @@ public class VentaBoleteria extends JFrame {
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setLayout(null);
-		this.setTitle("TPO API 2C2018");
+		this.setTitle("Venta Boleteria");
 		
 		lblCine = new JLabel("Cine");
 		lblCine.setBounds(20, 30, 120, 28);
@@ -142,18 +142,21 @@ public class VentaBoleteria extends JFrame {
 		btnBuscarFunciones = new JButton("Buscar funciones");
 		btnBuscarFunciones.addActionListener(e -> {
 			CineController cineController = CineController.getInstance();
-			String cuitCine = ((String)comboCine.getSelectedItem()).split(" - ")[0];
-			String pelicula = ((String)comboPelicula.getSelectedItem()).split(" - ")[0];
-			int idPeli = Integer.parseInt(pelicula);
-			Integer anio = Integer.valueOf((String)comboAnio.getSelectedItem());
-			Integer mes = Integer.valueOf((String)comboMes.getSelectedItem());
-			Integer dia = Integer.valueOf((String)comboDia.getSelectedItem());
-			LocalDate fecha = LocalDate.of(anio, mes, dia);
-			if(cuitCine.equals("") || pelicula.equals("") || anio == 0 || mes == 0 || dia == 0) {
+			String cuitCine = (String)comboCine.getSelectedItem();//((String)comboCine.getSelectedItem()).split(" - ")[0];
+			String pelicula = (String)comboPelicula.getSelectedItem();//((String)comboPelicula.getSelectedItem()).split(" - ")[0];
+			
+			String anio = (String)comboAnio.getSelectedItem();
+			String mes = (String)comboMes.getSelectedItem();
+			String dia = (String)comboDia.getSelectedItem();
+			if(cuitCine == null || pelicula == null || anio == null || mes == null || dia == null) {
 				JOptionPane.showMessageDialog(null, "Debe completar los campos Cine, Pelicula y Fecha para buscar funciones!", 
 											"Error", JOptionPane.WARNING_MESSAGE);
 				return;
 			}
+			cuitCine = cuitCine.split(" - ")[0];
+			pelicula = pelicula.split(" - ")[0];
+			int idPeli = Integer.parseInt(pelicula);
+			LocalDate fecha = LocalDate.of(Integer.parseInt(anio), Integer.parseInt(mes), Integer.parseInt(dia));
 			Vector<String> funciones = cineController.getListadoFunciones(cuitCine, idPeli, fecha);
 			if(funciones.size() == 0) {
 				JOptionPane.showMessageDialog(null,"No se han encontrado funciones para los datos ingresados!");
@@ -185,12 +188,13 @@ public class VentaBoleteria extends JFrame {
 			public void actionPerformed(ActionEvent e)
 		    {
 				int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
-				String funcion = ((String)comboFuncion.getSelectedItem()).split(" - ")[0];
-				int id = Integer.parseInt(funcion);
-				if(funcion.equals("") ) {
+				String funcion = (String)comboFuncion.getSelectedItem();
+				if(funcion == null ) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar una funcion.", "Error", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
+				funcion = funcion.split(" - ")[0];
+				int id = Integer.parseInt(funcion);
 				Funcion f = CineController.getInstance().getFuncion(id);
 				if(asientos != null && asientos.isVisible())
 					asientos.setVisible(false);
@@ -201,19 +205,19 @@ public class VentaBoleteria extends JFrame {
 				}
 		    }
 		});
-		comboCantidad.setSelectedItem(null);
 		comboCantidad.setBounds(130, 190, 110, 28);
 		getContentPane().add(comboCantidad);
 		
 		btnAsientos = new JButton("Seleccionar asientos");
 		btnAsientos.addActionListener(e -> {
 			if(asientos == null) {
-				String funcion = ((String)comboFuncion.getSelectedItem()).split(" - ")[0];
-				int id = Integer.parseInt(funcion);
-				if(funcion.equals("") ) {
+				String funcion = (String)comboFuncion.getSelectedItem();
+				if(funcion == null ) {
 					JOptionPane.showMessageDialog(null, "Debe seleccionar una funcion.", "Error", JOptionPane.WARNING_MESSAGE);
 					return;
 				}
+				funcion = funcion.split(" - ")[0];
+				int id = Integer.parseInt(funcion);
 				Funcion f = CineController.getInstance().getFuncion(id);
 				try {
 					asientos = new FormAsientos(f, Integer.parseInt((String)comboCantidad.getSelectedItem()));
@@ -297,10 +301,20 @@ public class VentaBoleteria extends JFrame {
 					medioDePago = (TarjetaDebito) tarjeta;
 			}
 
-//			if(cuitCine.equals("") || idFuncion == 0 || asientosVenta.size() == 0) {
-//				JOptionPane.showMessageDialog(null, "Hay campos sin completar!", "Error", JOptionPane.WARNING_MESSAGE);
-//				return;
-//			}
+			switch(this.validaDatosVenta(asientosVenta, cantidad, medioDePago)) {
+				case -1:
+					JOptionPane.showMessageDialog(null, "La cantidad de asientos reservados no coincide con la cantidad pedida.", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				case -2:
+					JOptionPane.showMessageDialog(null, "Hay campos sin rellenar en los datos de la tarjeta.", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+				case -3:
+					JOptionPane.showMessageDialog(null, "Los datos de la tarjeta ingresados no cumplen con las longitudes requeridas.\n"
+														+"Numero: 16 digitos. Vencimiento: 4 digitos. Codigo: 4 digitos(AMEX), 3 digitos(Visa, Master)", "Error", JOptionPane.WARNING_MESSAGE);
+					return;
+					
+			}
+			
 			double totalVenta = ventaController.calcularPrecioFinal(cantidad, descuentos);
 			
 			int respuesta = JOptionPane.showConfirmDialog(null, "El total a pagar es de $"+totalVenta+". Desea continuar?",
@@ -312,17 +326,21 @@ public class VentaBoleteria extends JFrame {
 				return;
 			}
 
-			JOptionPane.showMessageDialog(null,"Venta realizada! Su código autorizacion es " + Integer.toString(venta.getId()) );
+			JOptionPane.showMessageDialog(null,"Venta realizada! Su codigo de autorizacion es " + Integer.toString(venta.getId()) );
 			this.setVisible(false);
 		});
 		btnConfirmar.setBounds(230, 440, 120, 28);
 		getContentPane().add(btnConfirmar);
 	}
 	
-	private boolean validaDatosVenta() {
+	private int validaDatosVenta(List<AsientoFuncion> asientos, int cant, MedioDePago medioPago) {
 		
+		if(asientos.size() != cant)
+			return -1;
 		
+		if(medioPago.toString().equals("TARJETA CREDITO") || medioPago.toString().equals("TARJETA DEBITO"))
+			return this.datosTarjeta.validarDatosTarjeta();
 		
-		return false;
+		return 0;
 	}
 }
