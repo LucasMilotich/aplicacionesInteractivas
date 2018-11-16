@@ -59,6 +59,7 @@ public class FormTarjeta extends JFrame{
 		txtNumero = new JTextField();
 		txtNumero.setBounds(130, 80, 120, 28);
 		this.txtNumero.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
 				if(txtNumero.getText().length() > 15)
@@ -74,6 +75,7 @@ public class FormTarjeta extends JFrame{
 		txtVencimiento = new JTextField();
 		txtVencimiento.setBounds(130, 120, 120, 28);
 		this.txtVencimiento.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
 				if(txtVencimiento.getText().length() > 3)
@@ -89,6 +91,7 @@ public class FormTarjeta extends JFrame{
 		txtCodigo = new JTextField();
 		txtCodigo.setBounds(130, 160, 120, 28);
 		this.txtCodigo.addKeyListener(new KeyAdapter() {
+			@Override
 			public void keyTyped(KeyEvent e) {
 				char c = e.getKeyChar();
 				int cant;
@@ -116,24 +119,25 @@ public class FormTarjeta extends JFrame{
 	}
 
 	public Tarjeta getDatosTarjeta(String formaPago) {
-		String tipo = (String)cmbTipoTarjeta.getSelectedItem();
-		String numero = (String)txtNumero.getText();
-		String vencimiento = (String)txtVencimiento.getText();
-		String codigo = (String)txtCodigo.getText();
-		Tarjeta tarjeta;
-		if(formaPago.equals("TARJETA CREDITO"))
-			tarjeta = new TarjetaCredito(tipo, numero, vencimiento, codigo);
-		else
-			tarjeta = new TarjetaDebito(tipo, numero, vencimiento, codigo);
-		
+		Tarjeta tarjeta = null;
+		if(txtNumero != null) {
+			String tipo = (String)cmbTipoTarjeta.getSelectedItem();
+			String numero = txtNumero.getText();
+			String vencimiento = txtVencimiento.getText();
+			String codigo = txtCodigo.getText();
+			if(formaPago.equals("TARJETA CREDITO"))
+				tarjeta = new TarjetaCredito(tipo, numero, vencimiento, codigo);
+			else
+				tarjeta = new TarjetaDebito(tipo, numero, vencimiento, codigo);	
+		}
 		return tarjeta;
 	}
 
 	public int validarDatosTarjeta() {
 		String tipo = (String)cmbTipoTarjeta.getSelectedItem();
-		String numero = (String)txtNumero.getText();
-		String vencimiento = (String)txtVencimiento.getText();
-		String codigo = (String)txtCodigo.getText();
+		String numero = txtNumero.getText();
+		String vencimiento = txtVencimiento.getText();
+		String codigo = txtCodigo.getText();
 		
 		if(tipo.equals("") || numero.equals("") || vencimiento.equals("") || codigo.equals(""))
 			return -2;

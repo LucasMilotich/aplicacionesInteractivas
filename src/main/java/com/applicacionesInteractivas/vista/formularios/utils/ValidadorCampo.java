@@ -19,7 +19,8 @@ public class ValidadorCampo {
      */
     public static KeyAdapter numberValidator(int length, String nombreCampo) {
         return new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
+            @Override
+			public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (((JTextField) e.getComponent()).getText().length() > length){
                     e.consume();
@@ -37,7 +38,8 @@ public class ValidadorCampo {
 
     public static KeyAdapter lengthValidador(int length, String nombreCampo) {
         return new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
+            @Override
+			public void keyTyped(KeyEvent e) {
                 if (((JTextField) e.getComponent()).getText().length() + 1 > length) {
                     e.consume();
                     JOptionPane.showMessageDialog(null, "El campo " + nombreCampo+" solo permite " + Integer.toString(length) + " caracteres.");
@@ -49,7 +51,8 @@ public class ValidadorCampo {
 
     public static KeyAdapter validadorHora(String nombreCampo) {
         return new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
+            @Override
+			public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (((JTextField) e.getComponent()).getText().length() > 4 ){
                     try {
@@ -69,7 +72,8 @@ public class ValidadorCampo {
 
     public static KeyAdapter validadorFecha(String nombreCampo) {
         return new KeyAdapter() {
-            public void keyTyped(KeyEvent e) {
+            @Override
+			public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
                 if (((JTextField) e.getComponent()).getText().length() + 1 >= 10 ){
                     try {

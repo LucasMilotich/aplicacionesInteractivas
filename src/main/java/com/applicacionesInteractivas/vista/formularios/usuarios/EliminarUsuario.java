@@ -43,7 +43,8 @@ public class EliminarUsuario extends JFrame {
         tablaPeliculas = new JTable();
         tablaPeliculas.setPreferredScrollableViewportSize(new Dimension(500, 70));
         tablaPeliculas.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent mouseEvent) {
+            @Override
+			public void mousePressed(MouseEvent mouseEvent) {
                 JTable table = (JTable) mouseEvent.getSource();
                 if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
                     try {

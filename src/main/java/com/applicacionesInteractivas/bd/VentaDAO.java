@@ -11,8 +11,6 @@ import java.util.List;
 import com.applicacionesInteractivas.modelo.Venta;
 import com.applicacionesInteractivas.modelo.medioDePago.Contado;
 import com.applicacionesInteractivas.modelo.medioDePago.MedioDePago;
-import com.applicacionesInteractivas.modelo.medioDePago.TarjetaCredito;
-import com.applicacionesInteractivas.modelo.medioDePago.TarjetaDebito;
 
 public class VentaDAO implements ICRUD<Venta> {
 
@@ -120,11 +118,11 @@ public class VentaDAO implements ICRUD<Venta> {
                 break;
             case 2:
             	medioDePago = TarjetaDAO.getInstance().findBy(venta.getId());
-                venta.setMedioDePago((TarjetaCredito)medioDePago);
+                venta.setMedioDePago(medioDePago);
                 break;
             case 3:
             	medioDePago = TarjetaDAO.getInstance().findBy(venta.getId());
-                venta.setMedioDePago((TarjetaDebito)medioDePago);
+                venta.setMedioDePago(medioDePago);
                 break;
         }
         venta.setPrecioUnitario(rs.getDouble(5));

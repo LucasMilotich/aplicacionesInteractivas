@@ -89,6 +89,7 @@ public class VentaBoleteria extends JFrame {
 		comboCine.setModel(cineModel);
 		comboCine.setSelectedItem(null);
 		comboCine.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e)
 		    {
 				String cuit = ((String)comboCine.getSelectedItem()).split(" - ")[0];
@@ -185,6 +186,7 @@ public class VentaBoleteria extends JFrame {
 		
 		comboCantidad = new JComboBox<String>(listaCantidad);
 		comboCantidad.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e)
 		    {
 				int cantidad = Integer.parseInt((String)comboCantidad.getSelectedItem());
@@ -237,6 +239,7 @@ public class VentaBoleteria extends JFrame {
 		comboFormaPago = new JComboBox<>(listaFormasPago);
 		comboFormaPago.setSelectedItem(null);
 		comboFormaPago.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e)
 		    {
 		        String formaPago = (String)comboFormaPago.getSelectedItem();
@@ -293,24 +296,29 @@ public class VentaBoleteria extends JFrame {
 			if(formaPago.equals("EFECTIVO"))
 				medioDePago = new Contado();
 			else {
+				if(datosTarjeta == null)
+					datosTarjeta = new FormTarjeta();
 				Tarjeta tarjeta = datosTarjeta.getDatosTarjeta(formaPago);
 				
 				if(formaPago.equals("TARJETA CREDITO"))
-					medioDePago = (TarjetaCredito) tarjeta;
+					medioDePago = tarjeta;
 				else
-					medioDePago = (TarjetaDebito) tarjeta;
+					medioDePago = tarjeta;
 			}
 
 			switch(this.validaDatosVenta(asientosVenta, cantidad, medioDePago)) {
 				case -1:
 					JOptionPane.showMessageDialog(null, "La cantidad de asientos reservados no coincide con la cantidad pedida.", "Error", JOptionPane.WARNING_MESSAGE);
+					asientos.setVisible(true);
 					return;
 				case -2:
 					JOptionPane.showMessageDialog(null, "Hay campos sin rellenar en los datos de la tarjeta.", "Error", JOptionPane.WARNING_MESSAGE);
+					datosTarjeta.setVisible(true);
 					return;
 				case -3:
 					JOptionPane.showMessageDialog(null, "Los datos de la tarjeta ingresados no cumplen con las longitudes requeridas.\n"
 														+"Numero: 16 digitos. Vencimiento: 4 digitos. Codigo: 4 digitos(AMEX), 3 digitos(Visa, Master)", "Error", JOptionPane.WARNING_MESSAGE);
+					datosTarjeta.setVisible(true);
 					return;
 					
 			}

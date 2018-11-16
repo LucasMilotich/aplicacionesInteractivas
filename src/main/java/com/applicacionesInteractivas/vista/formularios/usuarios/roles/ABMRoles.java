@@ -70,7 +70,8 @@ public class ABMRoles extends JFrame {
         mainPanel.add(mibarra);
 
         usuarios.addMouseListener(new MouseAdapter() {
-            public void mousePressed(MouseEvent mouseEvent) {
+            @Override
+			public void mousePressed(MouseEvent mouseEvent) {
                 JTable table = (JTable) mouseEvent.getSource();
                 Point point = mouseEvent.getPoint();
                 int row = table.rowAtPoint(point);

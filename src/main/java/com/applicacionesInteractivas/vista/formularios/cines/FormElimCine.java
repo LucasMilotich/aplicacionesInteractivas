@@ -43,7 +43,8 @@ public class FormElimCine extends JFrame{
 		tabCines = new JTable();
 		tabCines.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tabCines.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
+		    @Override
+			public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        if (mouseEvent.getClickCount() == 1 && table.getSelectedRow() != -1) {
 		            try{

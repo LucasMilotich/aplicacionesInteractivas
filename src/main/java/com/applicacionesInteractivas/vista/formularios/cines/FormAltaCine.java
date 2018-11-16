@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.applicacionesInteractivas.controllers.CineController;
 import com.applicacionesInteractivas.vista.formularios.utils.ValidadorCampo;
@@ -31,7 +32,7 @@ public class FormAltaCine extends JFrame{
 		lblCuit = new JLabel();
 		lblCuit.setText("CUIT");
 		lblCuit.setBounds(21, 40, 180, 28);
-		lblCuit.setHorizontalTextPosition(JLabel.RIGHT);
+		lblCuit.setHorizontalTextPosition(SwingConstants.RIGHT);
 		getContentPane().add(lblCuit);
 		
 		txtCuit = new JTextField();

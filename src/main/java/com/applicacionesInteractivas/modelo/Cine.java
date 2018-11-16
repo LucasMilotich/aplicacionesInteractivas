@@ -50,7 +50,7 @@ public class Cine {
         this.domicilio = domicilio;
         this.salas = new ArrayList<Sala>();
     }
-    public Cine(String cuit, String nombre, String domicilio, List salas) {
+    public Cine(String cuit, String nombre, String domicilio, List<Sala> salas) {
         this.cuit = cuit;
         this.nombre = nombre;
         this.domicilio = domicilio;

@@ -66,7 +66,8 @@ public class FormAltaDescuento extends JFrame {
         comboCine = new JComboBox<String>(cineModel);
         comboCine.setSelectedItem(null);
         comboCine.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+            @Override
+			public void actionPerformed(ActionEvent e) {
                 String selectedItem = (String) comboCine.getSelectedItem();
                 String[] cine = selectedItem.split(" - ");
                 cineCuil = cine[0];

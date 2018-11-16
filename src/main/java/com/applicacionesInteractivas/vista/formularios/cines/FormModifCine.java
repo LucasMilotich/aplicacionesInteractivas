@@ -2,8 +2,6 @@ package com.applicacionesInteractivas.vista.formularios.cines;
 
 import java.awt.Dimension;
 import java.awt.Point;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
@@ -91,7 +89,8 @@ public class FormModifCine extends JFrame{
 		tabCines = new JTable();
 		tabCines.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tabCines.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
+		    @Override
+			public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);

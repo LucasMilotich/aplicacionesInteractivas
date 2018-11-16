@@ -49,7 +49,8 @@ public class FormElimPelicula extends JFrame{
 		tablaPeliculas = new JTable();
 		tablaPeliculas.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tablaPeliculas.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
+		    @Override
+			public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);

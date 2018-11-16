@@ -44,7 +44,8 @@ public class FormElimSala extends JFrame{
 		tablaSalas = new JTable();
 		tablaSalas.setPreferredScrollableViewportSize(new Dimension(500, 70));
 		tablaSalas.addMouseListener(new MouseAdapter() {
-		    public void mousePressed(MouseEvent mouseEvent) {
+		    @Override
+			public void mousePressed(MouseEvent mouseEvent) {
 		        JTable table =(JTable) mouseEvent.getSource();
 		        Point point = mouseEvent.getPoint();
 		        int row = table.rowAtPoint(point);

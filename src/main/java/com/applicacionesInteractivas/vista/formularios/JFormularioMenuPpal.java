@@ -126,7 +126,7 @@ public class JFormularioMenuPpal extends JFrame {
             }
 
         }
-        return true;
+        return false;
     }
 
     private void cineInit() {
@@ -370,6 +370,8 @@ public class JFormularioMenuPpal extends JFrame {
 //            usuarioController.setFormularioAltaUsuario(altaUsuarioForm);
             terminalForm.setVisible(true);
         });
+        
+        menuRetirarVenta.setVisible(true);
 
     }
 }

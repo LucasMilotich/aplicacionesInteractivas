@@ -71,6 +71,7 @@ public class FormAltaFuncion extends JFrame{
 		comboCine = new JComboBox<String>(cineModel);
 		comboCine.setSelectedItem(null);
 		comboCine.addActionListener(new ActionListener() {
+			@Override
 			public void actionPerformed(ActionEvent e)
 		    {
 		        String selectedItem = (String) comboCine.getSelectedItem();

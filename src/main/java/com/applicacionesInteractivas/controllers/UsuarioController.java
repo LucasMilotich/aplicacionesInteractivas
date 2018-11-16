@@ -25,6 +25,9 @@ public class UsuarioController {
 
     private ABMUsuario abmUsuario;
     private ABMRoles abmRoles;
+    private EliminarUsuario eliminarUsuario;
+    private AltaUsuario formularioAltaUsuariol;
+    private List<Usuario> usuarios = new ArrayList<>();
 
     public EliminarUsuario getEliminarUsuario() {
         return eliminarUsuario;
@@ -33,15 +36,18 @@ public class UsuarioController {
     public void setEliminarUsuario(EliminarUsuario eliminarUsuario) {
         this.eliminarUsuario = eliminarUsuario;
     }
+    
+    
 
-    private EliminarUsuario eliminarUsuario;
+    public ABMUsuario getAbmUsuario() {
+		return abmUsuario;
+	}
 
-    private List<Usuario> usuarios = new ArrayList<>();
+	public ABMRoles getAbmRoles() {
+		return abmRoles;
+	}
 
-    private AltaUsuario formularioAltaUsuariol;
-
-
-    private UsuarioController() {
+	private UsuarioController() {
         roles.add(new Administrador());
         roles.add(new AgenteComercial());
         roles.add(new Cliente());
@@ -69,7 +75,6 @@ public class UsuarioController {
         return roles;
     }
 
-
     public void setAbmUsuario(ABMUsuario abmUsuario) {
         this.abmUsuario = abmUsuario;
     }
@@ -94,7 +99,6 @@ public class UsuarioController {
     public void setFormularioAltaUsuario(AltaUsuario formularioAltaUsuariol) {
         this.formularioAltaUsuariol = formularioAltaUsuariol;
     }
-
 
     public void modificarUsuario(String nombreUsuario, String email, String password, String nombre, String domicilio, String dni, LocalDate fechaNacimiento, boolean deleted) {
         Usuario usuario = this.getUsuario(nombreUsuario);
